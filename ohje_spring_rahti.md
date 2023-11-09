@@ -52,6 +52,25 @@ counter-increment : none;
 
 # Spring Boot -palvelun julkaiseminen Rahti-ympäristössä
 
+Sisällysluettelo:
+- [Johdanto](#johdanto)
+- [Rahti-palvelun luonti](#rahti-palvelun-luonti)
+- [Spring Boot -palvelimen julkaisu](#spring-boot--palvelimen-julkaisu)
+  - [Komentorivityökalun asennus](#komentorivityökalun-asennus)
+  - [Spring-palvelun julkaisu](#spring-palvelun-julkaisu)
+    - [JKube OpenShift Maven pluginin käyttöönotto](#jkube-openshift-maven-pluginin-käyttöönotto)
+    - [Julkaisu](#julkaisu)
+- [Tietokantapalvelun luominen](#tietokantapalvelun-luominen)
+- [Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua](#spring-boot--palvelimen-konfigurointi-käyttämään-ulkoista-tietokantapalvelua)
+  - [Julkaisuprofiilin luonti Spring-projektiin](#julkaisuprofiilin-luonti-spring-projektiin)
+  - [Ympäristömuuttujien asettaminen ajoympäristössä](#ympäristömuuttujien-asettaminen-ajoympäristössä)
+  - [Julkaisu](#julkaisu-1)
+- [HTTPS-konfigurointi](#https-konfigurointi)
+- [Virheenjäljitys](#virheenjäljitys)
+
+
+## Johdanto
+
 Tässä ohjeessa käydään läpi Spring-palvelun julkaisu Rahti-palvelussa. 
 
 Oletuksena on, että julkaistavassa palvelussa on Spring-palvelin sekä relaatiotietokanta. Julkaisu tehdään seuraavassa esimerkissä vaiheittain:
@@ -279,6 +298,8 @@ Määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
 Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
 
 ![](img/rahti_route_enable_tls.png)
+
+Lisätietoa: [Rahti Docs: Networking](https://docs.csc.fi/cloud/rahti/networking/)
 
 ## Virheenjäljitys
 

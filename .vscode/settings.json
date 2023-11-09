@@ -1,5 +1,6 @@
 {
   "markdown-pdf.styles": [
     "markdown-pdf_custom.css"
-  ]
+  ],
+  "markdown.extension.toc.levels": "2..6"
 }
