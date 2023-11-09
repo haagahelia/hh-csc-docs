@@ -1,57 +1,4 @@
-<style>
-  body {
-counter-reset : h2;
-    }
-
-h2 {
-counter-reset : h3;
-    }
-
-h3 {
-counter-reset : h4;
-    }
-
-h4 {
-counter-reset : h5;
-    }
-
-h5 {
-counter-reset : h6;
-    }
-
-h2:before {
-content : counter(h2,decimal) ". ";
-counter-increment : h2;
-    }
-
-h3:before {
-content : counter(h2,decimal) "." counter(h3,decimal) ". ";
-counter-increment : h3;
-    }
-
-h4:before {
-content : counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) ". ";
-counter-increment : h4;
-    }
-
-h5:before {
-content : counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) "." counter(h5,decimal) ". ";
-counter-increment : h5;
-    }
-
-h6:before {
-content : counter(h2,decimal) "." counter(h3,decimal) "." counter(h4,decimal) "." counter(h5,decimal) "." counter(h6,decimal) ". ";
-counter-increment : h6;
-    }
-
-h2.nocount:before, h3.nocount:before, h4.nocount:before, h5.nocount:before, h6.nocount:before {
-content : "";
-counter-increment : none;
-    }
-</style>
-
-# CSC-palvelujen käyttö opetuksessa
-Opettajan ohje
+# CSC-palvelujen käyttö opetuksessa: Opettajan ohje
 
 ## Johdanto
 MyCSC palvelussa perustetaan __projekteja__. Web-käyttöisen hallintanäkymän kautta MyCSC projektiin voidaan liittää käyttäjien lisäksi __palveluja__.
@@ -103,9 +50,9 @@ Projektin kautta projektin jäsenet pääsevät käsiksi CSC:n palveluihin. Olet
 
 Projektin palvelut valitaan palvelulistasta yksi kerrallaan.
 
-Käyttääkseen palveluja, jokaisen projektijäsenen tulee hyväksyä palvelujen käyttöehdot. Projektiin lisätyistä palveluista lähetetään kaikille projektin jäsenille sähköposti, jossa pyydetään hyväksymään palvelun ehdot MyCSC sivustolla.
-
 ![](img/mycsc_project_add_rahti.png) 
+
+Projektiin lisätyistä palveluista lähetetään kaikille projektin jäsenille sähköposti, jossa pyydetään hyväksymään palvelun ehdot MyCSC-sivustolla.
 
 Kun halutut palvelut on valittu projektille ja käyttäjät ovat hyväksyneet palvelun käyttöönoton, voidaan niiden käyttö aloittaa.
 
@@ -129,14 +76,14 @@ Tärkeimmät palvelut ja niiden osoitteet on listattu taulukkoon
 
 Jos opiskelijat tarvitsevat suoran pääsyn palveluihin (esim. Rahti), heidän tulee liittyä MyCSC-projektin jäseneksi.
 
-Projektipäällikkö (opettaja) lisää opiskelijat osaksi projektia, joko etsimällä heidät projektihallinnan _Members- näkymässä CSC-tunnuksella tai lähettämällä opiskelijoille kutsulinkin.
+Projektipäällikkö (opettaja) lisää opiskelijat osaksi projektia, joko etsimällä heidät projektihallinnan _Members_-näkymässä CSC-tunnuksella tai lähettämällä opiskelijoille kutsulinkin.
 
-Kutsulinkin voi generoida painamalla _Invite_ painiketta ja lähettämällä linkin opiskelijoille esimerkiksi sähköpostilla tai lisäämällä sen Moodle-kurssin työtilaan. Linkillä kutsutut opiskelijat hyväksytään projektijäseneksi _Members_ näkymän _Waiting approval_ valinnasta.
+Kutsulinkin voi generoida painamalla _Invite_ painiketta ja lähettämällä linkin opiskelijoille esimerkiksi sähköpostilla tai lisäämällä sen Moodle-kurssin työtilaan. Linkillä kutsutut opiskelijat hyväksytään projektijäseneksi _Members_-näkymän _Waiting approval_ valinnasta.
 
 ![](img/mycsc_project_invitation_link.png)
 
 Kun opettaja on hyväksynyt opiskelijat projektin jäseneksi, tulee opiskelijoiden vielä hyväksyä MyCSC sivuston kautta projektiin valittujen palvelujen käyttöehdot.
 
-Jos opiskelijat käyttävät pelkästään CSC ympäristöön pystytettyjä palveluja (esim. www-sivustot, sql-palvelin, tms.), joissa on toteutettu oma käyttäjänhallinta, opiskelijan liittäminen CSC-projektiin ei ole välttämätöntä. Esimerkkinä tämmöisestä voisi olla opettajan pystyttämä Wordpress-sivusto ja johon opiskelijat kirjautuvat Wordpressiin tehdyillä käyttäjätunnuksilla.
+Jos opiskelijat käyttävät pelkästään CSC ympäristöön pystytettyjä palveluja (esim. www-sivustot, SQL-palvelin, tms.), joissa on toteutettu oma käyttäjänhallinta, opiskelijan liittäminen CSC-projektiin ei ole välttämätöntä. Esimerkkinä tämmöisestä voisi olla opettajan pystyttämä Wordpress-sivusto ja johon opiskelijat kirjautuvat Wordpressiin tehdyillä käyttäjätunnuksilla.
 
 
