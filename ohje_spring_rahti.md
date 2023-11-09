@@ -50,7 +50,7 @@ counter-increment : none;
     }
 </style>
 
-# Spring-palvelun julkaiseminen Rahti-ympäristössä
+# Spring Boot -palvelun julkaiseminen Rahti-ympäristössä
 
 Tässä ohjeessa käydään läpi Spring-palvelun julkaisu Rahti-palvelussa. 
 
@@ -191,16 +191,29 @@ Profiili voidaan määritellä laatimalla projektiin profiilikohtainen `applicat
 
 Profiilikohtaiset asetukset luetaan globaalien asetusten lisäksi. Näin esim. julkaisukonfiguraatioparametrit voidaan määritellä jokaista julkaisuympäristöä varten eri tiedostoihin.
 
-Esimerkki profiilimääritystiedoston sisällöstä:
+Seuraavassa esimerkissä käytetään palvelimen ajoympäristöstä luettavia ympäristömuuttuja-arvoja. Näin julkaisuympäristön konfiguraatioparametreja ei tarvitse viedä versionhallintaan.
+
+Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tiedot ajoympärisöön määritetyistä ympäristömuuttujista, joiden nimi muodostetaan tietokantapalvelun nimen perusteella seuraavasti:
 ```
-spring.datasource.url=jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/${MYSQL_DATABASE}
+  <tietokantapalvelun nimi>_SERVICE_HOST
+  <tietokantapalvelun nimi>_SERVICE_PORT
+```  
+
+Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia `env` komennolla. Alla olevassa kuvassa ympäristömuuttujista on lsitattu muuttujat, jotka kertoo tietokantapalvelun, jonka nimi on `mysql-service`, tiedot muille Rahti-projektin konteille.
+
+![](img/rahti_pod_env_example.png)
+
+Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu `db-service`:
+```
+spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${MYSQL_DATABASE}
 spring.datasource.username=${MYSQL_USER}
 spring.datasource.password=${MYSQL_PASSWORD}
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 ```
-Esimerkissä käytetään palvelimen ajoympäristöstä luettavia ympäristömuuttuja-arvoja. Näin julkaisuympäristön konfiguraatioparametreja ei tarvitse viedä versionhallintaan.
+
+Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä
 
 ### Ympäristömuuttujien asettaminen ajoympäristössä
 
@@ -251,6 +264,21 @@ Suorita komento
 Rahti-projektin _Overview_-näkymässä voi seurata julkaisun etenemistä. Onnistuneen julkaisun jälkeen näkymässä näkyy, että sekä sovelluspalvelinkontti(Spring Boot-palvelin) että tietokantapalvelinkontti ovat käynnissä.
 
 ![](img/rahti_publish_success.png)
+
+
+## HTTPS-konfigurointi
+
+Julkaistu palvelu tarjotaan oletusarvoisesti vain HTTP-protokollalla. Palvelu voidaan konfiguroida tarjottavaksi myös HTTPS-protokollalla tai pelkästään HTTPS-protokollalla.
+
+Määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
+
+![](img/rahti_routes.png)
+
+![](img/rahti_route_edit.png )
+
+Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
+
+![](img/rahti_route_enable_tls.png)
 
 ## Virheenjäljitys
 
