@@ -2,17 +2,21 @@
 
 Sisällysluettelo:
 - [Johdanto](#johdanto)
-- [Rahti-palvelun luonti](#rahti-palvelun-luonti)
-- [Spring Boot -palvelimen julkaisu](#spring-boot--palvelimen-julkaisu)
-  - [Komentorivityökalun asennus](#komentorivityökalun-asennus)
-  - [Spring-palvelun julkaisu](#spring-palvelun-julkaisu)
-    - [JKube OpenShift Maven pluginin käyttöönotto](#jkube-openshift-maven-pluginin-käyttöönotto)
-    - [Julkaisu](#julkaisu)
+- [Rahti-projektin luonti](#rahti-projektin-luonti)
+  - [Openshift-komentorivityökalun asennus](#openshift-komentorivityökalun-asennus)
+      - [Asennus Windows-ympäristössä](#asennus-windows-ympäristössä)
+    - [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivillä)
 - [Tietokantapalvelun luominen](#tietokantapalvelun-luominen)
+- [Spring Boot -palvelimen julkaisu](#spring-boot--palvelimen-julkaisu)
+  - [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta)
+  - [Julkaisu Source-to-Image-työkaluilla](#julkaisu-source-to-image-työkaluilla)
+  - [Julkaisu Dockerfile:n perusteella](#julkaisu-dockerfilen-perusteella)
+  - [Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla](#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla)
+- [Buildin käynnistäminen](#buildin-käynnistäminen)
+  - [Buildin automatisointi](#buildin-automatisointi)
 - [Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua](#spring-boot--palvelimen-konfigurointi-käyttämään-ulkoista-tietokantapalvelua)
   - [Julkaisuprofiilin luonti Spring-projektiin](#julkaisuprofiilin-luonti-spring-projektiin)
-  - [Ympäristömuuttujien asettaminen ajoympäristössä](#ympäristömuuttujien-asettaminen-ajoympäristössä)
-  - [Julkaisu](#julkaisu-1)
+  - [Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä](#ympäristömuuttujien-asettaminen-ajoympäristössä-jkube-openshift-maven-pluginia-käytettäessä)
 - [HTTPS-konfigurointi](#https-konfigurointi)
 - [Virheenjäljitys](#virheenjäljitys)
 
@@ -23,12 +27,25 @@ Tässä ohjeessa käydään läpi Spring-palvelun julkaisu Rahti-palvelussa.
 
 Oletuksena on, että julkaistavassa palvelussa on Spring-palvelin sekä relaatiotietokanta. Julkaisu tehdään seuraavassa esimerkissä vaiheittain:
 
-1. Rahti-palvelun luonti
-2. Spring palvelimen julkaisu ilman ulkoista tietokantaa
-3. Tietokantapalvelun luonti
+1. Rahti-projektin luonti
+2. Tietokantapalvelun luonti
+3. Spring palvelimen julkaisu ilman ulkoista tietokantaa
 4. Spring-palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
 
-## Rahti-palvelun luonti
+## Rahti-projektin luonti
+```mermaid
+flowchart LR
+  classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
+
+  step1[Rahti-projektin luonti]
+  step2[Tietokantapalvelun luonti]
+  step3[Spring Boot -palvelimen julkaisu]
+  step4[Tietokannan konfigurointi]
+
+  step1:::highlight-->step2
+  step2-->step3
+  step3-->step4
+```
 
 Jotta Rahti-palvelua voi käyttää, pitää sen olla otettuna käyttöön MyCSC projektissa ja itse Rahti-palveluun pitää olla määriteltynä Rahti-projekti. 
 
@@ -56,46 +73,32 @@ Rahti-projektit ovat henkilökohtaisia, eikä oletuksena näy muille. Projektiin
 
 Opiskelija voi halutessaan lisätä esimerkiksi kurssin opettajan omaan projektiinsa.
 
-## Spring Boot -palvelimen julkaisu
-
-Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa. Tietokannan konfigurointi käsitellään seuraavassa luvussa.
-   
-### Komentorivityökalun asennus
+### Openshift-komentorivityökalun asennus
 
 Red Hat tarjoaa työkalun nimeltään `oc` OpenShift ympäristön hallintaan komentoriviltä käsin (Red Hat, 2023a) 
 
-JKuben OpenShift Maven lisäosa hyödyntää `oc`-komentoa Spring sovelluksen automaattisessa lataamisessa OpenShift ympäristöön suoritettavaksi. Oc-työkalun lataamiseen löytyy linkki Rahti-palvelun hallintanäkymästä.
+`oc`-työkalun lataamiseen löytyy linkki Rahti-palvelun hallintanäkymästä.
 
 ![](img/rahti_commandline_tools.png)
 
 Linkistä avautuvalta sivustolta voi ladata omalle käyttöjärjestelmälle soveltuvan version. Linkeistä latautuu yksittäinen, suoritettava tiedosto nimeltään `oc`. Kyseisen tiedoston tulee löytyä käyttöjärjestelmän polusta (esim. Windows-ympäristön `PATH`-muuttujan määrittämässä sijainnissa) tai sen Spring-sovelluksen hakemistosta, mistä komentoja suoritetaan.
 
-Jatkossa oletetaan, että `oc`-työkalu on talletettu siihen hakemistoon, jossa komento annetaan.
+Jatkossa oletetaan, että `oc`-työkalu on asennettu polkuun. 
 
-### Spring-palvelun julkaisu
+##### Asennus Windows-ympäristössä
 
+Kopioi `oc.exe` johonkin hakemistoon koneellasi (esimerkissä `c:\openshift\CLI`) ja lisää hakemisto polkuun.
 
-####	JKube OpenShift Maven pluginin käyttöönotto
-
-Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. 
-
-Lisäosan käyttöönotto on suoraviivaista: Lisää Spring Boot projektin pom.xml tiedostoon JKube-lisäosan määritys:
-
-```xml
-<build>
-	<plugins>
-
-		<plugin>
-			<groupId>org.eclipse.jkube</groupId>
-			<artifactId>openshift-maven-plugin</artifactId>
-		</plugin>
-
-	</plugins>
-</build>
+```powershell
+$Path = [Environment]::GetEnvironmentVariable("PATH", "User") + [IO.Path]::PathSeparator + "C:\openshift\CLI"
+[Environment]::SetEnvironmentVariable( "Path", $Path, "User" )
 ```
-#### Julkaisu
 
-Kirjaudu rahti-palveluun komentorivin kautta. Tämä tapahtuu valitsemalla web käyttöliittymänäkymän oikeasta yläkulmasta oma nimi ja sen alta avautuvasta valikosta ’Copy Login Command’.
+#### Rahti-palveluun kirjautuminen komentorivillä
+
+Jotta `oc`-komentoja voi antaa, on kirjauduttava Rahti-palveluun komentorivin kautta. 
+
+Kirjautumiskomennon saa web käyttöliittymänäkymän oikeasta yläkulmasta _oma nimi_ ja sen alta avautuvasta valikosta _Copy Login Command_.
 
 ![](img/rahti_copy_login_command.png)
 
@@ -105,20 +108,24 @@ Huom! Jos `oc`-komento ei ole polussa, voi olla tarpeen antaa komennonlle myös 
 ```bash
 ./oc login https://rahti.csc.fi:8443 -token=...
 ```
-Tämän jälkeen julkaisu voidaan tehdä maven -komennolla:
-``` bash
-./mvnw package oc:build oc:resource oc:apply
-```
-Komento valmistelee Java projektin, luo ja alustaa OpenShift ympäristöön soveltuvan kontin ja lataa kontin suoritukseen OpenShift ympäristöön.
-
-Komennon päättymisen jälkeen Rahti-projektin Overview-näkymästä voit saada tietoa julkaisun tilasta ja onnistumisesta, sekä löydät julkaistun palvelun URL-osoitteen.
-
-![](img/rahdit_project_overview_published.png)
 
 
 ## Tietokantapalvelun luominen
+```mermaid
+flowchart LR
+  classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
 
-Esivalmisteltuja kontteja voi lisätä Browse Catalog näkymästä:
+  step1[Rahti-projektin luonti]
+  step2[Tietokantapalvelun luonti]
+  step3[Spring Boot -palvelimen julkaisu]
+  step4[Tietokannan konfigurointi]
+
+  step1-->step2
+  step2:::highlight-->step3
+  step3-->step4
+```
+
+Rahti-projektiin voi lisätä esivalmisteltuja kontteja _Browse Catalog_-näkymästä:
 
 ![](img/rahti_add_service.png)
 
@@ -146,7 +153,240 @@ Salaisuudet (ja muut vastaavat resurssit) löytyvät Rahti-palvelun web-käyttö
 
 ![](img/rahti_resources_secret.png)
 
+
+## Spring Boot -palvelimen julkaisu
+
+```mermaid
+flowchart LR
+  classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
+
+  step1[Rahti-projektin luonti]
+  step2[Tietokantapalvelun luonti]
+  step3[Spring Boot -palvelimen julkaisu]
+  step4[Tietokannan konfigurointi]
+
+  step1-->step2
+  step2-->step3
+  step3:::highlight-->step4
+```
+
+Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa.
+
+Tietokannan konfigurointi käsitellään seuraavassa luvussa.
+
+### Julkaisu yksityisestä GitHub-repositoriosta
+
+Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti-palvelun build-työkalujen luettavissa. 
+
+Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.
+
+Julkaisua varten kannattaa luoda uusi SSH-avainpari juuri tätä projektia ja repositoriota varten. Henkilökohtaista SSH-avainta ei oel tarkoituksenmukaista käyttää julkaisuun, sillä julkaisuun tarvitaan yksityinen SSH-avain.
+
+Luo sopivaan hakemistoon projektin ulkopuolella uusi avainpari. Salasanaa ei pidä määrittää.
+
+```bash
+ssh-keygen -C "rahti-build@repo-url" -f id_rahti_build -N=""
+```
+- `-C` lisää  avaintiedostoon kommentin, josta selviää, mikä avain on kyseessä, tässä `rahti-build@repo-url`
+- `-f` määrittää tiedostonimen, tässä `id_rahti_build`
+- `-N` määrittää, että ei käytetä salasanaa
+
+Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esimerkissä luodussa avainparissa julkinen avain on tiedostossa nimeltä `id_rahti_build.pub`.
+
+![](img/github_add_deploy_key_ui.png)
+
+_Title_ on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. 
+
+Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  `id-rahti-build` ja yksityinen avain on tiedostossa `id_rahti_build`.
+
+```bash
+oc create secret generic id-rahti-build --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
+```
+
+Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
+```bash
+oc secrets link builder id-rahti-build
+```
+
+### Julkaisu Source-to-Image-työkaluilla
+
+Projekti voidaan julkaista repositoriosta Source-to-Image-työkaluilla (S2I), jolloin kaikki tarvittavat resurssit luodaan automaattisesti ja saadaan valmis deployment-konfiguraatio.
+
+Seuraavassa esimerkissä käydään läpi sovelluksen julkaisu S21-työkaluja käyttäen. Kaikki komennot tehdään komentoriviltä.
+
+Luo ensin Rahti-projekti, kirjaudu Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.
+
+```bash
+oc project myproject
+```
+
+S2I-työkalut tarvitsevat pääsyn projektin repositorioon. 
+
+1. Julkinen repositorio
+
+    Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
+    ```bash
+    oc new-app fabric8/s2i-java~<repository-URL>#<branch-name>
+    ```
+    - `fabric8/s2i-java` on S2I-työkalulevykuva.
+    - `<repositorio-URL>` on osoite, josta repositorion voi kloonata
+    - `<branch-name>` on haara, josta julkaistaan.
+
+2. Yksityinen repositorio
+
+    Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:
+
+    ```bash
+    oc new-app fabric8/s2i-java~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
+    ```
+    - `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen
+
+Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
+
+Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu. 
+
+Tämän jälkeen ov vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla `oc expose service`.
+
+```bash
+oc expose service <service-name>
+```
+- `<service-name>` on palvelun nimi
+
+Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen. Sen voi tehdä web-käyttöliittymässä tai komentorivillä komennolla 
+```bash
+oc create route edge --service=<service-name>
+``` 
+
+### Julkaisu Dockerfile:n perusteella
+
+Lisää Spring Boot projektin juureen tiedosto `Dockerfile`, jonka sisältö on seuraava:
+```dockerfile
+FROM eclipse-temurin:17-jdk-focal as builder
+WORKDIR /opt/app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN chmod +x ./mvnw
+RUN ./mvnw dependency:go-offline
+COPY ./src ./src
+RUN ./mvnw clean install -DskipTests 
+RUN find ./target -type f -name '*.jar' -exec cp {} /opt/app/app.jar \; -quit
+
+FROM eclipse-temurin:17-jre-alpine
+COPY --from=builder /opt/app/*.jar /opt/app/
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
+``` 
+Määritys on laadittu yleiskäyttöiseksi, sen pitäisi toimia missä tahansa Spring Boot -projektissa sellaisenaan.
+
+Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
+```bash
+oc new-app <repository-URL>#<branch-name>
+```
+- `<repository-URL>` on osoite, josta repositorion voi kloonata
+- `<branch-name>` on haara, josta julkaistaan.
+
+Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:
+
+```bash
+oc new-app <repository-URL>#<branch-name> --source-secret=github-ticketguru
+```
+- `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen
+
+Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
+
+Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva kontti.
+
+Vielä on luotava palvelu (_service_):
+```bash
+oc expose dc/<deployment-config-name> --port=8080
+```
+- `<deployment-config-name>` on sovelluksen deployment config-nimi, sen voi tarkistaa web-käyttöliittymästä
+
+Service on luotu. tarvitaan vielä reitti:
+
+```bash
+oc expose service <service-name>
+```
+- `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name>
+
+Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. 
+
+Jos halutaan HTTPS-pääsy, on se konfiguroitava erikseen. Sen voi tehdä web-käyttöliittymässä tai komentorivillä komennolla 
+```bash
+oc create route edge --service=<service-name>
+``` 
+
+### Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
+
+Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristösta suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.
+
+Lisäosan käyttöönotto on suoraviivaista: Lisää Spring Boot projektin pom.xml tiedostoon JKube-lisäosan määritys:
+
+```xml
+<build>
+	<plugins>
+
+		<plugin>
+			<groupId>org.eclipse.jkube</groupId>
+			<artifactId>openshift-maven-plugin</artifactId>
+		</plugin>
+
+	</plugins>
+</build>
+```
+
+Kirjaudu rahti-palveluun komentorivin kautta.Tämän jälkeen julkaisu voidaan tehdä maven -komennolla:
+
+``` bash
+./mvnw package oc:build oc:resource oc:apply
+```
+Komento valmistelee Java projektin, luo ja alustaa OpenShift ympäristöön soveltuvan kontin ja lataa kontin suoritukseen OpenShift ympäristöön.
+
+Komennon päättymisen jälkeen Rahti-projektin Overview-näkymästä voit saada tietoa julkaisun tilasta ja onnistumisesta, sekä löydät julkaistun palvelun URL-osoitteen.
+
+![](img/rahdit_project_overview_published.png)
+
+## Buildin käynnistäminen
+
+Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä `oc`-komennolla.  
+```bash
+oc start-build <build-config-name>
+```
+- `<build-config-name>` on oletusarvoisesti sama kuin `<deployment-config-name>`
+
+Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista
+
+### Buildin automatisointi
+
+Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
+
+Uusi build liipaistaan määrittämällä GitHub-repositorioon _webhook_, jota repositorio kutsuu aina, kun uusia muutoksia pusketaan.
+
+Webhook-URL löytyy Rahti-palvelun käyttöliittymässä kohdata _Builds_.
+
+![](img/rahti_find_webhook_url.png)
+
+Kopioi URL ja lisää se Github-repositorioon GitHubin web-käyttöliittymän kohdassa _Settings/Webhooks/Add webhook_.
+
+![](img/github_add_webhook_ui.png)
+
+Content type-asetuksen tulee olla `application/json`.
+
 ## Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
+
+```mermaid
+flowchart LR
+  classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
+
+  step1[Rahti-projektin luonti]
+  step2[Tietokantapalvelun luonti]
+  step3[Spring Boot -palvelimen julkaisu]
+  step4[Tietokannan konfigurointi]
+
+  step1-->step2
+  step2-->step3
+  step3-->step4:::highlight
+```
 
 Seuraavassa esimerkissä konfiguroidaan Spring Boot -palvelin käyttämään projektiin luotua tietokantapalvelua.
 
@@ -182,7 +422,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä
 
-### Ympäristömuuttujien asettaminen ajoympäristössä
+### Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä
 
 Koska käyttämämme OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on määritykset tehtävä pluginin määritystiedostossa.
 
@@ -222,9 +462,7 @@ Parametrien selitykset:
 
 Huomaa, että tiedostomuoto on YAML. Sen rakenteeseen on tarvittaessa hyvä hakea vinkkiä web-käyttöliittymästä valitsemalla tietokantapodin valikosta _Edit YAML_.
 
-### Julkaisu
-
-Suorita komento 
+Suorita uudelleen komento 
 ```
  ./mvnw package oc:build oc:resource oc:apply
 ```
@@ -253,12 +491,28 @@ Lisätietoa: [Rahti Docs: Networking](https://docs.csc.fi/cloud/rahti/networking
 
 Käynnissä olevien konttien (_pod_) tietoja voidaan tarkastella Rahti-palvelun hallintaliittymässä.
 
-![](img/rahti_pod_log.png)
-![](img/rahti_pod_terminal.png)
-
 Käynnissä olevat kontit löytyvät helposti Overview-näkymästä.
 
 ![](img/rahti_overview_pods_highlight.png)
+
+Lokeja voi tarkastella välilehdellä _Logs_:
+
+![](img/rahti_pod_log.png)
+
+Konttiin saa pääteyhteyden välilehdellä _Terminal_:
+
+![](img/rahti_pod_terminal.png)
+
+Konttiin saa ssh-yhteyden myös komentorivillä komennolla `oc rsh <nimi>`. Projektin kontit voi listata komennolla `oc get pods`.
+
+```bash
+PS > oc get pods
+NAME                  READY     STATUS      RESTARTS   AGE
+dbservice-1-p2smq     1/1       Running     0          4h
+ticketguru-11-sbqhn   1/1       Running     0          1h
+PS > oc rsh ticketguru-11-sbqhn
+~ $ 
+```
 
 Tietokantaa voi tarkastella tietokantajärjestelmän komentorivityökaluilla tietokantakontin pääteyhteydellä, esim. 
 ```bash
