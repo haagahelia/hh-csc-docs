@@ -1,24 +1,5 @@
 # Spring Boot -palvelun julkaiseminen Rahti-ympäristössä
 
-Sisällysluettelo:
-- [Johdanto](#johdanto)
-- [Rahti-projektin luonti](#rahti-projektin-luonti)
-  - [Openshift-komentorivityökalun asennus](#openshift-komentorivityökalun-asennus)
-      - [Asennus Windows-ympäristössä](#asennus-windows-ympäristössä)
-    - [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivillä)
-- [Tietokantapalvelun luominen](#tietokantapalvelun-luominen)
-- [Spring Boot -palvelimen julkaisu](#spring-boot--palvelimen-julkaisu)
-  - [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta)
-  - [Julkaisu Source-to-Image-työkaluilla](#julkaisu-source-to-image-työkaluilla)
-  - [Julkaisu Dockerfile:n perusteella](#julkaisu-dockerfilen-perusteella)
-  - [Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla](#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla)
-- [Buildin käynnistäminen](#buildin-käynnistäminen)
-  - [Buildin automatisointi](#buildin-automatisointi)
-- [Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua](#spring-boot--palvelimen-konfigurointi-käyttämään-ulkoista-tietokantapalvelua)
-  - [Julkaisuprofiilin luonti Spring-projektiin](#julkaisuprofiilin-luonti-spring-projektiin)
-  - [Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä](#ympäristömuuttujien-asettaminen-ajoympäristössä-jkube-openshift-maven-pluginia-käytettäessä)
-- [HTTPS-konfigurointi](#https-konfigurointi)
-- [Virheenjäljitys](#virheenjäljitys)
 
 
 ## Johdanto
@@ -31,6 +12,40 @@ Oletuksena on, että julkaistavassa palvelussa on Spring-palvelin sekä relaatio
 2. Tietokantapalvelun luonti
 3. Spring palvelimen julkaisu ilman ulkoista tietokantaa
 4. Spring-palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
+
+```mermaid
+flowchart LR
+  classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
+
+  step1[Rahti-projektin luonti]
+  step2[Tietokantapalvelun luonti]
+  step3[Spring Boot -palvelimen julkaisu]
+  step4[Tietokannan konfigurointi]
+
+  step1-->step2
+  step2-->step3
+  step3-->step4
+```
+Sisällysluettelo:
+- [Johdanto](#johdanto)
+- [Rahti-projektin luonti](#rahti-projektin-luonti)
+  - [Openshift-komentorivityökalun asennus](#openshift-komentorivityökalun-asennus)
+      - [Asennus Windows-ympäristössä](#asennus-windows-ympäristössä)
+    - [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivillä)
+- [Tietokantapalvelun luominen](#tietokantapalvelun-luominen)
+- [Spring Boot -palvelimen julkaisu](#spring-boot--palvelimen-julkaisu)
+  - [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta)
+  - [Julkaisu Source-to-Image-työkaluilla](#julkaisu-source-to-image-työkaluilla)
+  - [Julkaisu Dockerfile:n perusteella](#julkaisu-dockerfilen-perusteella)
+  - [Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla](#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla)
+  - [Buildin käynnistäminen](#buildin-käynnistäminen)
+    - [Buildin automatisointi](#buildin-automatisointi)
+- [Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua](#spring-boot--palvelimen-konfigurointi-käyttämään-ulkoista-tietokantapalvelua)
+  - [Julkaisuprofiilin luonti Spring-projektiin](#julkaisuprofiilin-luonti-spring-projektiin)
+  - [Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä](#ympäristömuuttujien-asettaminen-ajoympäristössä-jkube-openshift-maven-pluginia-käytettäessä)
+- [HTTPS-konfigurointi](#https-konfigurointi)
+- [Virheenjäljitys](#virheenjäljitys)
+
 
 ## Rahti-projektin luonti
 ```mermaid
@@ -222,24 +237,20 @@ oc project myproject
 
 S2I-työkalut tarvitsevat pääsyn projektin repositorioon. 
 
-1. Julkinen repositorio
+Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
+```bash
+oc new-app fabric8/s2i-java~<repository-URL>#<branch-name>
+```
+- `fabric8/s2i-java` on S2I-työkalulevykuva.
+- `<repositorio-URL>` on osoite, josta repositorion voi kloonata
+- `<branch-name>` on haara, josta julkaistaan.
 
-    Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
-    ```bash
-    oc new-app fabric8/s2i-java~<repository-URL>#<branch-name>
-    ```
-    - `fabric8/s2i-java` on S2I-työkalulevykuva.
-    - `<repositorio-URL>` on osoite, josta repositorion voi kloonata
-    - `<branch-name>` on haara, josta julkaistaan.
+Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:
 
-2. Yksityinen repositorio
-
-    Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:
-
-    ```bash
-    oc new-app fabric8/s2i-java~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
-    ```
-    - `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen
+```bash
+oc new-app fabric8/s2i-java~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
+```
+- `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen
 
 Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
@@ -252,10 +263,7 @@ oc expose service <service-name>
 ```
 - `<service-name>` on palvelun nimi
 
-Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen. Sen voi tehdä web-käyttöliittymässä tai komentorivillä komennolla 
-```bash
-oc create route edge --service=<service-name>
-``` 
+Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
 ### Julkaisu Dockerfile:n perusteella
 
@@ -309,12 +317,7 @@ oc expose service <service-name>
 ```
 - `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name>
 
-Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. 
-
-Jos halutaan HTTPS-pääsy, on se konfiguroitava erikseen. Sen voi tehdä web-käyttöliittymässä tai komentorivillä komennolla 
-```bash
-oc create route edge --service=<service-name>
-``` 
+Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
 ### Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
 
@@ -346,7 +349,7 @@ Komennon päättymisen jälkeen Rahti-projektin Overview-näkymästä voit saada
 
 ![](img/rahdit_project_overview_published.png)
 
-## Buildin käynnistäminen
+### Buildin käynnistäminen
 
 Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä `oc`-komennolla.  
 ```bash
@@ -356,7 +359,7 @@ oc start-build <build-config-name>
 
 Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista
 
-### Buildin automatisointi
+#### Buildin automatisointi
 
 Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
 
@@ -475,7 +478,11 @@ Rahti-projektin _Overview_-näkymässä voi seurata julkaisun etenemistä. Onnis
 
 Julkaistu palvelu tarjotaan oletusarvoisesti vain HTTP-protokollalla. Palvelu voidaan konfiguroida tarjottavaksi myös HTTPS-protokollalla tai pelkästään HTTPS-protokollalla.
 
-Määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
+Konfiguroinnin voi tehdä komentorivillä komennolla 
+```bash
+oc create route edge --service=<service-name>
+``` 
+Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
 
 ![](img/rahti_routes.png)
 
@@ -484,6 +491,8 @@ Määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
 Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
 
 ![](img/rahti_route_enable_tls.png)
+
+
 
 Lisätietoa: [Rahti Docs: Networking](https://docs.csc.fi/cloud/rahti/networking/)
 
