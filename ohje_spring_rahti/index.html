@@ -254,6 +254,13 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen">
+<span class="md-ellipsis">
+      Ympäristömuuttujien asettaminen
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#ymparistomuuttujien-asettaminen-ajoymparistossa-jkube-openshift-maven-pluginia-kaytettaessa">
 <span class="md-ellipsis">
       Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä
@@ -413,6 +420,13 @@
 <a class="md-nav__link" href="#julkaisuprofiilin-luonti-spring-projektiin">
 <span class="md-ellipsis">
       Julkaisuprofiilin luonti Spring-projektiin
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen">
+<span class="md-ellipsis">
+      Ympäristömuuttujien asettaminen
     </span>
 </a>
 </li>
@@ -713,6 +727,11 @@ spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 </code></pre>
 <p>Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä</p>
+<h3 id="ymparistomuuttujien-asettaminen">Ympäristömuuttujien asettaminen</h3>
+<p>Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit määritellä käynnistettävälle kontille ympäristömuuttujia Rahti-palvelun web-käyttöliittymässä kohdassa <em>Applications/Deployments/</em>:</p>
+<p><img alt="" src="../img/rahti_deployment_config_env_variables.png"/></p>
+<p>Ympäristömuuttujan arvon voi määritellä suoraan tai valita sen jostain projektiin luodusta salaisuudesta. </p>
+<p>Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi <code>$MYSQL_USER</code> ja salasana <code>MYSQL_PASSWORD</code> sekä tietokannan nimi <code>MYSQL_DATABASE</code> luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. Aktiivisen profiilin asettavan ympäristömuuttujan arvo <code>SPRING_PROFILES_ACTIVE</code> annetaan suoraan.</p>
 <h3 id="ymparistomuuttujien-asettaminen-ajoymparistossa-jkube-openshift-maven-pluginia-kaytettaessa">Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä</h3>
 <p>Koska käyttämämme OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on määritykset tehtävä pluginin määritystiedostossa.</p>
 <p>Tarkista Rahti-palvelun hallintakäyttöliittymästä tietokannan luonnin yhteydessä luodun salaisuuden nimi. Tässä esimerkissä se on <code>mysql-secret</code>. </p>
