@@ -261,9 +261,9 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen-ajoymparistossa-jkube-openshift-maven-pluginia-kaytettaessa">
+<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen-jkube-openshift-maven-pluginia-kaytettaessa">
 <span class="md-ellipsis">
-      Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä
+      Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
     </span>
 </a>
 </li>
@@ -431,9 +431,9 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen-ajoymparistossa-jkube-openshift-maven-pluginia-kaytettaessa">
+<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen-jkube-openshift-maven-pluginia-kaytettaessa">
 <span class="md-ellipsis">
-      Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä
+      Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
     </span>
 </a>
 </li>
@@ -713,27 +713,28 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 <p>Profiilikohtaiset asetukset luetaan globaalien asetusten lisäksi. Näin esim. julkaisukonfiguraatioparametrit voidaan määritellä jokaista julkaisuympäristöä varten eri tiedostoihin.</p>
 <p>Seuraavassa esimerkissä käytetään palvelimen ajoympäristöstä luettavia ympäristömuuttuja-arvoja. Näin julkaisuympäristön konfiguraatioparametreja ei tarvitse viedä versionhallintaan.</p>
 <p>Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tiedot ajoympärisöön määritetyistä ympäristömuuttujista, joiden nimi muodostetaan tietokantapalvelun nimen perusteella seuraavasti:</p>
-<pre><code>  &lt;tietokantapalvelun nimi&gt;_SERVICE_HOST
+<pre class="no-copy"><code class="language-yaml">  &lt;tietokantapalvelun nimi&gt;_SERVICE_HOST
   &lt;tietokantapalvelun nimi&gt;_SERVICE_PORT
 </code></pre>
 <p>Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia <code>env</code> komennolla. Alla olevassa kuvassa ympäristömuuttujista on lsitattu muuttujat, jotka kertoo tietokantapalvelun, jonka nimi on <code>mysql-service</code>, tiedot muille Rahti-projektin konteille.</p>
 <p><img alt="" src="../img/rahti_pod_env_example.png"/></p>
 <p>Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu <code>db-service</code>:</p>
-<pre><code>spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${MYSQL_DATABASE}
-spring.datasource.username=${MYSQL_USER}
-spring.datasource.password=${MYSQL_PASSWORD}
+<pre><code>spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 </code></pre>
 <p>Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä</p>
 <h3 id="ymparistomuuttujien-asettaminen">Ympäristömuuttujien asettaminen</h3>
-<p>Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit määritellä käynnistettävälle kontille ympäristömuuttujia Rahti-palvelun web-käyttöliittymässä kohdassa <em>Applications/Deployments/</em>:</p>
+<p>Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit määritellä käynnistettävälle kontille ympäristömuuttujia Rahti-palvelun web-käyttöliittymässä kohdassa <em>Applications/Deployments</em>:</p>
 <p><img alt="" src="../img/rahti_deployment_config_env_variables.png"/></p>
-<p>Ympäristömuuttujan arvon voi määritellä suoraan tai valita sen jostain projektiin luodusta salaisuudesta. </p>
-<p>Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi <code>$MYSQL_USER</code> ja salasana <code>MYSQL_PASSWORD</code> sekä tietokannan nimi <code>MYSQL_DATABASE</code> luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. Aktiivisen profiilin asettavan ympäristömuuttujan arvo <code>SPRING_PROFILES_ACTIVE</code> annetaan suoraan.</p>
-<h3 id="ymparistomuuttujien-asettaminen-ajoymparistossa-jkube-openshift-maven-pluginia-kaytettaessa">Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä</h3>
-<p>Koska käyttämämme OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on määritykset tehtävä pluginin määritystiedostossa.</p>
+<p>Ympäristömuuttujan arvon voidaan määritellä suoraan tai valita sen jostain projektiin luodusta salaisuudesta. </p>
+<p>Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi <code>DB_USER</code> ja salasana <code>DB_PASSWORD</code> sekä tietokannan nimi <code>DB_NAME</code> luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. Aktiivisen profiilin asettavan ympäristömuuttujan arvo <code>SPRING_PROFILES_ACTIVE</code> annetaan suoraan.</p>
+<p>Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty.</p>
+<h3 id="ymparistomuuttujien-asettaminen-jkube-openshift-maven-pluginia-kaytettaessa">Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä</h3>
+<p>Koska OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on sitä käytettäessä määritykset tehtävä pluginin määritystiedostossa.</p>
 <p>Tarkista Rahti-palvelun hallintakäyttöliittymästä tietokannan luonnin yhteydessä luodun salaisuuden nimi. Tässä esimerkissä se on <code>mysql-secret</code>. </p>
 <p>Lisää Spring sovelluksen hakemistorakenteeseen <code>src/main/jkube</code> tiedosto nimeltään <code>deployment.yml</code>.</p>
 <pre><code>spec:
@@ -822,7 +823,7 @@ PS &gt; oc rsh ticketguru-11-sbqhn
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
 <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
 mermaid.initialize({});</script></body>
