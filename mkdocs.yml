@@ -1,0 +1,12 @@
+site_name: CSC-palvelut Haaga-Heliassa
+nav:
+  - Aloitus: index.md
+  - Ohjeet opettajalle: ohje_opettaja.md
+  - Spring Boot-palvelun julkaiseminen: ohje_spring_rahti.md
+theme: 
+  name: material
+  features:
+    - content.code.copy
+plugins:
+    - search
+    - mermaid2

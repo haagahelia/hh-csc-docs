@@ -1,7 +1,5 @@
 # Spring Boot -palvelun julkaiseminen Rahti-ympäristössä
 
-
-
 ## Johdanto
 
 Tässä ohjeessa käydään läpi Spring-palvelun julkaisu Rahti-palvelussa. 
@@ -12,39 +10,6 @@ Oletuksena on, että julkaistavassa palvelussa on Spring-palvelin sekä relaatio
 2. Tietokantapalvelun luonti
 3. Spring palvelimen julkaisu ilman ulkoista tietokantaa
 4. Spring-palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
-
-```mermaid
-flowchart LR
-  classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
-
-  step1[Rahti-projektin luonti]
-  step2[Tietokantapalvelun luonti]
-  step3[Spring Boot -palvelimen julkaisu]
-  step4[Tietokannan konfigurointi]
-
-  step1-->step2
-  step2-->step3
-  step3-->step4
-```
-Sisällysluettelo:
-- [Johdanto](#johdanto)
-- [Rahti-projektin luonti](#rahti-projektin-luonti)
-  - [Openshift-komentorivityökalun asennus](#openshift-komentorivityökalun-asennus)
-      - [Asennus Windows-ympäristössä](#asennus-windows-ympäristössä)
-    - [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivillä)
-- [Tietokantapalvelun luominen](#tietokantapalvelun-luominen)
-- [Spring Boot -palvelimen julkaisu](#spring-boot--palvelimen-julkaisu)
-  - [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta)
-  - [Julkaisu Source-to-Image-työkaluilla](#julkaisu-source-to-image-työkaluilla)
-  - [Julkaisu Dockerfile:n perusteella](#julkaisu-dockerfilen-perusteella)
-  - [Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla](#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla)
-  - [Buildin käynnistäminen](#buildin-käynnistäminen)
-    - [Buildin automatisointi](#buildin-automatisointi)
-- [Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua](#spring-boot--palvelimen-konfigurointi-käyttämään-ulkoista-tietokantapalvelua)
-  - [Julkaisuprofiilin luonti Spring-projektiin](#julkaisuprofiilin-luonti-spring-projektiin)
-  - [Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä](#ympäristömuuttujien-asettaminen-ajoympäristössä-jkube-openshift-maven-pluginia-käytettäessä)
-- [HTTPS-konfigurointi](#https-konfigurointi)
-- [Virheenjäljitys](#virheenjäljitys)
 
 
 ## Rahti-projektin luonti
@@ -90,9 +55,7 @@ Opiskelija voi halutessaan lisätä esimerkiksi kurssin opettajan omaan projekti
 
 ### Openshift-komentorivityökalun asennus
 
-Red Hat tarjoaa työkalun nimeltään `oc` OpenShift ympäristön hallintaan komentoriviltä käsin (Red Hat, 2023a) 
-
-`oc`-työkalun lataamiseen löytyy linkki Rahti-palvelun hallintanäkymästä.
+Red Hat tarjoaa työkalun nimeltään `oc` OpenShift ympäristön hallintaan komentoriviltä käsin. Linkki `oc`-työkalun lataamiseen löytyy Rahti-palvelun hallintanäkymästä.
 
 ![](img/rahti_commandline_tools.png)
 
@@ -404,7 +367,7 @@ Profiilikohtaiset asetukset luetaan globaalien asetusten lisäksi. Näin esim. j
 Seuraavassa esimerkissä käytetään palvelimen ajoympäristöstä luettavia ympäristömuuttuja-arvoja. Näin julkaisuympäristön konfiguraatioparametreja ei tarvitse viedä versionhallintaan.
 
 Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tiedot ajoympärisöön määritetyistä ympäristömuuttujista, joiden nimi muodostetaan tietokantapalvelun nimen perusteella seuraavasti:
-```
+``` { .yaml .no-copy }
   <tietokantapalvelun nimi>_SERVICE_HOST
   <tietokantapalvelun nimi>_SERVICE_PORT
 ```  
@@ -415,9 +378,9 @@ Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia `env` k
 
 Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu `db-service`:
 ```
-spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${MYSQL_DATABASE}
-spring.datasource.username=${MYSQL_USER}
-spring.datasource.password=${MYSQL_PASSWORD}
+spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
@@ -425,9 +388,21 @@ spring.jpa.hibernate.ddl-auto=update
 
 Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä
 
-### Ympäristömuuttujien asettaminen ajoympäristössä JKube OpenShift Maven pluginia käytettäessä
+### Ympäristömuuttujien asettaminen
 
-Koska käyttämämme OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on määritykset tehtävä pluginin määritystiedostossa.
+Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit määritellä käynnistettävälle kontille ympäristömuuttujia Rahti-palvelun web-käyttöliittymässä kohdassa _Applications/Deployments_:
+
+![](img/rahti_deployment_config_env_variables.png)
+
+Ympäristömuuttujan arvon voidaan määritellä suoraan tai valita sen jostain projektiin luodusta salaisuudesta. 
+
+Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi `DB_USER` ja salasana `DB_PASSWORD` sekä tietokannan nimi `DB_NAME` luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. Aktiivisen profiilin asettavan ympäristömuuttujan arvo `SPRING_PROFILES_ACTIVE` annetaan suoraan.
+
+Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty.
+
+### Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
+
+Koska OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on sitä käytettäessä määritykset tehtävä pluginin määritystiedostossa.
 
 Tarkista Rahti-palvelun hallintakäyttöliittymästä tietokannan luonnin yhteydessä luodun salaisuuden nimi. Tässä esimerkissä se on `mysql-secret`. 
 

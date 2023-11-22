@@ -1,30 +1,27 @@
 # CSC-palvelujen käyttö opetuksessa: Opettajan ohje
 
 ## Johdanto
-MyCSC palvelussa perustetaan __projekteja__. Web-käyttöisen hallintanäkymän kautta MyCSC projektiin voidaan liittää käyttäjien lisäksi __palveluja__.
+MyCSC-portaalissa perustetaan __projekteja__. Web-käyttöisen hallintanäkymän kautta MyCSC-projektiin voidaan liittää käyttäjien lisäksi __palveluja__.
 
-Palvelua, esimerkiksi Rahti-palvelua, konfiguroidessa puhutaan myös projektista.
-MyCSC projekti sisältää palvelun, joka konfiguroidaan palvelun omassa projektissa. Muuta yhteistä näillä kahdella projektilla ei kuitenkaan ole.
+CSC-palvelua (esimerkiksi _Rahti_) konfiguroidessa puhutaan myös _projektista_. MyCSC-projekti sisältää palveluja, jotka konfiguroidaan kunkin palvelun omassa projektissa. Muuta yhteistä näillä kahdella projektilla ei kuitenkaan ole.
 
-Käsitteiden selkiyttämiseksi tässä ohjeessa näistä eri projekteista käytetään termejä __MyCSC-projekti__ ja __palveluprojekti__ (esim. Rahti-projekti): MyCSC-projekti on hallinnollinen projekti, johon voidaan liittää joukko palveluprojekteja.
+Käsitteiden selkiyttämiseksi tässä ohjeessa näistä eri projekteista käytetään termejä __MyCSC-projekti__ ja __palveluprojekti__ (esim. _Rahti-projekti_): MyCSC-projekti on hallinnollinen projekti, johon voidaan liittää joukko palveluprojekteja.
 
 ## MyCSC-projektit kurssitoteutuksille
-
-### Yleistä
 
 Yhdelle kurssitoteutukselle perustetaan yksi MyCSC-projekti. 
 
 Opettaja toimii projektin projektipäällikkönä ja hallinnoi projektiin liitettyjä palveluja sekä projektin käyttäjiä.
 
-Projekteja hallinnoidaan MyCSC-palvelun kautta. Palvelu löytyy osoitteesta https://my.csc.fi. Palvelun käyttäminen vaatii oman CSC-tunnuksen, joka on otettavissa käyttöön korkeakoulujen Haka-kirjautumispalvelun avulla. 
+Projekteja hallinnoidaan MyCSC-portaalin kautta. Palvelu löytyy osoitteesta https://my.csc.fi. Palvelun käyttäminen vaatii oman CSC-tunnuksen, joka on otettavissa käyttöön korkeakoulujen Haka-kirjautumispalvelun avulla. 
 
 CSC-tunnuksen luominen tapahtuu ensimmäisen kirjautumisen yhteydessä, ja jatkossa palveluun voi kirjautua suoraan Haka-tunnuksella tai luodulla CSC-tunnuksella.
 
-Tunnusten luonnin ja kirjautumisen jälkeen avautuu MyCSC:n hallintanäkymä.
+Tunnusten luonnin ja kirjautumisen jälkeen avautuu MyCSC-portaalin hallintanäkymä.
 
 ![](img/mycsc_portal.png)
 
-### Uuden MyCSC-projektin perustaminen
+## Uuden MyCSC-projektin perustaminen
 
 Uuden projektin pääsee luomaan näkymän vasemman reunan valikosta _Projects_ ja sen takaa löytyvän sivun oikeasta yläkulmasta painamalla nappia _New project_.
 Painike avaa uuden projektin luontinäkymän.
@@ -42,7 +39,7 @@ Kurssiprojektista on hyvä huomioida seuraavat seikat:
 BU eli Billing Unit on laskennallinen yksikkö, jolla seurataan resurssien käyttöä projektissa. Käyttö, yksikön nimestä huolimatta, on korkeakoulujen henkilökunnalle ja opiskelijoille opetuskäytössä ilmaista.
 Lisätietoa BU:sta löytyy osoitteesta https://docs.csc.fi/accounts/billing/ ja Rahti-palvelun resurssien käytöstä yksityiskohtaisempaa tietoa löytyy osoitteesta https://docs.csc.fi/cloud/rahti/billing/.
 
-### Palvelujen valinta
+## Palvelujen valinta
 
 Projektin kautta projektin jäsenet pääsevät käsiksi CSC:n palveluihin. Oletuksena mitään palvelua ei ole liitetty projektiin, vaan projektipäällikkö valitsee haluamansa palvelut MyCSC sivuston kautta 
 
@@ -56,7 +53,7 @@ Projektiin lisätyistä palveluista lähetetään kaikille projektin jäsenille 
 
 Kun halutut palvelut on valittu projektille ja käyttäjät ovat hyväksyneet palvelun käyttöönoton, voidaan niiden käyttö aloittaa.
 
-#### Palvelujen konfigurointi
+## Palvelujen konfigurointi
 
 Kun projektille on valittu halutut palvelut, niiden käyttöönotto ja konfigurointi tapahtuu kunkin palvelun omalta sivustolta. 
 
@@ -72,7 +69,7 @@ Tärkeimmät palvelut ja niiden osoitteet on listattu taulukkoon
 | Rahti	| https://rahti.csc.fi | Konttipalvelu |
 | Pukki	| https://pukki.dbaas.csc.fi | DBaaS (beta) |
 
-### Opiskelijoiden lisääminen projektiin
+## Opiskelijoiden lisääminen projektiin
 
 Jos opiskelijat tarvitsevat suoran pääsyn palveluihin (esim. Rahti), heidän tulee liittyä MyCSC-projektin jäseneksi.
 
