@@ -13,6 +13,7 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../stylesheets/extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body dir="ltr">
@@ -580,11 +581,11 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 <p>Profiili voidaan määritellä laatimalla projektiin profiilikohtainen <code>application.properties</code>-määritys. Sen nimeksi tulee asettaa <code>application-&lt;profiilinimi&gt;.properties</code>. Jos esimerkiksi profiilin nimeksi valitaan <code>rahti</code>, tiedoston nimi on <code>application-rahti.properties</code>.</p>
 <p>Profiilikohtaiset asetukset luetaan globaalien asetusten lisäksi. Näin esim. julkaisukonfiguraatioparametrit voidaan määritellä jokaista julkaisuympäristöä varten eri tiedostoihin.</p>
 <p>Seuraavassa esimerkissä käytetään palvelimen ajoympäristöstä luettavia ympäristömuuttuja-arvoja. Näin julkaisuympäristön konfiguraatioparametreja ei tarvitse viedä versionhallintaan.</p>
-<p>Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tiedot ajoympärisöön määritetyistä ympäristömuuttujista, joiden nimi muodostetaan tietokantapalvelun nimen perusteella seuraavasti:</p>
+<p>Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tiedot ajoympäristöön määritetyistä ympäristömuuttujista, joiden nimi muodostetaan tietokantapalvelun nimen perusteella seuraavasti:</p>
 <pre class="no-copy"><code class="language-yaml">  &lt;tietokantapalvelun nimi&gt;_SERVICE_HOST
   &lt;tietokantapalvelun nimi&gt;_SERVICE_PORT
 </code></pre>
-<p>Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia <code>env</code> komennolla. Alla olevassa kuvassa ympäristömuuttujista on lsitattu muuttujat, jotka kertoo tietokantapalvelun, jonka nimi on <code>mysql-service</code>, tiedot muille Rahti-projektin konteille.</p>
+<p>Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia <code>env</code> komennolla. Alla olevassa kuvassa ympäristömuuttujista on listattu muuttujat, jotka kertovat tietokantapalvelun, jonka nimi on <code>mysql-service</code>, tiedot muille Rahti-projektin konteille.</p>
 <p><img alt="" src="../img/rahti_pod_env_example.png"/></p>
 <p>Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu <code>db-service</code>:</p>
 <pre><code>spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${DB_NAME}
