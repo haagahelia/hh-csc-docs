@@ -29,7 +29,7 @@ flowchart LR
 
 Jotta Rahti-palvelua voi käyttää, pitää sen olla otettuna käyttöön MyCSC projektissa ja itse Rahti-palveluun pitää olla määriteltynä Rahti-projekti. 
 
-Kirjaudu rahtipalveluun osoitteessa https://rahti.csc.fi:8443 käyttämällä Haka-kirjautumista. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:
+Kirjaudu rahtipalveluun osoitteessa <https://rahti.csc.fi:8443> käyttämällä Haka-kirjautumista. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:
 
 ![](img/rahti_portal.png)
 

@@ -13,7 +13,7 @@ Yhdelle kurssitoteutukselle perustetaan yksi MyCSC-projekti.
 
 Opettaja toimii projektin projektipäällikkönä ja hallinnoi projektiin liitettyjä palveluja sekä projektin käyttäjiä.
 
-Projekteja hallinnoidaan MyCSC-portaalin kautta. Palvelu löytyy osoitteesta https://my.csc.fi. Palvelun käyttäminen vaatii oman CSC-tunnuksen, joka on otettavissa käyttöön korkeakoulujen Haka-kirjautumispalvelun avulla. 
+Projekteja hallinnoidaan MyCSC-portaalin kautta. Palvelu löytyy osoitteesta <https://my.csc.fi>. Palvelun käyttäminen vaatii oman CSC-tunnuksen, joka on otettavissa käyttöön korkeakoulujen Haka-kirjautumispalvelun avulla. 
 
 CSC-tunnuksen luominen tapahtuu ensimmäisen kirjautumisen yhteydessä, ja jatkossa palveluun voi kirjautua suoraan Haka-tunnuksella tai luodulla CSC-tunnuksella.
 
@@ -61,13 +61,13 @@ Tärkeimmät palvelut ja niiden osoitteet on listattu taulukkoon
 
 | Palvelu	| Osoite |	Kuvaus |
 | ------- |------- | ------- |
-| MyCSC	| https://my.csc.fi | Projektien hallintapalvelu |
-| Allas	| https://pouta.csc.fi | Tallennuspalvelu |
-| cPouta | https://pouta.csc.fi | Virtualisointipalvelu |
-| Notebooks	| https://notebooks.csc.fi | Jupyter Notebooks |
-| Puhti ja Mahti | https://puhti.csc.fi https://mahti.csc.fi | Laskentapalvelu |
-| Rahti	| https://rahti.csc.fi | Konttipalvelu |
-| Pukki	| https://pukki.dbaas.csc.fi | DBaaS (beta) |
+| MyCSC	| <https://my.csc.fi> | Projektien hallintapalvelu |
+| Allas	| <https://pouta.csc.fi> | Tallennuspalvelu |
+| cPouta | <https://pouta.csc.fi> | Virtualisointipalvelu |
+| Notebooks	| <https://notebooks.csc.fi> | Jupyter Notebooks |
+| Puhti ja Mahti | <https://puhti.csc.fi> <https://mahti.csc.fi> | Laskentapalvelu |
+| Rahti	| <https://rahti.csc.fi> | Konttipalvelu |
+| Pukki	| <https://pukki.dbaas.csc.fi> | DBaaS (beta) |
 
 ## Opiskelijoiden lisääminen projektiin
 
