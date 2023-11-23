@@ -11,6 +11,8 @@ theme:
     - navigation.tabs
     - toc.integrate
     - navigation.top
+extra_css:
+  - stylesheets/extra.css
 plugins:
     - search
     - mermaid2
