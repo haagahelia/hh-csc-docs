@@ -1,19 +1,18 @@
 
 <!DOCTYPE html>
 
-<html class="no-js" lang="en">
+<html class="no-js" lang="fi">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="../ohje_opettaja/" rel="prev"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.4.10" name="generator"/>
-<title>Spring Boot-palvelun julkaiseminen - CSC-palvelut Haaga-Heliassa</title>
+<title>Spring Boot-palvelun julkaisu - CSC-palvelut Haaga-Heliassa</title>
 <link href="../assets/stylesheets/main.fad675c6.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<link href="../css/custom.css" rel="stylesheet"/>
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body dir="ltr">
@@ -23,12 +22,12 @@
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
 <a class="md-skip" href="#spring-boot-palvelun-julkaiseminen-rahti-ymparistossa">
-          Skip to content
+          Hyppää sisältöön
         </a>
 </div>
 <div data-md-component="announce">
 </div>
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="CSC-palvelut Haaga-Heliassa" class="md-header__button md-logo" data-md-component="logo" href=".." title="CSC-palvelut Haaga-Heliassa">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
@@ -46,7 +45,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Spring Boot-palvelun julkaiseminen
+              Spring Boot-palvelun julkaisu
             
           </span>
 </div>
@@ -59,7 +58,7 @@
 <label class="md-search__overlay" for="__search"></label>
 <div class="md-search__inner" role="search">
 <form class="md-search__form" name="search">
-<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<input aria-label="Hae" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Hae" required="" spellcheck="false" type="text"/>
 <label class="md-search__icon md-icon" for="__search">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
@@ -85,12 +84,48 @@
 </nav>
 </header>
 <div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="..">
+        
+  
+    
+  
+  Aloitus
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../ohje_opettaja/">
+        
+  
+    
+  
+  Ohjeet opettajalle
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="./">
+        
+  
+    
+  
+  Spring Boot-palvelun julkaisu
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
 <main class="md-main" data-md-component="main">
 <div class="md-main__inner md-grid">
 <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="CSC-palvelut Haaga-Heliassa" class="md-nav__button md-logo" data-md-component="logo" href=".." title="CSC-palvelut Haaga-Heliassa">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
@@ -116,19 +151,19 @@
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
 <span class="md-ellipsis">
-    Spring Boot-palvelun julkaiseminen
+    Spring Boot-palvelun julkaisu
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
-    Spring Boot-palvelun julkaiseminen
+    Spring Boot-palvelun julkaisu
   </span>
 </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<nav aria-label="Sisällysluettelo" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
 <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      Sisällysluettelo
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
@@ -286,173 +321,6 @@
 </li>
 </ul>
 </nav>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#johdanto">
-<span class="md-ellipsis">
-      Johdanto
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rahti-projektin-luonti">
-<span class="md-ellipsis">
-      Rahti-projektin luonti
-    </span>
-</a>
-<nav aria-label="Rahti-projektin luonti" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#openshift-komentorivityokalun-asennus">
-<span class="md-ellipsis">
-      Openshift-komentorivityökalun asennus
-    </span>
-</a>
-<nav aria-label="Openshift-komentorivityökalun asennus" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#asennus-windows-ymparistossa">
-<span class="md-ellipsis">
-      Asennus Windows-ympäristössä
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rahti-palveluun-kirjautuminen-komentorivilla">
-<span class="md-ellipsis">
-      Rahti-palveluun kirjautuminen komentorivillä
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tietokantapalvelun-luominen">
-<span class="md-ellipsis">
-      Tietokantapalvelun luominen
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#spring-boot-palvelimen-julkaisu">
-<span class="md-ellipsis">
-      Spring Boot -palvelimen julkaisu
-    </span>
-</a>
-<nav aria-label="Spring Boot -palvelimen julkaisu" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisu-yksityisesta-github-repositoriosta">
-<span class="md-ellipsis">
-      Julkaisu yksityisestä GitHub-repositoriosta
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisu-source-to-image-tyokaluilla">
-<span class="md-ellipsis">
-      Julkaisu Source-to-Image-työkaluilla
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisu-dockerfilen-perusteella">
-<span class="md-ellipsis">
-      Julkaisu Dockerfile:n perusteella
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla">
-<span class="md-ellipsis">
-      Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#buildin-kaynnistaminen">
-<span class="md-ellipsis">
-      Buildin käynnistäminen
-    </span>
-</a>
-<nav aria-label="Buildin käynnistäminen" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#buildin-automatisointi">
-<span class="md-ellipsis">
-      Buildin automatisointi
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#spring-boot-palvelimen-konfigurointi-kayttamaan-ulkoista-tietokantapalvelua">
-<span class="md-ellipsis">
-      Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
-    </span>
-</a>
-<nav aria-label="Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisuprofiilin-luonti-spring-projektiin">
-<span class="md-ellipsis">
-      Julkaisuprofiilin luonti Spring-projektiin
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen">
-<span class="md-ellipsis">
-      Ympäristömuuttujien asettaminen
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#ymparistomuuttujien-asettaminen-jkube-openshift-maven-pluginia-kaytettaessa">
-<span class="md-ellipsis">
-      Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#https-konfigurointi">
-<span class="md-ellipsis">
-      HTTPS-konfigurointi
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#virheenjaljitys">
-<span class="md-ellipsis">
-      Virheenjäljitys
-    </span>
-</a>
 </li>
 </ul>
 </nav>
@@ -485,7 +353,7 @@
   step3--&gt;step4
 </div>
 <p>Jotta Rahti-palvelua voi käyttää, pitää sen olla otettuna käyttöön MyCSC projektissa ja itse Rahti-palveluun pitää olla määriteltynä Rahti-projekti. </p>
-<p>Kirjaudu rahtipalveluun osoitteessa https://rahti.csc.fi:8443 käyttämällä Haka-kirjautumista. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:</p>
+<p>Kirjaudu rahtipalveluun osoitteessa <a href="https://rahti.csc.fi:8443">https://rahti.csc.fi:8443</a> käyttämällä Haka-kirjautumista. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:</p>
 <p><img alt="" src="../img/rahti_portal.png"/></p>
 <p>Lisää itsellesi Rahti-projekti painamalla ’Create Project’ painiketta näkymän oikeasta yläreunasta. Anna projektille kuvaava nimi.</p>
 <p><img alt="" src="../img/rahti_create_project.png"/></p>
@@ -804,6 +672,10 @@ PS &gt; oc rsh ticketguru-11-sbqhn
 </article>
 </div>
 </div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+  Back to top
+</button>
 </main>
 <footer class="md-footer">
 <div class="md-footer-meta md-typeset">
@@ -823,7 +695,7 @@ PS &gt; oc rsh ticketguru-11-sbqhn
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "navigation.tabs", "toc.integrate", "navigation.top"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Kopioitu leikep\u00f6yd\u00e4lle", "clipboard.copy": "Kopioi leikep\u00f6yd\u00e4lle", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "Ei t\u00e4sm\u00e4\u00e4vi\u00e4 dokumentteja", "search.result.one": "1 t\u00e4sm\u00e4\u00e4v\u00e4 dokumentti", "search.result.other": "# t\u00e4sm\u00e4\u00e4v\u00e4\u00e4 dokumenttia", "search.result.placeholder": "Kirjoita aloittaaksesi haun", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
 <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
 mermaid.initialize({});</script></body>
