@@ -16,3 +16,5 @@ extra_css:
 plugins:
     - search
     - mermaid2
+markdown_extensions:
+  - admonition

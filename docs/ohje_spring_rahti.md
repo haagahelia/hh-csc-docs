@@ -29,7 +29,7 @@ flowchart LR
 
 Jotta Rahti-palvelua voi käyttää, pitää sen olla otettuna käyttöön MyCSC projektissa ja itse Rahti-palveluun pitää olla määriteltynä Rahti-projekti. 
 
-Kirjaudu rahtipalveluun osoitteessa <https://rahti.csc.fi:8443> käyttämällä Haka-kirjautumista. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:
+Kirjaudu Rahti-palvelun web-käyttöliittymään osoitteessa <https://rahti.csc.fi:8443> CSC-tunnuksellasi. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:
 
 ![](img/rahti_portal.png)
 
@@ -41,7 +41,7 @@ MyCSC:n projektinäkymässä näkyvä projektinumero tulee mainita Rahti-projekt
 
 Kirjaa projektinumero projektin kommenttikenttään seuraavasti:
 ```
-csc_project:\<projektinumero>
+csc_project:<projektinumero>
 ```
 Korvaa _\<projektinumero>_ oman MyCSC projektisi numerosarjalla.
 
@@ -72,7 +72,7 @@ $Path = [Environment]::GetEnvironmentVariable("PATH", "User") + [IO.Path]::PathS
 [Environment]::SetEnvironmentVariable( "Path", $Path, "User" )
 ```
 
-#### Rahti-palveluun kirjautuminen komentorivillä
+### Rahti-palveluun kirjautuminen komentorivillä
 
 Jotta `oc`-komentoja voi antaa, on kirjauduttava Rahti-palveluun komentorivin kautta. 
 
@@ -151,6 +151,8 @@ flowchart LR
 Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa.
 
 Tietokannan konfigurointi käsitellään seuraavassa luvussa.
+
+__Huom!__ Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
 
 ### Julkaisu yksityisestä GitHub-repositoriosta
 
