@@ -197,15 +197,15 @@
     </span>
 </a>
 </li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#rahti-palveluun-kirjautuminen-komentorivilla">
 <span class="md-ellipsis">
       Rahti-palveluun kirjautuminen komentorivillä
     </span>
 </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -354,13 +354,13 @@
   step3--&gt;step4
 </div>
 <p>Jotta Rahti-palvelua voi käyttää, pitää sen olla otettuna käyttöön MyCSC projektissa ja itse Rahti-palveluun pitää olla määriteltynä Rahti-projekti. </p>
-<p>Kirjaudu rahtipalveluun osoitteessa <a href="https://rahti.csc.fi:8443">https://rahti.csc.fi:8443</a> käyttämällä Haka-kirjautumista. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:</p>
+<p>Kirjaudu Rahti-palvelun web-käyttöliittymään osoitteessa <a href="https://rahti.csc.fi:8443">https://rahti.csc.fi:8443</a> CSC-tunnuksellasi. Kirjautumisen jälkeen palvelun etusivu näyttää tältä:</p>
 <p><img alt="" src="../img/rahti_portal.png"/></p>
 <p>Lisää itsellesi Rahti-projekti painamalla ’Create Project’ painiketta näkymän oikeasta yläreunasta. Anna projektille kuvaava nimi.</p>
 <p><img alt="" src="../img/rahti_create_project.png"/></p>
 <p>MyCSC:n projektinäkymässä näkyvä projektinumero tulee mainita Rahti-projektin kuvauskentässä projektia luotaessa. Tällä mekanismilla palvelun käytöstä syntyneet kulut kohdennetaan määriteltyyn MyCSC projektiin.</p>
 <p>Kirjaa projektinumero projektin kommenttikenttään seuraavasti:</p>
-<pre><code>csc_project:\&lt;projektinumero&gt;
+<pre><code>csc_project:&lt;projektinumero&gt;
 </code></pre>
 <p>Korvaa <em>\<projektinumero></projektinumero></em> oman MyCSC projektisi numerosarjalla.</p>
 <p>Kun painat <em>Create</em>, luodaan Rahti-projekti, johon voidaan määritellä tarvittavia palveluja ja resursseja.</p>
@@ -377,7 +377,7 @@
 <pre><code class="language-powershell">$Path = [Environment]::GetEnvironmentVariable("PATH", "User") + [IO.Path]::PathSeparator + "C:\openshift\CLI"
 [Environment]::SetEnvironmentVariable( "Path", $Path, "User" )
 </code></pre>
-<h4 id="rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</h4>
+<h3 id="rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</h3>
 <p>Jotta <code>oc</code>-komentoja voi antaa, on kirjauduttava Rahti-palveluun komentorivin kautta. </p>
 <p>Kirjautumiskomennon saa web käyttöliittymänäkymän oikeasta yläkulmasta <em>oma nimi</em> ja sen alta avautuvasta valikosta <em>Copy Login Command</em>.</p>
 <p><img alt="" src="../img/rahti_copy_login_command.png"/></p>
@@ -429,6 +429,7 @@
 </div>
 <p>Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa.</p>
 <p>Tietokannan konfigurointi käsitellään seuraavassa luvussa.</p>
+<p><strong>Huom!</strong> Jotta tässä luvussa käytettäviä <code>oc</code>-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun <a href="#rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</a> ohjeiden mukaisesti.</p>
 <h3 id="julkaisu-yksityisesta-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</h3>
 <p>Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti-palvelun build-työkalujen luettavissa. </p>
 <p>Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.</p>
