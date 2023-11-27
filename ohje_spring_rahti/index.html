@@ -94,7 +94,7 @@
   
     
   
-  Aloitus
+  Yleistä
 
       </a>
 </li>
@@ -137,7 +137,7 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="..">
 <span class="md-ellipsis">
-    Aloitus
+    Yleistä
   </span>
 </a>
 </li>
@@ -233,18 +233,36 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisu-source-to-image-tyokaluilla">
+<a class="md-nav__link" href="#sovelluksen-luonti">
 <span class="md-ellipsis">
-      Julkaisu Source-to-Image-työkaluilla
+      Sovelluksen luonti
+    </span>
+</a>
+<nav aria-label="Sovelluksen luonti" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repositorio-oikeudet">
+<span class="md-ellipsis">
+      Repositorio-oikeudet
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#julkaisu-dockerfilen-perusteella">
+<a class="md-nav__link" href="#sovelluksen-luonti-source-to-image-tyokaluilla">
 <span class="md-ellipsis">
-      Julkaisu Dockerfile:n perusteella
+      Sovelluksen luonti Source-to-Image-työkaluilla
     </span>
 </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sovelluksen-luonti-dockerfilen-perusteella">
+<span class="md-ellipsis">
+      Sovelluksen luonti Dockerfilen perusteella
+    </span>
+</a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla">
@@ -259,17 +277,13 @@
       Buildin käynnistäminen
     </span>
 </a>
-<nav aria-label="Buildin käynnistäminen" class="md-nav">
-<ul class="md-nav__list">
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#buildin-automatisointi">
 <span class="md-ellipsis">
       Buildin automatisointi
     </span>
 </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -451,37 +465,42 @@
 <p>Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun</p>
 <pre><code class="language-bash">oc secrets link builder id-rahti-build
 </code></pre>
-<h3 id="julkaisu-source-to-image-tyokaluilla">Julkaisu Source-to-Image-työkaluilla</h3>
-<p>Projekti voidaan julkaista repositoriosta Source-to-Image-työkaluilla (S2I), jolloin kaikki tarvittavat resurssit luodaan automaattisesti ja saadaan valmis deployment-konfiguraatio.</p>
-<p>Seuraavassa esimerkissä käydään läpi sovelluksen julkaisu S21-työkaluja käyttäen. Kaikki komennot tehdään komentoriviltä.</p>
-<p>Luo ensin Rahti-projekti, kirjaudu Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.</p>
+<h3 id="sovelluksen-luonti">Sovelluksen luonti</h3>
+<p>Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (<em>Source-to_Image</em>, <em>S2I</em>) tai projektissa määritetyn Dockerfile:n perusteella. </p>
+<p>Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla tavoilla. Kaikki komennot tehdään komentoriviltä. </p>
+<p>Kirjaudu ensin Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.</p>
 <pre><code class="language-bash">oc project myproject
 </code></pre>
-<p>S2I-työkalut tarvitsevat pääsyn projektin repositorioon. </p>
-<p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:</p>
-<pre><code class="language-bash">oc new-app fabric8/s2i-java~&lt;repository-URL&gt;#&lt;branch-name&gt;
+<h4 id="repositorio-oikeudet">Repositorio-oikeudet</h4>
+<p>Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.</p>
+<p>Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun <a href="#julkaisu-yksityisestä-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</a> ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella </p>
+<pre><code class="language-bash">--source-secret=&lt;github-creds-secret-name&gt;
 </code></pre>
 <ul>
-<li><code>fabric8/s2i-java</code> on S2I-työkalulevykuva.</li>
+<li><code>&lt;github-creds-secret-name&gt;</code> on salaisuus, joka sisältää yksityisen SSH-avaimen.</li>
+</ul>
+<h4 id="sovelluksen-luonti-source-to-image-tyokaluilla">Sovelluksen luonti Source-to-Image-työkaluilla</h4>
+<p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:</p>
+<pre><code>oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~&lt;repository-URL&gt;#&lt;branch-name&gt;
+</code></pre>
+<ul>
+<li><code>registry.access.redhat.com/ubi8/openjdk-17:1.18-2</code> on S2I-työkalulevykuva Java 17-sovelluksille</li>
 <li><code>&lt;repositorio-URL&gt;</code> on osoite, josta repositorion voi kloonata</li>
 <li><code>&lt;branch-name&gt;</code> on haara, josta julkaistaan.</li>
 </ul>
-<p>Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun <a href="#julkaisu-yksityisestä-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</a> ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:</p>
-<pre><code class="language-bash">oc new-app fabric8/s2i-java~&lt;repository-URL&gt;#&lt;branch-name&gt; --source-secret=&lt;github-creds-secret-name&gt;
+<p>Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:</p>
+<pre><code>oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~&lt;repository-URL&gt;#&lt;branch-name&gt; --source-secret=&lt;github-creds-secret-name&gt;
 </code></pre>
-<ul>
-<li><code>&lt;github-creds-secret-name&gt;</code> on salaisuus, joka sisältää yksityisen SSH-avaimen</li>
-</ul>
 <p>Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.</p>
 <p>Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu. </p>
-<p>Tämän jälkeen ov vielä avattava palvelulle reitti (<em>route</em>), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla <code>oc expose service</code>.</p>
+<p>Tämän jälkeen on vielä avattava palvelulle reitti (<em>route</em>), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:</p>
 <pre><code class="language-bash">oc expose service &lt;service-name&gt;
 </code></pre>
 <ul>
 <li><code>&lt;service-name&gt;</code> on palvelun nimi</li>
 </ul>
 <p>Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="#https-konfigurointi">HTTPS-konfigurointi</a></p>
-<h3 id="julkaisu-dockerfilen-perusteella">Julkaisu Dockerfile:n perusteella</h3>
+<h4 id="sovelluksen-luonti-dockerfilen-perusteella">Sovelluksen luonti Dockerfilen perusteella</h4>
 <p>Lisää Spring Boot projektin juureen tiedosto <code>Dockerfile</code>, jonka sisältö on seuraava:</p>
 <pre><code class="language-dockerfile">FROM eclipse-temurin:17-jdk-focal as builder
 WORKDIR /opt/app
@@ -506,12 +525,9 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 <li><code>&lt;repository-URL&gt;</code> on osoite, josta repositorion voi kloonata</li>
 <li><code>&lt;branch-name&gt;</code> on haara, josta julkaistaan.</li>
 </ul>
-<p>Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun <a href="#julkaisu-yksityisestä-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</a> ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:</p>
+<p>Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:</p>
 <pre><code class="language-bash">oc new-app &lt;repository-URL&gt;#&lt;branch-name&gt; --source-secret=github-ticketguru
 </code></pre>
-<ul>
-<li><code>&lt;github-creds-secret-name&gt;</code> on salaisuus, joka sisältää yksityisen SSH-avaimen</li>
-</ul>
 <p>Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.</p>
 <p>Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva kontti.</p>
 <p>Vielä on luotava palvelu (<em>service</em>):</p>
@@ -520,7 +536,7 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 <ul>
 <li><code>&lt;deployment-config-name&gt;</code> on sovelluksen deployment config-nimi, sen voi tarkistaa web-käyttöliittymästä</li>
 </ul>
-<p>Service on luotu. tarvitaan vielä reitti:</p>
+<p>Kun service on luotu. tarvitaan vielä reitti:</p>
 <pre><code class="language-bash">oc expose service &lt;service-name&gt;
 </code></pre>
 <ul>
@@ -528,7 +544,8 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 </ul>
 <p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="#https-konfigurointi">HTTPS-konfigurointi</a></p>
 <h3 id="julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla">Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla</h3>
-<p>Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristösta suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.</p>
+<p>Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristöstä suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). </p>
+<p>Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.</p>
 <p>Lisäosan käyttöönotto on suoraviivaista: Lisää Spring Boot projektin pom.xml tiedostoon JKube-lisäosan määritys:</p>
 <pre><code class="language-xml">&lt;build&gt;
     &lt;plugins&gt;
@@ -555,7 +572,7 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 <li><code>&lt;build-config-name&gt;</code> on oletusarvoisesti sama kuin <code>&lt;deployment-config-name&gt;</code></li>
 </ul>
 <p>Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista</p>
-<h4 id="buildin-automatisointi">Buildin automatisointi</h4>
+<h3 id="buildin-automatisointi">Buildin automatisointi</h3>
 <p>Jos sovellukselle on <em>build config</em>, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.</p>
 <p>Uusi build liipaistaan määrittämällä GitHub-repositorioon <em>webhook</em>, jota repositorio kutsuu aina, kun uusia muutoksia pusketaan.</p>
 <p>Webhook-URL löytyy Rahti-palvelun käyttöliittymässä kohdata <em>Builds</em>.</p>
