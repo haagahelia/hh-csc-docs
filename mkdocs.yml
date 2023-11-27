@@ -1,6 +1,6 @@
 site_name: CSC-palvelut Haaga-Heliassa
 nav:
-  - Aloitus: index.md
+  - Yleistä: index.md
   - Ohjeet opettajalle: ohje_opettaja.md
   - Spring Boot-palvelun julkaisu: ohje_spring_rahti.md
 theme: 
@@ -18,3 +18,5 @@ plugins:
     - mermaid2
 markdown_extensions:
   - admonition
+  - attr_list
+

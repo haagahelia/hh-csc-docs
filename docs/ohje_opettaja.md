@@ -1,25 +1,12 @@
 # CSC-palvelujen käyttö opetuksessa: Opettajan ohje
 
-## Johdanto
-MyCSC-portaalissa perustetaan __projekteja__. Web-käyttöisen hallintanäkymän kautta MyCSC-projektiin voidaan liittää käyttäjien lisäksi __palveluja__.
-
-CSC-palvelua (esimerkiksi _Rahti_) konfiguroidessa puhutaan myös _projektista_. MyCSC-projekti sisältää palveluja, jotka konfiguroidaan kunkin palvelun omassa projektissa. Muuta yhteistä näillä kahdella projektilla ei kuitenkaan ole.
-
-Käsitteiden selkiyttämiseksi tässä ohjeessa näistä eri projekteista käytetään termejä __MyCSC-projekti__ ja __palveluprojekti__ (esim. _Rahti-projekti_): MyCSC-projekti on hallinnollinen projekti, johon voidaan liittää joukko palveluprojekteja.
-
 ## MyCSC-projektit kurssitoteutuksille
 
 Yhdelle kurssitoteutukselle perustetaan yksi MyCSC-projekti. 
 
 Opettaja toimii projektin projektipäällikkönä ja hallinnoi projektiin liitettyjä palveluja sekä projektin käyttäjiä.
 
-Projekteja hallinnoidaan MyCSC-portaalin kautta. Palvelu löytyy osoitteesta <https://my.csc.fi>. Palvelun käyttäminen vaatii oman CSC-tunnuksen, joka on otettavissa käyttöön korkeakoulujen Haka-kirjautumispalvelun avulla. 
-
-CSC-tunnuksen luominen tapahtuu ensimmäisen kirjautumisen yhteydessä, ja jatkossa palveluun voi kirjautua suoraan Haka-tunnuksella tai luodulla CSC-tunnuksella.
-
-Tunnusten luonnin ja kirjautumisen jälkeen avautuu MyCSC-portaalin hallintanäkymä.
-
-![](img/mycsc_portal.png)
+Projekteja hallinnoidaan MyCSC-portaalin kautta. Palvelu löytyy osoitteesta <https://my.csc.fi>. Palvelun käyttäminen vaatii oman CSC-tunnuksen, joka on otettavissa käyttöön korkeakoulujen Haka-kirjautumispalvelun avulla (ks. luku [Käyttäjätili](index.md#kayttajatili)). 
 
 ## Uuden MyCSC-projektin perustaminen
 
@@ -29,6 +16,7 @@ Painike avaa uuden projektin luontinäkymän.
 ![](img/mycsc_project_creation.png)
 
 Kurssiprojektista on hyvä huomioida seuraavat seikat:
+
 - Opetuskäytössä projektikategoriaksi tulee valita _Course_.
 -	Kurssin päättymispäivä voi olla korkeintaan kuuden kuukauden päässä luontipäivästä.
 -	Kurssiprojekti on kertakäyttöinen. Sitä ei voi jatkaa, kopioida eikä siihen voi pyytää lisäresursseja. Oletusresurssi projektille on 100 000 BU:ta.
@@ -37,7 +25,7 @@ Kurssiprojektista on hyvä huomioida seuraavat seikat:
 -	Kurssiprojektien palveluihin ei saa tallentaa henkilökohtaisia tietoja.
 
 BU eli Billing Unit on laskennallinen yksikkö, jolla seurataan resurssien käyttöä projektissa. Käyttö, yksikön nimestä huolimatta, on korkeakoulujen henkilökunnalle ja opiskelijoille opetuskäytössä ilmaista.
-Lisätietoa BU:sta löytyy osoitteesta https://docs.csc.fi/accounts/billing/ ja Rahti-palvelun resurssien käytöstä yksityiskohtaisempaa tietoa löytyy osoitteesta https://docs.csc.fi/cloud/rahti/billing/.
+Lisätietoa BU:sta löytyy osoitteesta <https://docs.csc.fi/accounts/billing/>. 
 
 ## Palvelujen valinta
 

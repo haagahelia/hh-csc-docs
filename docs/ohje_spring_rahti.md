@@ -188,40 +188,50 @@ Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
 oc secrets link builder id-rahti-build
 ```
 
-### Julkaisu Source-to-Image-työkaluilla
+### Sovelluksen luonti
 
-Projekti voidaan julkaista repositoriosta Source-to-Image-työkaluilla (S2I), jolloin kaikki tarvittavat resurssit luodaan automaattisesti ja saadaan valmis deployment-konfiguraatio.
+Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (_Source-to_Image_, _S2I_) tai projektissa määritetyn Dockerfile:n perusteella. 
 
-Seuraavassa esimerkissä käydään läpi sovelluksen julkaisu S21-työkaluja käyttäen. Kaikki komennot tehdään komentoriviltä.
+Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla tavoilla. Kaikki komennot tehdään komentoriviltä. 
 
-Luo ensin Rahti-projekti, kirjaudu Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.
+Kirjaudu ensin Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.
 
 ```bash
 oc project myproject
 ```
 
-S2I-työkalut tarvitsevat pääsyn projektin repositorioon. 
+#### Repositorio-oikeudet
+
+Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.
+
+Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella 
+
+```bash
+--source-secret=<github-creds-secret-name>
+```
+
+- `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen.
+
+#### Sovelluksen luonti Source-to-Image-työkaluilla
 
 Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
-```bash
-oc new-app fabric8/s2i-java~<repository-URL>#<branch-name>
+
 ```
-- `fabric8/s2i-java` on S2I-työkalulevykuva.
+oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name>
+```
+- `registry.access.redhat.com/ubi8/openjdk-17:1.18-2` on S2I-työkalulevykuva Java 17-sovelluksille
 - `<repositorio-URL>` on osoite, josta repositorion voi kloonata
 - `<branch-name>` on haara, josta julkaistaan.
 
-Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:
-
-```bash
-oc new-app fabric8/s2i-java~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
+Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
 ```
-- `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen
-
+oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
+```
 Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
 Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu. 
 
-Tämän jälkeen ov vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla `oc expose service`.
+Tämän jälkeen on vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:
 
 ```bash
 oc expose service <service-name>
@@ -230,7 +240,7 @@ oc expose service <service-name>
 
 Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
-### Julkaisu Dockerfile:n perusteella
+#### Sovelluksen luonti Dockerfilen perusteella
 
 Lisää Spring Boot projektin juureen tiedosto `Dockerfile`, jonka sisältö on seuraava:
 ```dockerfile
@@ -258,12 +268,11 @@ oc new-app <repository-URL>#<branch-name>
 - `<repository-URL>` on osoite, josta repositorion voi kloonata
 - `<branch-name>` on haara, josta julkaistaan.
 
-Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti. Sovelluksen luonnissa on annettava lisäksi tieto tarvittavasta SSH-avaimesta:
+Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
 
 ```bash
 oc new-app <repository-URL>#<branch-name> --source-secret=github-ticketguru
 ```
-- `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen
 
 Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
@@ -275,7 +284,7 @@ oc expose dc/<deployment-config-name> --port=8080
 ```
 - `<deployment-config-name>` on sovelluksen deployment config-nimi, sen voi tarkistaa web-käyttöliittymästä
 
-Service on luotu. tarvitaan vielä reitti:
+Kun service on luotu. tarvitaan vielä reitti:
 
 ```bash
 oc expose service <service-name>
@@ -286,7 +295,9 @@ Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. J
 
 ### Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
 
-Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristösta suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.
+Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristöstä suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). 
+
+Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.
 
 Lisäosan käyttöönotto on suoraviivaista: Lisää Spring Boot projektin pom.xml tiedostoon JKube-lisäosan määritys:
 
@@ -324,7 +335,7 @@ oc start-build <build-config-name>
 
 Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista
 
-#### Buildin automatisointi
+### Buildin automatisointi
 
 Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
 
