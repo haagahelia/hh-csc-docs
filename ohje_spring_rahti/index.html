@@ -459,11 +459,11 @@
 <p>Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esimerkissä luodussa avainparissa julkinen avain on tiedostossa nimeltä <code>id_rahti_build.pub</code>.</p>
 <p><img alt="" src="../img/github_add_deploy_key_ui.png"/></p>
 <p><em>Title</em> on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. </p>
-<p>Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  <code>id-rahti-build</code> ja yksityinen avain on tiedostossa <code>id_rahti_build</code>.</p>
-<pre><code class="language-bash">oc create secret generic id-rahti-build --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
+<p>Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  <code>github-secret</code> ja yksityinen avain on tiedostossa <code>id_rahti_build</code>.</p>
+<pre><code class="language-bash">oc create secret generic github-secret --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
 </code></pre>
 <p>Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun</p>
-<pre><code class="language-bash">oc secrets link builder id-rahti-build
+<pre><code class="language-bash">oc secrets link builder github-secret
 </code></pre>
 <h3 id="sovelluksen-luonti">Sovelluksen luonti</h3>
 <p>Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (<em>Source-to_Image</em>, <em>S2I</em>) tai projektissa määritetyn Dockerfile:n perusteella. </p>
