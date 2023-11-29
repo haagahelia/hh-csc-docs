@@ -177,15 +177,15 @@ Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esim
 
 _Title_ on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. 
 
-Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  `id-rahti-build` ja yksityinen avain on tiedostossa `id_rahti_build`.
+Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  `github-secret` ja yksityinen avain on tiedostossa `id_rahti_build`.
 
 ```bash
-oc create secret generic id-rahti-build --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
+oc create secret generic github-secret --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
 ```
 
 Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
 ```bash
-oc secrets link builder id-rahti-build
+oc secrets link builder github-secret
 ```
 
 ### Sovelluksen luonti
