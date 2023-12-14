@@ -11,6 +11,8 @@ theme:
     - navigation.tabs
     - toc.integrate
     - navigation.top
+  favicon: assets/favicon-192x192.png
+  logo: assets/haaga-helia.png
 extra_css:
   - stylesheets/extra.css
 plugins:
