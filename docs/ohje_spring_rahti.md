@@ -516,5 +516,17 @@ Tietokantaa voi tarkastella tietokantajärjestelmän komentorivityökaluilla tie
 $ mysql -u dbuser -p dbname
 ```
 
+## Projektin uudelleenluonti
+
+Jos sovelluksen luonti `oc new-app`-komennolla jostain syystä ei onnistu, komennon uudelleenyrittäminen voi olla hankalaa, koska joitakin resursseja on jo luotu.
+ 
+Helpointa saattaa olla poistaa koko Rahti-projekti ja luoda se alusta saakka uudelleen komentorivikomennnoin.
+
+Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on `myproj`.
+```
+oc delete project myproj
+oc new-project myproj --description='csc_project:200xxxx'
+```
+-  `xxxx` korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla
 
 
