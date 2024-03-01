@@ -276,20 +276,14 @@ oc new-app <repository-URL>#<branch-name> --source-secret=github-ticketguru
 
 Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva kontti.
-
-Vielä on luotava palvelu (_service_):
-```bash
-oc expose dc/<deployment-config-name> --port=8080
-```
-- `<deployment-config-name>` on sovelluksen deployment config-nimi, sen voi tarkistaa web-käyttöliittymästä
+Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti.
 
 Kun service on luotu. tarvitaan vielä reitti:
 
 ```bash
 oc expose service <service-name>
 ```
-- `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name>
+- `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin sovelluksen nimi. Sovelluksen palvelut voi katsoa web-käyttöliittymästä tai listata komennolla `oc get svc`.
 
 Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
@@ -470,6 +464,13 @@ Konfiguroinnin voi tehdä komentorivillä komennolla
 ```bash
 oc create route edge --service=<service-name>
 ``` 
+
+Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla 
+```bash
+oc delete route <route-name>
+```
+- `<route-name>` on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla `oc get route`.
+
 Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
 
 ![](img/rahti_routes.png)
