@@ -554,18 +554,12 @@ ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
 <pre><code class="language-bash">oc new-app &lt;repository-URL&gt;#&lt;branch-name&gt; --source-secret=github-ticketguru
 </code></pre>
 <p>Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.</p>
-<p>Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva kontti.</p>
-<p>Vielä on luotava palvelu (<em>service</em>):</p>
-<pre><code class="language-bash">oc expose dc/&lt;deployment-config-name&gt; --port=8080
-</code></pre>
-<ul>
-<li><code>&lt;deployment-config-name&gt;</code> on sovelluksen deployment config-nimi, sen voi tarkistaa web-käyttöliittymästä</li>
-</ul>
+<p>Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (<em>deployment configuration</em>), palvelu (<em>service</em>) sekä toivottavasti käynnissä oleva kontti.</p>
 <p>Kun service on luotu. tarvitaan vielä reitti:</p>
 <pre><code class="language-bash">oc expose service &lt;service-name&gt;
 </code></pre>
 <ul>
-<li><code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name></deployment-config-name></li>
+<li><code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin sovelluksen nimi. Sovelluksen palvelut voi katsoa web-käyttöliittymästä tai listata komennolla <code>oc get svc</code>.</li>
 </ul>
 <p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="#https-konfigurointi">HTTPS-konfigurointi</a></p>
 <h3 id="julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla">Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla</h3>
@@ -688,6 +682,12 @@ spring.jpa.hibernate.ddl-auto=update
 <p>Konfiguroinnin voi tehdä komentorivillä komennolla </p>
 <pre><code class="language-bash">oc create route edge --service=&lt;service-name&gt;
 </code></pre>
+<p>Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla </p>
+<pre><code class="language-bash">oc delete route &lt;route-name&gt;
+</code></pre>
+<ul>
+<li><code>&lt;route-name&gt;</code> on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla <code>oc get route</code>.</li>
+</ul>
 <p>Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.</p>
 <p><img alt="" src="../img/rahti_routes.png"/></p>
 <p><img alt="" src="../img/rahti_route_edit.png"/></p>
