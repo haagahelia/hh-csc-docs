@@ -47,11 +47,13 @@ Korvaa _\<projektinumero>_ oman MyCSC projektisi numerosarjalla.
 
 Kun painat _Create_, luodaan Rahti-projekti, johon voidaan määritellä tarvittavia palveluja ja resursseja.
 
-Rahti-projektit ovat henkilökohtaisia, eikä oletuksena näy muille. Projektiin kuitenkin mahdollista lisätä muita käyttäjiä heidän CSC tunnuksellaan _Resources/Membership_-asetuksen kautta.
+### Jäsenten lisääminen Rahti-projektiin
+
+Rahti-projektit ovat henkilökohtaisia, eivätkä ne oletusarvoisesti näy muille. Projektiin voidaan lisätä muita käyttäjiä heidän CSC-tunnuksillaan _Resources/Membership_-asetuksen kautta.
 
 ![](img/rahti_add_member.png)
 
-Opiskelija voi halutessaan lisätä esimerkiksi kurssin opettajan omaan projektiinsa.
+Voit Rahti-projektin omistajana näin lisätä projektitiimin jäsenet tai kurssin opettajan omaan projektiisi. 
 
 ### Openshift-komentorivityökalun asennus
 
