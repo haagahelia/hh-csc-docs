@@ -450,11 +450,13 @@
 <p><img alt="" src="../img/rahti_browse_catalog.png"/></p>
 <p>Tässä esimerkissä käytetään MySQL-vaihtoehtoa. </p>
 <p><em>Huom! Tarjolla olevat Ephemeral-versiot tietokantapalveluista käyttävät pelkästään väliaikaista tallennuskapasiteettia ja kaikki mahdolliset muutokset mm. tietokantaan häviävät samalla, kun kontin suoritus loppuu. Pysyvää tallennusta varten tulee valita "tavallinen" tietokantapalvelukontti ja sille dedikoitu Persistent Volume Claim (PVC) -tallennustila.</em></p>
-<p>Etene luontivelhon näkymässä ’Next’ painikkeella konfigurointikohtaan ja täytä kontille haluamasi asetukset. Asetuksista kannattaa täydentää ainakin:
--   <strong>Database Service Name</strong>: Tietokantapalvelun nimi. Tällä nimellä muut kontit löytävät palvelun.
--   <strong>MySQLConnection Username</strong>: Käyttäjätunnus sql-palvelimelle kirjautumiseen.
--   <strong>MySQL Connection Password</strong>: Salasana sql-palvelimelle kirjautumiseen.
--   <strong>MySQL Database Name</strong>. Luotavan tietokannan nimi.</p>
+<p>Etene luontivelhon näkymässä ’Next’ painikkeella konfigurointikohtaan ja täytä kontille haluamasi asetukset. Asetuksista kannattaa täydentää ainakin:</p>
+<ul>
+<li><strong>Database Service Name</strong>: Tietokantapalvelun nimi. Tällä nimellä muut kontit löytävät palvelun.</li>
+<li><strong>MySQLConnection Username</strong>: Käyttäjätunnus sql-palvelimelle kirjautumiseen.</li>
+<li><strong>MySQL Connection Password</strong>: Salasana sql-palvelimelle kirjautumiseen.</li>
+<li><strong>MySQL Database Name</strong>. Luotavan tietokannan nimi.</li>
+</ul>
 <p><img alt="" src="../img/mysql_configuration_dialog.png"/></p>
 <p>Luontivelho tarjoaa mahdollisuuden luoda tietokannan luonnin yhteydessä salaisuustiedosto (<em>secret</em>), johon talletetaan tietokannan konfiguraatiotiedot. </p>
 <p>Salaisuus kannattaa luoda, sillä sitä käyttäen luottamuksellisia konfiguraatiotietoja ei tarvitse tallettaa versionhallintaan, eikä niitä tarvitse lainkaan käsitellä suoraan vaan ne voidaan tarvittaessa lukea salaisuustiedostosta.</p>
