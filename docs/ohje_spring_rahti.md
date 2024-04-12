@@ -116,6 +116,7 @@ Tässä esimerkissä käytetään MySQL-vaihtoehtoa.
 _Huom! Tarjolla olevat Ephemeral-versiot tietokantapalveluista käyttävät pelkästään väliaikaista tallennuskapasiteettia ja kaikki mahdolliset muutokset mm. tietokantaan häviävät samalla, kun kontin suoritus loppuu. Pysyvää tallennusta varten tulee valita "tavallinen" tietokantapalvelukontti ja sille dedikoitu Persistent Volume Claim (PVC) -tallennustila._
 
 Etene luontivelhon näkymässä ’Next’ painikkeella konfigurointikohtaan ja täytä kontille haluamasi asetukset. Asetuksista kannattaa täydentää ainakin:
+
 -	__Database Service Name__: Tietokantapalvelun nimi. Tällä nimellä muut kontit löytävät palvelun.
 -	__MySQLConnection Username__: Käyttäjätunnus sql-palvelimelle kirjautumiseen.
 -	__MySQL Connection Password__: Salasana sql-palvelimelle kirjautumiseen.
@@ -213,6 +214,13 @@ Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luv
 ```
 
 - `<github-creds-secret-name>` on salaisuus, joka sisältää yksityisen SSH-avaimen.
+
+Tässä tapauksessa repositorion osoite pitää antaa SSH-muodossa, esim:
+
+```bash
+git@github.com:<user>/<repositorionimi>.git
+```
+![](./img/github_ssh_address.png)
 
 #### Sovelluksen luonti Source-to-Image-työkaluilla
 
