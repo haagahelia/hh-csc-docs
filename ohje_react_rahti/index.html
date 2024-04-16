@@ -445,82 +445,72 @@
 <p>Luo ensin Rahti-projekti, asenna tarvittavat työkalut ja kirjaudu Rahti-palveluun ohjeiden mukaisesti</p>
 <h2 id="react-sovelluksen-valmistelu-julkaisua-varten">React-sovelluksen valmistelu julkaisua varten</h2>
 <p>Julkaisu tehdään käyttäen Docker-konttia. Kontin levykuva tekee nesin React-buildin ja käynnistää sitten nginx-web-palvelimen jakamaan sovellusta.</p>
-<p>Lisää projektin juureen Dockerfile-niminen tiedosto, jonka sisältö on seuraava:</p>
-<pre><code class="language-dockerfile"># Use an official Node runtime as a parent image
-FROM node:19-alpine as build
-# Set the working directory to /app
-WORKDIR /app
-# Copy the package.json and package-lock.json to the container
-COPY package*.json ./
-# Install dependencies
-RUN npm ci
-# Copy the rest of the application code to the container
-COPY . .
-# Build the React app
-RUN npm run build
+<p>Lisää projektin juureen Dockerfile-niminen tiedosto, jonka sisältö on seuraava:
+<div class="highlight"><pre><span></span><code><span class="c"># Use an official Node runtime as a parent image</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:19-alpine</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">build</span>
+<span class="c"># Set the working directory to /app</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="c"># Copy the package.json and package-lock.json to the container</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+<span class="c"># Install dependencies</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>ci
+<span class="c"># Copy the rest of the application code to the container</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="c"># Build the React app</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
 
-FROM nginx:alpine
-# Support running as arbitrary user which belongs to the root group
-# Note that users are not allowed to listen on privileged ports (&lt; 1024)
-RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx &amp;&amp; \
-    chown nginx.root /var/cache/nginx /var/run /var/log/nginx &amp;&amp; \
-    # Make /etc/nginx/html/ available to use
-    mkdir -p /etc/nginx/html/ &amp;&amp; chmod 777 /etc/nginx/html/ &amp;&amp; \
-    # comment user directive as master process is run as user in OpenShift anyhow
-    sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
-# Copy React build to nginx HTML directory 
-COPY --from=build /app/&lt;build-dir&gt; /usr/share/nginx/html/
+<span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
+<span class="c"># Support running as arbitrary user which belongs to the root group</span>
+<span class="c"># Note that users are not allowed to listen on privileged ports (&lt; 1024)</span>
+<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>g+rwx<span class="w"> </span>/var/cache/nginx<span class="w"> </span>/var/run<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>chown<span class="w"> </span>nginx.root<span class="w"> </span>/var/cache/nginx<span class="w"> </span>/var/run<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>#<span class="w"> </span>Make<span class="w"> </span>/etc/nginx/html/<span class="w"> </span>available<span class="w"> </span>to<span class="w"> </span>use
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/nginx/html/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/etc/nginx/html/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>#<span class="w"> </span>comment<span class="w"> </span>user<span class="w"> </span>directive<span class="w"> </span>as<span class="w"> </span>master<span class="w"> </span>process<span class="w"> </span>is<span class="w"> </span>run<span class="w"> </span>as<span class="w"> </span>user<span class="w"> </span><span class="k">in</span><span class="w"> </span>OpenShift<span class="w"> </span>anyhow
+<span class="w">    </span>sed<span class="w"> </span>-i.bak<span class="w"> </span><span class="s1">&#39;s/^user/#user/&#39;</span><span class="w"> </span>/etc/nginx/nginx.conf
+<span class="c"># Copy React build to nginx HTML directory </span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/app/&lt;build-dir&gt;<span class="w"> </span>/usr/share/nginx/html/
 
-WORKDIR /usr/share/nginx/html/
-EXPOSE 8080
-USER nginx:root
-</code></pre>
-<ul>
-<li>Yllä <code>&lt;build-dir&gt;</code> on hakemisto, johon React build tehtiin. </li>
-</ul>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/share/nginx/html/</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
+<span class="k">USER</span><span class="w"> </span><span class="s">nginx:root</span>
+</code></pre></div>
+- Yllä <code>&lt;build-dir&gt;</code> on hakemisto, johon React build tehtiin. </p>
 <p>Konfiguroi tiedostoon oikea build-hakemisto: Vite-ympäristössä hakemisto on oletusarvoisesti <code>dist</code>, Create React App -ympäristössä <code>build</code></p>
-<p>Lisää projektin juureen nginx-konfiguraatiotiedosto <code>nginx.conf</code> seuraavalla sisällöllä:</p>
-<pre><code class="language-nginx">server {
-  listen 8080;
-  root /usr/share/nginx/html;
-  location / {
-    index  index.html
-    try_files $uri $uri/ /index.html;
-  }
-}
-</code></pre>
+<p>Lisää projektin juureen nginx-konfiguraatiotiedosto <code>nginx.conf</code> seuraavalla sisällöllä:
+<div class="highlight"><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kn">listen</span><span class="w"> </span><span class="mi">8080</span><span class="p">;</span>
+<span class="w">  </span><span class="kn">root</span><span class="w"> </span><span class="s">/usr/share/nginx/html</span><span class="p">;</span>
+<span class="w">  </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">index</span><span class="w">  </span><span class="s">index.html</span>
+<span class="w">    </span><span class="s">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>Voit testata Dockerfilen toimivuuden paikallisessa Docker-ympäristössä.</p>
 <h2 id="julkaisu">Julkaisu</h2>
 <p>Jotta tässä luvussa käytettäviä <code>oc</code>-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun <a href="#rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</a> ohjeiden mukaisesti.</p>
-<p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:</p>
-<pre><code class="language-bash">oc new-app &lt;repository-URL&gt;#&lt;branch-name&gt;
-</code></pre>
-<ul>
-<li><code>&lt;repository-URL&gt;</code> on osoite, josta repositorion voi kloonata</li>
-<li><code>&lt;branch-name&gt;</code> on haara, josta julkaistaan.</li>
-</ul>
+<p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-app<span class="w"> </span>&lt;repository-URL&gt;#&lt;branch-name&gt;
+</code></pre></div>
+- <code>&lt;repository-URL&gt;</code> on osoite, josta repositorion voi kloonata
+- <code>&lt;branch-name&gt;</code> on haara, josta julkaistaan.</p>
 <p>Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:</p>
-<pre><code class="language-bash">oc new-app &lt;repository-URL&gt;#&lt;branch-name&gt; --source-secret=&lt;github-secret&gt;
-</code></pre>
-<ul>
-<li><code>&lt;github-secret&gt;</code> on SSH-avaimen sisältävän salaisuuden nimi.</li>
-</ul>
+<p><div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-app<span class="w"> </span>&lt;repository-URL&gt;#&lt;branch-name&gt;<span class="w"> </span>--source-secret<span class="o">=</span>&lt;github-secret&gt;
+</code></pre></div>
+- <code>&lt;github-secret&gt;</code> on SSH-avaimen sisältävän salaisuuden nimi.</p>
 <p>Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.</p>
 <p>Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu.</p>
 <p>Kun palvelu on luotu. tarvitaan vielä reitti:</p>
-<pre><code class="language-bash">oc expose service &lt;service-name&gt;
-</code></pre>
-<ul>
-<li><code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name></li>
-</ul>
+<p><div class="highlight"><pre><span></span><code>oc<span class="w"> </span>expose<span class="w"> </span>service<span class="w"> </span>&lt;service-name&gt;
+</code></pre></div>
+- <code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name></p>
 <p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="#https-konfigurointi">HTTPS-konfigurointi</a></p>
 <h2 id="buildin-kaynnistaminen">Buildin käynnistäminen</h2>
-<p>Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä <code>oc</code>-komennolla.  </p>
-<pre><code class="language-bash">oc start-build &lt;build-config-name&gt;
-</code></pre>
-<ul>
-<li><code>&lt;build-config-name&gt;</code> on oletusarvoisesti sama kuin <code>&lt;deployment-config-name&gt;</code></li>
-</ul>
+<p>Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä <code>oc</code>-komennolla.<br />
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>start-build<span class="w"> </span>&lt;build-config-name&gt;
+</code></pre></div>
+- <code>&lt;build-config-name&gt;</code> on oletusarvoisesti sama kuin <code>&lt;deployment-config-name&gt;</code></p>
 <p>Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista</p>
 <h2 id="buildin-automatisointi">Buildin automatisointi</h2>
 <p>Jos sovellukselle on <em>build config</em>, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.</p>
