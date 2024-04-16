@@ -157,53 +157,28 @@ Tietokannan konfigurointi käsitellään seuraavassa luvussa.
 
 __Huom!__ Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
 
-### Julkaisu yksityisestä GitHub-repositoriosta
-
-Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti-palvelun build-työkalujen luettavissa. 
-
-Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.
-
-Julkaisua varten kannattaa luoda uusi SSH-avainpari juuri tätä projektia ja repositoriota varten. Henkilökohtaista SSH-avainta ei oel tarkoituksenmukaista käyttää julkaisuun, sillä julkaisuun tarvitaan yksityinen SSH-avain.
-
-Luo sopivaan hakemistoon projektin ulkopuolella uusi avainpari. Salasanaa ei pidä määrittää.
-
-```bash
-ssh-keygen -C "rahti-build@repo-url" -f id_rahti_build -N=""
-```
-- `-C` lisää  avaintiedostoon kommentin, josta selviää, mikä avain on kyseessä, tässä `rahti-build@repo-url`
-- `-f` määrittää tiedostonimen, tässä `id_rahti_build`
-- `-N` määrittää, että ei käytetä salasanaa
-
-Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esimerkissä luodussa avainparissa julkinen avain on tiedostossa nimeltä `id_rahti_build.pub`.
-
-![](img/github_add_deploy_key_ui.png)
-
-_Title_ on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. 
-
-Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  `github-secret` ja yksityinen avain on tiedostossa `id_rahti_build`.
-
-```bash
-oc create secret generic github-secret --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
-```
-
-Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
-```bash
-oc secrets link builder github-secret
-```
-
-### Sovelluksen luonti
-
-Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (_Source-to_Image_, _S2I_) tai projektissa määritetyn Dockerfile:n perusteella. 
-
-Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla tavoilla. Kaikki komennot tehdään komentoriviltä. 
-
 Kirjaudu ensin Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.
 
 ```bash
 oc project myproject
 ```
 
-#### Repositorio-oikeudet
+### Sovelluksen luonti repositoriosta
+
+Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön perusteella automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (_Source-to_Image_, _S2I_) tai projektissa määritetyn Dockerfile:n perusteella. 
+
+Uusi sovellus voidaan luoda komentorivikomennolla `oc new-app`. Komennolle annetaan parametrina repositorio-osoite, josta projekti käydään hakemassa. 
+
+#### Sovellusprojektin sijainti repositoriossa
+
+Build-työkalut olettavat, että sovellusprojekti sijaitsee repositorion juurihakemistossa. Jos näin ei ole, voidaan projektihakemisto antaa valitsinparametrilla:
+
+```bash
+--context-dir=<projektihakemisto>
+```
+- `<projektihakemisto>` on suhteellinen polku repositorion juuresta siihen hakemistoon, jossa sovellusprojekti sijaitsee, esim. `--context-dir=myproj`. 
+
+#### Yksityisen repositorion käyttö
 
 Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.
 
@@ -222,112 +197,87 @@ git@github.com:<user>/<repositorionimi>.git
 ```
 ![](./img/github_ssh_address.png)
 
-#### Sovelluksen luonti Source-to-Image-työkaluilla
+#### Sovelluksen luonti
 
-Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
+Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla edellä mainituilla tavoilla. Kaikki komennot tehdään komentoriviltä. 
 
-```
-oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name>
-```
-- `registry.access.redhat.com/ubi8/openjdk-17:1.18-2` on S2I-työkalulevykuva Java 17-sovelluksille
-- `<repositorio-URL>` on osoite, josta repositorion voi kloonata
-- `<branch-name>` on haara, josta julkaistaan.
+=== "Dockerfilen perusteella"
 
-Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
-```
-oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
-```
-Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
+    Lisää Spring Boot projektin juureen tiedosto `Dockerfile`, jonka sisältö on seuraava:
 
-Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu. 
+    ```dockerfile
+    FROM eclipse-temurin:17-jdk-focal as builder
+    WORKDIR /opt/app
+    COPY .mvn/ .mvn
+    COPY mvnw pom.xml ./
+    RUN chmod +x ./mvnw
+    RUN ./mvnw dependency:go-offline
+    COPY ./src ./src
+    RUN ./mvnw clean install -DskipTests 
+    RUN find ./target -type f -name '*.jar' -exec cp {} /opt/app/app.jar \; -quit
 
-Tämän jälkeen on vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:
+    FROM eclipse-temurin:17-jre-alpine
+    COPY --from=builder /opt/app/*.jar /opt/app/
+    EXPOSE 8080
+    ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
+    ``` 
+    Määritys on laadittu yleiskäyttöiseksi, sen pitäisi toimia missä tahansa Spring Boot -projektissa sellaisenaan.
 
-```bash
-oc expose service <service-name>
-```
-- `<service-name>` on palvelun nimi
+    Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
+    ```bash
+    oc new-app <repository-URL>#<branch-name>
+    ```
+    - `<repository-URL>` on osoite, josta repositorion voi kloonata
+    - `<branch-name>` on haara, josta julkaistaan.
 
-Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
+    Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
 
-#### Sovelluksen luonti Dockerfilen perusteella
+    ```bash
+    oc new-app <repository-URL>#<branch-name> --source-secret=github-ticketguru
+    ```
 
-Lisää Spring Boot projektin juureen tiedosto `Dockerfile`, jonka sisältö on seuraava:
-```dockerfile
-FROM eclipse-temurin:17-jdk-focal as builder
-WORKDIR /opt/app
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN chmod +x ./mvnw
-RUN ./mvnw dependency:go-offline
-COPY ./src ./src
-RUN ./mvnw clean install -DskipTests 
-RUN find ./target -type f -name '*.jar' -exec cp {} /opt/app/app.jar \; -quit
+    Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-FROM eclipse-temurin:17-jre-alpine
-COPY --from=builder /opt/app/*.jar /opt/app/
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
-``` 
-Määritys on laadittu yleiskäyttöiseksi, sen pitäisi toimia missä tahansa Spring Boot -projektissa sellaisenaan.
+    Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti.
 
-Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
-```bash
-oc new-app <repository-URL>#<branch-name>
-```
-- `<repository-URL>` on osoite, josta repositorion voi kloonata
-- `<branch-name>` on haara, josta julkaistaan.
+    Kun service on luotu. tarvitaan vielä reitti:
 
-Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
+    ```bash
+    oc expose service <service-name>
+    ```
+    - `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin sovelluksen nimi. Sovelluksen palvelut voi katsoa web-käyttöliittymästä tai listata komennolla `oc get svc`.
 
-```bash
-oc new-app <repository-URL>#<branch-name> --source-secret=github-ticketguru
-```
+    Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
-Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti.
+=== "Source-to-Image-työkaluilla"
 
-Kun service on luotu. tarvitaan vielä reitti:
+    Jos repositorio on julkinen, voit luoda projektiin sovelluksen (_application_) komennolla:
 
-```bash
-oc expose service <service-name>
-```
-- `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin sovelluksen nimi. Sovelluksen palvelut voi katsoa web-käyttöliittymästä tai listata komennolla `oc get svc`.
+    ```
+    oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name>
+    ```
+    - `registry.access.redhat.com/ubi8/openjdk-17:1.18-2` on S2I-työkalulevykuva Java 17-sovelluksille
+    - `<repositorio-URL>` on osoite, josta repositorion voi kloonata
+    - `<branch-name>` on haara, josta julkaistaan.
 
-Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
+    Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
+    ```
+    oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
+    ```
+    Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-### Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
+    Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu. 
 
-Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristöstä suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). 
+    Tämän jälkeen on vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:
 
-Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.
+    ```bash
+    oc expose service <service-name>
+    ```
+    - `<service-name>` on palvelun nimi
 
-Lisäosan käyttöönotto on suoraviivaista: Lisää Spring Boot projektin pom.xml tiedostoon JKube-lisäosan määritys:
+    Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
-```xml
-<build>
-	<plugins>
-
-		<plugin>
-			<groupId>org.eclipse.jkube</groupId>
-			<artifactId>openshift-maven-plugin</artifactId>
-		</plugin>
-
-	</plugins>
-</build>
-```
-
-Kirjaudu rahti-palveluun komentorivin kautta.Tämän jälkeen julkaisu voidaan tehdä maven -komennolla:
-
-``` bash
-./mvnw package oc:build oc:resource oc:apply
-```
-Komento valmistelee Java projektin, luo ja alustaa OpenShift ympäristöön soveltuvan kontin ja lataa kontin suoritukseen OpenShift ympäristöön.
-
-Komennon päättymisen jälkeen Rahti-projektin Overview-näkymästä voit saada tietoa julkaisun tilasta ja onnistumisesta, sekä löydät julkaistun palvelun URL-osoitteen.
-
-![](img/rahdit_project_overview_published.png)
 
 ### Buildin käynnistäminen
 
@@ -417,54 +367,6 @@ Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi `DB_USE
 
 Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty.
 
-### Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
-
-Koska OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on sitä käytettäessä määritykset tehtävä pluginin määritystiedostossa.
-
-Tarkista Rahti-palvelun hallintakäyttöliittymästä tietokannan luonnin yhteydessä luodun salaisuuden nimi. Tässä esimerkissä se on `mysql-secret`. 
-
-Lisää Spring sovelluksen hakemistorakenteeseen `src/main/jkube` tiedosto nimeltään `deployment.yml`.
-```
-spec:
-  template:
-    spec:
-      containers:
-        - env:
-            - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  key: database-user
-                  name: mysql-secret
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: database-password
-                  name: mysql-secret
-            - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  key: database-name
-                  name: mysql-secret
-            - name: SPRING_PROFILES_ACTIVE
-              value: rahti
-```
-
-Parametrien selitykset:
-- `name` on asetettavan ympäristömuuttujan nimi
-- `valueFrom.secretKeyRef.name` määrittää, minkä nimisestä salaisuudesta arvo luetaan. Vaihda tähän omasta ympäristöstäsi oikea salaisuuden nimi.
-- `valueFrom.secretKeyRef.key` määrittää, mistä salaisuuden kentästä arvo luetaan.
-- Lopuksi asetaan ympäristömuuttujan SPRING_PROFILES_ACTIVE arvoksi halutun profiilin nimi. Käytettävä Spring-profiili voidaan asettaa ympäristömuuttujalla SPRING_PROFILES_ACTIVE.
-
-Huomaa, että tiedostomuoto on YAML. Sen rakenteeseen on tarvittaessa hyvä hakea vinkkiä web-käyttöliittymästä valitsemalla tietokantapodin valikosta _Edit YAML_.
-
-Suorita uudelleen komento 
-```
- ./mvnw package oc:build oc:resource oc:apply
-```
-Rahti-projektin _Overview_-näkymässä voi seurata julkaisun etenemistä. Onnistuneen julkaisun jälkeen näkymässä näkyy, että sekä sovelluspalvelinkontti(Spring Boot-palvelin) että tietokantapalvelinkontti ovat käynnissä.
-
-![](img/rahti_publish_success.png)
-
 
 ## HTTPS-konfigurointi
 
@@ -541,3 +443,82 @@ oc new-project myproj --description='csc_project:200xxxx'
 -  `xxxx` korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla
 
 
+## Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
+
+Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristöstä suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). 
+
+Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.
+
+Lisäosan käyttöönotto on suoraviivaista: Lisää Spring Boot projektin pom.xml tiedostoon JKube-lisäosan määritys:
+
+```xml
+<build>
+	<plugins>
+
+		<plugin>
+			<groupId>org.eclipse.jkube</groupId>
+			<artifactId>openshift-maven-plugin</artifactId>
+		</plugin>
+
+	</plugins>
+</build>
+```
+
+Kirjaudu rahti-palveluun komentorivin kautta.Tämän jälkeen julkaisu voidaan tehdä maven -komennolla:
+
+``` bash
+./mvnw package oc:build oc:resource oc:apply
+```
+Komento valmistelee Java projektin, luo ja alustaa OpenShift ympäristöön soveltuvan kontin ja lataa kontin suoritukseen OpenShift ympäristöön.
+
+Komennon päättymisen jälkeen Rahti-projektin Overview-näkymästä voit saada tietoa julkaisun tilasta ja onnistumisesta, sekä löydät julkaistun palvelun URL-osoitteen.
+
+![](img/rahdit_project_overview_published.png)
+
+### Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
+
+Koska OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on sitä käytettäessä määritykset tehtävä pluginin määritystiedostossa.
+
+Tarkista Rahti-palvelun hallintakäyttöliittymästä tietokannan luonnin yhteydessä luodun salaisuuden nimi. Tässä esimerkissä se on `mysql-secret`. 
+
+Lisää Spring sovelluksen hakemistorakenteeseen `src/main/jkube` tiedosto nimeltään `deployment.yml`.
+```
+spec:
+  template:
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: mysql-secret
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: mysql-secret
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: mysql-secret
+            - name: SPRING_PROFILES_ACTIVE
+              value: rahti
+```
+
+Parametrien selitykset:
+- `name` on asetettavan ympäristömuuttujan nimi
+- `valueFrom.secretKeyRef.name` määrittää, minkä nimisestä salaisuudesta arvo luetaan. Vaihda tähän omasta ympäristöstäsi oikea salaisuuden nimi.
+- `valueFrom.secretKeyRef.key` määrittää, mistä salaisuuden kentästä arvo luetaan.
+- Lopuksi asetaan ympäristömuuttujan SPRING_PROFILES_ACTIVE arvoksi halutun profiilin nimi. Käytettävä Spring-profiili voidaan asettaa ympäristömuuttujalla SPRING_PROFILES_ACTIVE.
+
+Huomaa, että tiedostomuoto on YAML. Sen rakenteeseen on tarvittaessa hyvä hakea vinkkiä web-käyttöliittymästä valitsemalla tietokantapodin valikosta _Edit YAML_.
+
+Suorita uudelleen komento 
+```
+ ./mvnw package oc:build oc:resource oc:apply
+```
+Rahti-projektin _Overview_-näkymässä voi seurata julkaisun etenemistä. Onnistuneen julkaisun jälkeen näkymässä näkyy, että sekä sovelluspalvelinkontti(Spring Boot-palvelin) että tietokantapalvelinkontti ovat käynnissä.
+
+![](img/rahti_publish_success.png)

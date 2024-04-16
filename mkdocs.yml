@@ -22,4 +22,10 @@ plugins:
 markdown_extensions:
   - admonition
   - attr_list
-
+  - pymdownx.superfences:
+      custom_fences:
+            - name: mermaid
+              class: mermaid
+              format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.tabbed:
+      alternate_style: true
