@@ -2,16 +2,18 @@ site_name: CSC-palvelut Haaga-Heliassa
 nav:
   - Yleistä: index.md
   - Ohjeet opettajalle: ohje_opettaja.md
-  - Spring Boot-palvelun julkaisu: ohje_spring_rahti.md
-  - React-sovelluksen julkaisu: ohje_react_rahti.md
+  - Rahti:
+    - Rahti-palvelun yleiset ohjeet: ohje_yleinen_rahti.md
+    - Spring Boot-palvelun julkaisu: ohje_spring_rahti.md
+    - React-sovelluksen julkaisu: ohje_react_rahti.md
 theme: 
   name: material
   language: fi
   features:
     - content.code.copy
-    - navigation.tabs
-    - toc.integrate
+    - toc.follow
     - navigation.top
+
   favicon: assets/favicon-192x192.png
   logo: assets/haaga-helia.png
 extra_css:
