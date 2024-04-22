@@ -339,6 +339,13 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#julkaisu-yksityisesta-github-repositoriosta">
+<span class="md-ellipsis">
+      Julkaisu yksityisestä GitHub-repositoriosta
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla">
 <span class="md-ellipsis">
       Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
@@ -485,7 +492,7 @@ Korvaa <em>\<projektinumero></projektinumero></em> oman MyCSC projektisi numeros
 - <code>&lt;projektihakemisto&gt;</code> on suhteellinen polku repositorion juuresta siihen hakemistoon, jossa sovellusprojekti sijaitsee, esim. <code>--context-dir=myproj</code>. </p>
 <h4 id="yksityisen-repositorion-kaytto">Yksityisen repositorion käyttö</h4>
 <p>Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.</p>
-<p>Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun <a href="#julkaisu-yksityisestä-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</a> ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella </p>
+<p>Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun <a href="#julkaisu-yksityisesta-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</a> ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella </p>
 <div class="highlight"><pre><span></span><code>--source-secret<span class="o">=</span>&lt;github-creds-secret-name&gt;
 </code></pre></div>
 <ul>
@@ -646,8 +653,31 @@ PS<span class="w"> </span>&gt;<span class="w"> </span>oc<span class="w"> </span>
 <p>Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on <code>myproj</code>.
 <div class="highlight"><pre><span></span><code>oc delete project myproj
 oc new-project myproj --description='csc_project:200xxxx'
+</code></pre></div></p>
+<ul>
+<li><code>xxxx</code> korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla</li>
+</ul>
+<h2 id="julkaisu-yksityisesta-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</h2>
+<p>Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti-palvelun build-työkalujen luettavissa. </p>
+<p>Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.</p>
+<p>Julkaisua varten kannattaa luoda uusi SSH-avainpari juuri tätä projektia ja repositoriota varten. Henkilökohtaista SSH-avainta ei ole tarkoituksenmukaista käyttää julkaisuun, sillä julkaisuun tarvitaan yksityinen SSH-avain.</p>
+<p>Luo sopivaan hakemistoon projektin ulkopuolella uusi avainpari. Salasanaa ei pidä määrittää.</p>
+<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-C<span class="w"> </span><span class="s2">"rahti-build@repo-url"</span><span class="w"> </span>-f<span class="w"> </span>id_rahti_build<span class="w"> </span>-N<span class="o">=</span><span class="s2">""</span>
 </code></pre></div>
--  <code>xxxx</code> korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla</p>
+<ul>
+<li><code>-C</code> lisää  avaintiedostoon kommentin, josta selviää, mikä avain on kyseessä, tässä <code>rahti-build@repo-url</code></li>
+<li><code>-f</code> määrittää tiedostonimen, tässä <code>id_rahti_build</code></li>
+<li><code>-N</code> määrittää, että ei käytetä salasanaa</li>
+</ul>
+<p>Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esimerkissä luodussa avainparissa julkinen avain on tiedostossa nimeltä <code>id_rahti_build.pub</code>.</p>
+<p><img alt="" src="../img/github_add_deploy_key_ui.png"/></p>
+<p><em>Title</em> on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. </p>
+<p>Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  <code>github-secret</code> ja yksityinen avain on tiedostossa <code>id_rahti_build</code>.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>github-secret<span class="w"> </span>--from-file<span class="o">=</span>ssh-privatekey<span class="o">=</span>id_rahti_build<span class="w"> </span>--type<span class="o">=</span>kubernetes.io/ssh-auth
+</code></pre></div>
+<p>Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>secrets<span class="w"> </span>link<span class="w"> </span>builder<span class="w"> </span>github-secret
+</code></pre></div></p>
 <h2 id="julkaisu-paikallisesta-hakemistosta-jkube-openshift-maven-pluginilla">Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla</h2>
 <p>Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristöstä suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). </p>
 <p>Tätä julkaisua ei voi samalla tavoin automatisoida kuin GitHubista tehtäviä julkaisuja.</p>
