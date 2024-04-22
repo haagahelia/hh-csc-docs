@@ -70,8 +70,7 @@ Jatkossa oletetaan, että `oc`-työkalu on asennettu polkuun.
 Kopioi `oc.exe` johonkin hakemistoon koneellasi (esimerkissä `c:\openshift\CLI`) ja lisää hakemisto polkuun.
 
 ```powershell
-$Path = [Environment]::GetEnvironmentVariable("PATH", "User") + [IO.Path]::PathSeparator + "C:\openshift\CLI"
-[Environment]::SetEnvironmentVariable( "Path", $Path, "User" )
+$Path = [Environment]::GetEnvironmentVariable("PATH", "User") + [IO.Path]::PathSeparator + "C:\openshift\CLI" [Environment]::SetEnvironmentVariable( "Path", $Path, "User" )
 ```
 
 ### Rahti-palveluun kirjautuminen komentorivillä
