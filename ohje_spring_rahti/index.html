@@ -615,6 +615,9 @@ spring.jpa.hibernate.ddl-auto=update
 <p>Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty.</p>
 <h2 id="https-konfigurointi">HTTPS-konfigurointi</h2>
 <p>Julkaistu palvelu tarjotaan oletusarvoisesti vain HTTP-protokollalla. Palvelu voidaan konfiguroida tarjottavaksi myös HTTPS-protokollalla tai pelkästään HTTPS-protokollalla.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Komentorivillä</label><label for="__tabbed_2_2">Web-käyttöliittymässä</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>Konfiguroinnin voi tehdä komentorivillä komennolla 
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>route<span class="w"> </span>edge<span class="w"> </span>--service<span class="o">=</span>&lt;service-name&gt;
 </code></pre></div></p>
@@ -622,11 +625,16 @@ spring.jpa.hibernate.ddl-auto=update
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>route<span class="w"> </span>&lt;route-name&gt;
 </code></pre></div>
 - <code>&lt;route-name&gt;</code> on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla <code>oc get route</code>.</p>
+</div>
+<div class="tabbed-block">
 <p>Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.</p>
 <p><img alt="" src="../img/rahti_routes.png"/></p>
 <p><img alt="" src="../img/rahti_route_edit.png"/></p>
 <p>Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.</p>
 <p><img alt="" src="../img/rahti_route_enable_tls.png"/></p>
+</div>
+</div>
+</input></input></div>
 <p>Lisätietoa: <a href="https://docs.csc.fi/cloud/rahti/networking/">Rahti Docs: Networking</a></p>
 <h2 id="virheenjaljitys">Virheenjäljitys</h2>
 <p>Käynnissä olevien konttien (<em>pod</em>) tietoja voidaan tarkastella Rahti-palvelun hallintaliittymässä.</p>
