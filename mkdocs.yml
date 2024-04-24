@@ -2,14 +2,21 @@ site_name: CSC-palvelut Haaga-Heliassa
 nav:
   - Aloitus: index.md
   - Ohjeet opettajalle: ohje_opettaja.md
-  - Rahti:
-    - Yleiset ohjeet: ohje_yleinen_rahti.md
-    - Spring Boot: 
-      - Palvelun julkaisu ilman tietokantaa: ohje_spring_rahti_ilman_tietokantaa.md
-      - Palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua: ohje_spring_rahti_tietokannan_konfigurointi.md
   - Reseptit:
-    - Spring Boot -palvelun julkaiseminen Rahti-ympäristössä: resepti_spring_rahti.md
-    - React-sovelluksen julkaisu: ohje_react_rahti.md
+    - resepti_spring_rahti.md
+    - ohje_react_rahti.md
+  - Rahti:
+    - Yleiset ohjeet: 
+      - ohje_rahti_projektin_luonti.md
+      - ohje_rahti_komentorivityokalun_kaytto.md
+      - ohje_rahti_tietokantapalvelun_luominen.md
+      - ohje_rahti_https_konfigurointi.md
+      - ohje_rahti_julkaisu_yksityisesta_repositoriosta.md
+      - ohje_rahti_virheenjaljitys.md 
+    - Spring Boot -ohjeet: 
+      - ohje_spring_rahti_ilman_tietokantaa.md
+      - ohje_spring_rahti_tietokannan_konfigurointi.md
+      - ohje_spring_rahti_jkube_plugin.md
 theme: 
   name: material
   language: fi

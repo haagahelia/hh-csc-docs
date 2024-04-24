@@ -1,4 +1,4 @@
-## Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
+# Julkaisu paikallisesta hakemistosta JKube OpenShift Maven pluginilla
 
 Eclipse JKube on kokoelma lisäosia ja kirjastoja, joiden avulla helpotetaan Java-ohjelmistojen kontittamista ja julkaisua OpenShift konttipalveluun. JKube OpenShift Maven pluginilla voidaan julkaista sovellus kehitysympäristöstä suoraan paikallisesta hakemistosta (siis ei GitHub-repositoriosta). 
 
@@ -30,7 +30,7 @@ Komennon päättymisen jälkeen Rahti-projektin Overview-näkymästä voit saada
 
 ![](img/rahdit_project_overview_published.png)
 
-### Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
+## Ympäristömuuttujien asettaminen JKube OpenShift Maven pluginia käytettäessä
 
 Koska OpenShift Maven plugin yliajaa kaikki web-käyttöliittymässä tehdyt konttiasetukset, on sitä käytettäessä määritykset tehtävä pluginin määritystiedostossa.
 
