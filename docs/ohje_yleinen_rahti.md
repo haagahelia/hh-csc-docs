@@ -95,3 +95,111 @@ Salaisuudet (ja muut vastaavat resurssit) löytyvät Rahti-palvelun web-käyttö
 
 ![](img/rahti_resources_secret.png)
 
+## HTTPS-konfigurointi
+
+Julkaistu palvelu tarjotaan oletusarvoisesti vain HTTP-protokollalla. Palvelu voidaan konfiguroida tarjottavaksi myös HTTPS-protokollalla tai pelkästään HTTPS-protokollalla.
+
+Konfiguroinnin voi tehdä komentorivillä komennolla 
+```bash
+oc create route edge --service=<service-name>
+``` 
+
+Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla 
+```bash
+oc delete route <route-name>
+```
+- `<route-name>` on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla `oc get route`.
+
+Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
+
+![](img/rahti_routes.png)
+
+![](img/rahti_route_edit.png )
+
+Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
+
+![](img/rahti_route_enable_tls.png)
+
+Lisätietoa: [Rahti Docs: Networking](https://docs.csc.fi/cloud/rahti/networking/)
+
+
+## Virheenjäljitys
+
+Käynnissä olevien konttien (_pod_) tietoja voidaan tarkastella Rahti-palvelun hallintaliittymässä.
+
+Käynnissä olevat kontit löytyvät helposti Overview-näkymästä.
+
+![](img/rahti_overview_pods_highlight.png)
+
+Lokeja voi tarkastella välilehdellä _Logs_:
+
+![](img/rahti_pod_log.png)
+
+Konttiin saa pääteyhteyden välilehdellä _Terminal_:
+
+![](img/rahti_pod_terminal.png)
+
+Konttiin saa ssh-yhteyden myös komentorivillä komennolla `oc rsh <nimi>`. Projektin kontit voi listata komennolla `oc get pods`.
+
+```bash
+PS > oc get pods
+NAME                  READY     STATUS      RESTARTS   AGE
+dbservice-1-p2smq     1/1       Running     0          4h
+ticketguru-11-sbqhn   1/1       Running     0          1h
+PS > oc rsh ticketguru-11-sbqhn
+~ $ 
+```
+
+Tietokantaa voi tarkastella tietokantajärjestelmän komentorivityökaluilla tietokantakontin pääteyhteydellä, esim. 
+```bash
+$ mysql -u dbuser -p dbname
+```
+
+## Projektin uudelleenluonti
+
+Jos sovelluksen luonti `oc new-app`-komennolla jostain syystä ei onnistu, komennon uudelleenyrittäminen voi olla hankalaa, koska joitakin resursseja on jo luotu.
+ 
+Helpointa saattaa olla poistaa koko Rahti-projekti ja luoda se alusta saakka uudelleen komentorivikomennnoin.
+
+Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on `myproj`.
+```
+oc delete project myproj
+oc new-project myproj --description='csc_project:200xxxx'
+```
+-  `xxxx` korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla
+
+
+## Julkaisu yksityisestä GitHub-repositoriosta
+
+Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti-palvelun build-työkalujen luettavissa. 
+
+Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.
+
+Julkaisua varten kannattaa luoda uusi SSH-avainpari juuri tätä projektia ja repositoriota varten. Henkilökohtaista SSH-avainta ei ole tarkoituksenmukaista käyttää julkaisuun, sillä julkaisuun tarvitaan yksityinen SSH-avain.
+
+Luo sopivaan hakemistoon projektin ulkopuolella uusi avainpari. Salasanaa ei pidä määrittää.
+
+```bash
+ssh-keygen -C "rahti-build@repo-url" -f id_rahti_build -N=""
+```
+
+- `-C` lisää  avaintiedostoon kommentin, josta selviää, mikä avain on kyseessä, tässä `rahti-build@repo-url`
+- `-f` määrittää tiedostonimen, tässä `id_rahti_build`
+- `-N` määrittää, että ei käytetä salasanaa
+
+Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esimerkissä luodussa avainparissa julkinen avain on tiedostossa nimeltä `id_rahti_build.pub`.
+
+![](img/github_add_deploy_key_ui.png)
+
+_Title_ on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. 
+
+Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  `github-secret` ja yksityinen avain on tiedostossa `id_rahti_build`.
+
+```bash
+oc create secret generic github-secret --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
+```
+
+Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
+```bash
+oc secrets link builder github-secret
+```
