@@ -371,27 +371,30 @@ Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristöm
 
 Julkaistu palvelu tarjotaan oletusarvoisesti vain HTTP-protokollalla. Palvelu voidaan konfiguroida tarjottavaksi myös HTTPS-protokollalla tai pelkästään HTTPS-protokollalla.
 
-Konfiguroinnin voi tehdä komentorivillä komennolla 
-```bash
-oc create route edge --service=<service-name>
-``` 
+=== "Komentorivillä"
 
-Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla 
-```bash
-oc delete route <route-name>
-```
-- `<route-name>` on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla `oc get route`.
+    Konfiguroinnin voi tehdä komentorivillä komennolla 
+    ```bash
+    oc create route edge --service=<service-name>
+    ``` 
 
-Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
+    Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla 
+    ```bash
+    oc delete route <route-name>
+    ```
+    - `<route-name>` on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla `oc get route`.
 
-![](img/rahti_routes.png)
+=== "Web-käyttöliittymässä"
 
-![](img/rahti_route_edit.png )
+    Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
 
-Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
+    ![](img/rahti_routes.png)
 
-![](img/rahti_route_enable_tls.png)
+    ![](img/rahti_route_edit.png )
 
+    Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
+
+    ![](img/rahti_route_enable_tls.png)
 
 
 Lisätietoa: [Rahti Docs: Networking](https://docs.csc.fi/cloud/rahti/networking/)
