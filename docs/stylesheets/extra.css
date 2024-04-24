@@ -3,3 +3,12 @@ img:not(nav *) {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.md-typeset h1 {
+  color:var(--md-default-fg-color);
+ }
+ 
+ .md-typeset h1,
+ .md-typeset h2 {
+  font-weight:400;
+ }
+ 
