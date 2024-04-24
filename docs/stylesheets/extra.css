@@ -12,3 +12,6 @@ img:not(nav *) {
   font-weight:400;
  }
  
+.tabbed-content {
+  border-bottom: 0.1rem solid #e5e7eb;
+}

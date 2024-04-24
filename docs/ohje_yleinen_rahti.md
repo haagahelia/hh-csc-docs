@@ -99,26 +99,31 @@ Salaisuudet (ja muut vastaavat resurssit) löytyvät Rahti-palvelun web-käyttö
 
 Julkaistu palvelu tarjotaan oletusarvoisesti vain HTTP-protokollalla. Palvelu voidaan konfiguroida tarjottavaksi myös HTTPS-protokollalla tai pelkästään HTTPS-protokollalla.
 
-Konfiguroinnin voi tehdä komentorivillä komennolla 
-```bash
-oc create route edge --service=<service-name>
-``` 
+=== "Komentorivillä"
 
-Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla 
-```bash
-oc delete route <route-name>
-```
-- `<route-name>` on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla `oc get route`.
+    Konfiguroinnin voi tehdä komentorivillä komennolla 
+    ```bash
+    oc create route edge --service=<service-name>
+    ``` 
 
-Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
+    Jos olet jo luonut suojaamattoman reitin eikä komento siksi onnistu, voit poistaa vanhan reitin komennolla 
+    ```bash
+    oc delete route <route-name>
+    ```
 
-![](img/rahti_routes.png)
+    - `<route-name>` on reitin nimi. Reitin nimi on oletusarvoisesti sama kuin palvelun nimi. Voit listata olemassaolevat reitit komennolla `oc get route`.
 
-![](img/rahti_route_edit.png )
+=== "Web-käyttöliittymässä"
 
-Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
+    Web-käyttöliittymässä määritys tehdään Rahti-sovelluksen Route-määrittelyssä.
 
-![](img/rahti_route_enable_tls.png)
+    ![](img/rahti_routes.png)
+
+    ![](img/rahti_route_edit.png )
+
+    Reitille voidaan konfiguroida TLS käyttöön. Jos sertifikaatin jättää määrittämättä, käytetään oletussertifikaattia. HTTP-liikenteen voi joko sallia, estää tai uudelleenohjata.
+
+    ![](img/rahti_route_enable_tls.png)
 
 Lisätietoa: [Rahti Docs: Networking](https://docs.csc.fi/cloud/rahti/networking/)
 
@@ -162,10 +167,12 @@ Jos sovelluksen luonti `oc new-app`-komennolla jostain syystä ei onnistu, komen
 Helpointa saattaa olla poistaa koko Rahti-projekti ja luoda se alusta saakka uudelleen komentorivikomennnoin.
 
 Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on `myproj`.
+
 ```
 oc delete project myproj
 oc new-project myproj --description='csc_project:200xxxx'
 ```
+
 -  `xxxx` korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla
 
 
