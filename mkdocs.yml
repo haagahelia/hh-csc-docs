@@ -1,7 +1,8 @@
 site_name: CSC-palvelut Haaga-Heliassa
 nav:
   - Aloitus: index.md
-  - Ohjeet opettajalle: ohje_opettaja.md
+  - ohje_opettaja.md
+  - ohje_opiskelija.md
   - Reseptit:
     - resepti_spring_rahti.md
     - ohje_react_rahti.md
