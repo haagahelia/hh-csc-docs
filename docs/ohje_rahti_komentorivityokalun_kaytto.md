@@ -27,9 +27,11 @@ Kirjautumiskomennon saa web käyttöliittymänäkymän oikeasta yläkulmasta _om
 
 ![](img/rahti_copy_login_command.png)
 
-Liitä komento leikepöydältä paikallisen koneesi komentoriville ja suorita se projektin juurihakemistossa.  
+Turvallisuussyistä Rahti-palvelu pyytää käyttäjää kirjautumaan palveluun uudelleen.
+
+Uudelleenkirjautumisen jälkeen, klikkaa 'Display Token' linkkiä ja liitä komento leikepöydältä paikallisen koneesi komentoriville ja suorita se projektin juurihakemistossa.  
 
 Huom! Jos `oc`-komento ei ole polussa, voi olla tarpeen antaa komennonlle myös polku, esim.
 ```bash
-./oc login https://rahti.csc.fi:8443 -token=...
+./oc login https://api.2.rahti.csc.fi:6443 -token=...
 ```
