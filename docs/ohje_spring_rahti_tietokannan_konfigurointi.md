@@ -2,7 +2,7 @@
 
 Seuraavassa esimerkissä konfiguroidaan Spring Boot -palvelin käyttämään projektiin luotua tietokantapalvelua.
 
-Esimerkissä palvelimessa käytettävän tietokannan asetukset hallitaan käyttämällä Spring-profiileja: tietokantakonfiguraatiota varten määritellään oma profiili, joka määritellään käyttöön julkaisuympäristössä.
+Esimerkissä palvelimessa käytettävän tietokannan asetukset hallitaan käyttämällä _Spring-profiileja_: julkaisun tietokantakonfiguraatiota varten määritellään oma profiili, joka määritellään otettavaksi käyttöön julkaisuympäristössä.
 
 ## Julkaisuprofiilin luonti Spring-projektiin
 
@@ -42,7 +42,9 @@ Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit mää
 
 Ympäristömuuttujan arvon voidaan määritellä suoraan tai valita sen jostain projektiin luodusta salaisuudesta. 
 
-Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi `DB_USER` ja salasana `DB_PASSWORD` sekä tietokannan nimi `DB_NAME` luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. Aktiivisen profiilin asettavan ympäristömuuttujan arvo `SPRING_PROFILES_ACTIVE` annetaan suoraan.
+Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi `DB_USER` ja salasana `DB_PASSWORD` sekä tietokannan nimi `DB_NAME` luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. 
 
-Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty.
+Ympäristömuuttuja `SPRING_PROFILES_ACTIVE` määrittää, mikä profiili asetetaan aktiiviseksi. Sen arvoksi määritetään suoraan julkaisuprofiilin nimi.  
+
+Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty ja Spring ottaa oikean profiilin käyttöön.
 

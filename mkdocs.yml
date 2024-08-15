@@ -9,7 +9,7 @@ nav:
   - Rahti:
     - Yleiset ohjeet: 
       - ohje_rahti_projektin_luonti.md
-      - ohje_rahti_komentorivityokalun_kaytto.md
+      - ohje_rahti_komentorivityokalun_asennus.md
       - ohje_rahti_tietokantapalvelun_luominen.md
       - ohje_rahti_https_konfigurointi.md
       - ohje_rahti_julkaisu_yksityisesta_repositoriosta.md
@@ -40,6 +40,6 @@ markdown_extensions:
       custom_fences:
             - name: mermaid
               class: mermaid
-              format: !!python/name:pymdownx.superfences.fence_div_format
+              format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true

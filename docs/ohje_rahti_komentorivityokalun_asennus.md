@@ -1,4 +1,4 @@
-# Komentorivityökalun käyttö
+# Komentorivityökalun asennus ja käyttö
 
 ## Openshift-komentorivityökalun asennus
 

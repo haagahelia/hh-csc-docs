@@ -4,7 +4,7 @@ Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tie
 
 Tietokannan konfigurointi käsitellään seuraavassa luvussa.
 
-__Huom!__ Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
+__Huom!__ Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](ohje_rahti_komentorivityokalun_asennus.md#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
 
 Kirjaudu ensin Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.
 
@@ -12,26 +12,26 @@ Kirjaudu ensin Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiivi
 oc project myproject
 ```
 
-## Sovelluksen luonti repositoriosta
+## Sovelluksen luonti
 
-Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön perusteella automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (_Source-to_Image_, _S2I_) tai projektissa määritetyn Dockerfile:n perusteella. 
+Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön perusteella automaattisesti. Resurssit voidaan luoda joko suoraan lähdekoodin perusteella (_Source-to-Image_, _S2I_) tai projektissa määritetyn Dockerfile:n perusteella. 
 
 Uusi sovellus voidaan luoda komentorivikomennolla `oc new-app`. Komennolle annetaan parametrina repositorio-osoite, josta projekti käydään hakemassa. 
 
 ### Sovellusprojektin sijainti repositoriossa
 
-Build-työkalut olettavat, että sovellusprojekti sijaitsee repositorion juurihakemistossa. Jos näin ei ole, voidaan projektihakemisto antaa valitsinparametrilla:
+Build-työkalut olettavat, että sovellusprojekti sijaitsee repositorion juurihakemistossa. Jos näin ei ole, voidaan projektihakemisto antaa `oc new-app`-komennossa valitsinparametrilla `--context-dir`:
 
 ```bash
 --context-dir=<projektihakemisto>
 ```
 - `<projektihakemisto>` on suhteellinen polku repositorion juuresta siihen hakemistoon, jossa sovellusprojekti sijaitsee, esim. `--context-dir=myproj`. 
 
-### Yksityisen repositorion käyttö
+### Repositorio-oikeudet
 
 Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.
 
-Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](ohje_yleinen_rahti.md#julkaisu-yksityisestä-github-repositoriosta) ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella 
+Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](ohje_rahti_julkaisu_yksityisesta_repositoriosta.md) ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella 
 
 ```bash
 --source-secret=<github-creds-secret-name>
@@ -46,9 +46,9 @@ git@github.com:<user>/<repositorionimi>.git
 ```
 ![](./img/github_ssh_address.png)
 
-### Sovelluksen luonti
+### Sovelluksen luontikomennot
 
-Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla edellä mainituilla tavoilla. Kaikki komennot tehdään komentoriviltä. 
+Seuraavissa esimerkeissä käydään läpi sovelluksen luonti molemmilla edellä mainituilla tavoilla. Kaikki komennot tehdään komentoriviltä. 
 
 === "Dockerfilen perusteella"
 
@@ -82,22 +82,8 @@ Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla edell
     Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:
 
     ```bash
-    oc new-app <repository-URL>#<branch-name> --source-secret=github-ticketguru
+    oc new-app <repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
     ```
-
-    Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
-
-    Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti.
-
-    Kun service on luotu. tarvitaan vielä reitti:
-
-    ```bash
-    oc expose service <service-name>
-    ```
-    - `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin sovelluksen nimi. Sovelluksen palvelut voi katsoa web-käyttöliittymästä tai listata komennolla `oc get svc`.
-
-    Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
-
 
 === "Source-to-Image-työkaluilla"
 
@@ -114,19 +100,19 @@ Seuraavissa esimerkeissä käydään läpi sovelluksen julkaisu molemmilla edell
     ```
     oc new-app registry.access.redhat.com/ubi8/openjdk-17:1.18-2~<repository-URL>#<branch-name> --source-secret=<github-creds-secret-name>
     ```
-    Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-    Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu. 
+Komennon tuloksena syntyy _build config_ ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-    Tämän jälkeen on vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:
+Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti. Jos näin ei ole, tilannetta voi selvitellä luvun [Virheenjäljitys](ohje_rahti_virheenjaljitys.md) ohjeiden avulla.
 
-    ```bash
-    oc expose service <service-name>
-    ```
-    - `<service-name>` on palvelun nimi
+Tämän jälkeen on vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:
 
-    Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
+```bash
+oc expose service <service-name>
+```
+- `<service-name>` on äsken luodun palvelun nimi, oletusarvoisesti sama kuin sovelluksen nimi. Sovelluksen palvelut voi katsoa web-käyttöliittymästä tai listata komennolla `oc get svc`.
 
+Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
 ## Buildin käynnistäminen
 
