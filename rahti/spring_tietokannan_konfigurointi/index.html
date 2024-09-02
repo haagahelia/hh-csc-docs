@@ -9,18 +9,22 @@
       
       
       
+        <link rel="prev" href="../spring_ilman_tietokantaa/">
       
       
-      <link rel="icon" href="/assets/favicon-192x192.png">
+        <link rel="next" href="../spring_jkube_plugin/">
+      
+      
+      <link rel="icon" href="../../assets/favicon-192x192.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.10">
     
     
       
-        <title>CSC-palvelut Haaga-Heliassa</title>
+        <title>Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua - CSC-palvelut Haaga-Heliassa</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.fad675c6.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fad675c6.min.css">
       
       
 
@@ -39,9 +43,9 @@
       
     
     
-      <link rel="stylesheet" href="/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -62,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#spring-boot-palvelimen-konfigurointi-kayttamaan-ulkoista-tietokantapalvelua" class="md-skip">
+          Hyppää sisältöön
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -74,9 +83,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="CSC-palvelut Haaga-Heliassa" class="md-header__button md-logo" aria-label="CSC-palvelut Haaga-Heliassa" data-md-component="logo">
+    <a href="../.." title="CSC-palvelut Haaga-Heliassa" class="md-header__button md-logo" aria-label="CSC-palvelut Haaga-Heliassa" data-md-component="logo">
       
-  <img src="/assets/haaga-helia.png" alt="logo">
+  <img src="../../assets/haaga-helia.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -93,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
             
           </span>
         </div>
@@ -165,9 +174,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="CSC-palvelut Haaga-Heliassa" class="md-nav__button md-logo" aria-label="CSC-palvelut Haaga-Heliassa" data-md-component="logo">
+    <a href="../.." title="CSC-palvelut Haaga-Heliassa" class="md-nav__button md-logo" aria-label="CSC-palvelut Haaga-Heliassa" data-md-component="logo">
       
-  <img src="/assets/haaga-helia.png" alt="logo">
+  <img src="../../assets/haaga-helia.png" alt="logo">
 
     </a>
     CSC-palvelut Haaga-Heliassa
@@ -181,7 +190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -200,7 +209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/opettajan_ohje/" class="md-nav__link">
+      <a href="../../opettajan_ohje/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -219,7 +228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/opiskelijan_ohje/" class="md-nav__link">
+      <a href="../../opiskelijan_ohje/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -274,7 +283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/reseptit/spring_rahti/" class="md-nav__link">
+      <a href="../../reseptit/spring_rahti/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -294,7 +303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/reseptit/react_rahti/" class="md-nav__link">
+      <a href="../../reseptit/react_rahti/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -319,18 +328,20 @@
       
   
   
+    
+  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -344,7 +355,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rahti
@@ -393,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/projektin_luonti/" class="md-nav__link">
+      <a href="../projektin_luonti/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -413,7 +424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/komentorivityokalun_asennus/" class="md-nav__link">
+      <a href="../komentorivityokalun_asennus/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -433,7 +444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/tietokantapalvelun_luominen/" class="md-nav__link">
+      <a href="../tietokantapalvelun_luominen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -453,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/https_konfigurointi/" class="md-nav__link">
+      <a href="../https_konfigurointi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -473,7 +484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/buildin_automatisointi/" class="md-nav__link">
+      <a href="../buildin_automatisointi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -493,7 +504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/julkaisu_yksityisesta_repositoriosta/" class="md-nav__link">
+      <a href="../julkaisu_yksityisesta_repositoriosta/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -513,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/virheenjaljitys/" class="md-nav__link">
+      <a href="../virheenjaljitys/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -539,18 +550,20 @@
                 
   
   
+    
+  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -564,7 +577,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Spring Boot -ohjeet
@@ -577,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/spring_ilman_tietokantaa/" class="md-nav__link">
+      <a href="../spring_ilman_tietokantaa/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -595,9 +608,29 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/rahti/spring_tietokannan_konfigurointi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -606,6 +639,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Sisällysluettelo">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sisällysluettelo
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#julkaisuprofiilin-luonti-spring-projektiin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Julkaisuprofiilin luonti Spring-projektiin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ymparistomuuttujien-asettaminen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ympäristömuuttujien asettaminen
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -617,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/spring_jkube_plugin/" class="md-nav__link">
+      <a href="../spring_jkube_plugin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -681,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/rahti/react_julkaiseminen/" class="md-nav__link">
+      <a href="../react_julkaiseminen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -727,6 +798,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sisällysluettelo
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#julkaisuprofiilin-luonti-spring-projektiin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Julkaisuprofiilin luonti Spring-projektiin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ymparistomuuttujien-asettaminen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ympäristömuuttujien asettaminen
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -738,8 +837,44 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="spring-boot-palvelimen-konfigurointi-kayttamaan-ulkoista-tietokantapalvelua">Spring Boot -palvelimen konfigurointi käyttämään ulkoista tietokantapalvelua</h1>
+<p>Seuraavassa esimerkissä konfiguroidaan Spring Boot -palvelin käyttämään projektiin luotua tietokantapalvelua.</p>
+<p>Esimerkissä palvelimessa käytettävän tietokannan asetukset hallitaan käyttämällä <em>Spring-profiileja</em>: julkaisun tietokantakonfiguraatiota varten määritellään oma profiili, joka määritellään otettavaksi käyttöön julkaisuympäristössä.</p>
+<h2 id="julkaisuprofiilin-luonti-spring-projektiin">Julkaisuprofiilin luonti Spring-projektiin</h2>
+<p>Profiili voidaan määritellä laatimalla projektiin profiilikohtainen <code>application.properties</code>-määritys. Sen nimeksi tulee asettaa <code>application-&lt;profiilinimi&gt;.properties</code>. Jos esimerkiksi profiilin nimeksi valitaan <code>rahti</code>, tiedoston nimi on <code>application-rahti.properties</code>.</p>
+<p>Profiilikohtaiset asetukset luetaan globaalien asetusten lisäksi. Näin esim. julkaisukonfiguraatioparametrit voidaan määritellä jokaista julkaisuympäristöä varten eri tiedostoihin.</p>
+<p>Seuraavassa esimerkissä käytetään palvelimen ajoympäristöstä luettavia ympäristömuuttuja-arvoja. Näin julkaisuympäristön konfiguraatioparametreja ei tarvitse viedä versionhallintaan.</p>
+<p>Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tiedot ajoympäristöön määritetyistä ympäristömuuttujista, joiden nimi muodostetaan tietokantapalvelun nimen perusteella seuraavasti:
+<div class="no-copy highlight"><pre><span></span><code><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;tietokantapalvelun nimi&gt;_SERVICE_HOST</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;tietokantapalvelun nimi&gt;_SERVICE_PORT</span>
+</code></pre></div></p>
+<p>Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia <code>env</code> komennolla. Alla olevassa kuvassa ympäristömuuttujista on listattu muuttujat, jotka kertovat tietokantapalvelun, jonka nimi on <code>mysql-service</code>, tiedot muille Rahti-projektin konteille.</p>
+<p><img alt="" src="../img/rahti_pod_env_example.png" /></p>
+<p>Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu <code>db-service</code>:
+<div class="highlight"><pre><span></span><code>spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
+spring.jpa.show-sql=true
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto=update
+</code></pre></div></p>
+<p>Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä</p>
+<h2 id="ymparistomuuttujien-asettaminen">Ympäristömuuttujien asettaminen</h2>
+<p>Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit määritellä käynnistettävälle kontille ympäristömuuttujia Rahti-palvelun web-käyttöliittymässä kohdassa <em>Applications/Deployments</em>:</p>
+<p><img alt="" src="../img/rahti_deployment_config_env_variables.png" /></p>
+<p>Ympäristömuuttujan arvon voidaan määritellä suoraan tai valita sen jostain projektiin luodusta salaisuudesta. </p>
+<p>Ylläolevassa esimerkissä MySQL-tietokannan tietokantakäyttäjän nimi <code>DB_USER</code> ja salasana <code>DB_PASSWORD</code> sekä tietokannan nimi <code>DB_NAME</code> luetaan salaisuudesta, joka luotiin tietokantapalvelun lisäämisen yhteydessä. </p>
+<p>Ympäristömuuttuja <code>SPRING_PROFILES_ACTIVE</code> määrittää, mikä profiili asetetaan aktiiviseksi. Sen arvoksi määritetään suoraan julkaisuprofiilin nimi.  </p>
+<p>Kun julkaisu seuraavan kerran tehdään, käynnistyvässä kontissa ympäristömuuttujat on määritelty ja Spring ottaa oikean profiilin käyttöön.</p>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -778,10 +913,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["content.code.copy", "toc.follow", "navigation.top"], "search": "/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Kopioitu leikep\u00f6yd\u00e4lle", "clipboard.copy": "Kopioi leikep\u00f6yd\u00e4lle", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "Ei t\u00e4sm\u00e4\u00e4vi\u00e4 dokumentteja", "search.result.one": "1 t\u00e4sm\u00e4\u00e4v\u00e4 dokumentti", "search.result.other": "# t\u00e4sm\u00e4\u00e4v\u00e4\u00e4 dokumenttia", "search.result.placeholder": "Kirjoita aloittaaksesi haun", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Kopioitu leikep\u00f6yd\u00e4lle", "clipboard.copy": "Kopioi leikep\u00f6yd\u00e4lle", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "Ei t\u00e4sm\u00e4\u00e4vi\u00e4 dokumentteja", "search.result.one": "1 t\u00e4sm\u00e4\u00e4v\u00e4 dokumentti", "search.result.other": "# t\u00e4sm\u00e4\u00e4v\u00e4\u00e4 dokumenttia", "search.result.placeholder": "Kirjoita aloittaaksesi haun", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.6c14ae12.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
     
   </body>
