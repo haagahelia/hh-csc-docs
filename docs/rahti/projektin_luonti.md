@@ -27,3 +27,13 @@ Rahti-projektit ovat sidottuja MyCSC projekteihin ja oletuksena näkyvät vain M
 ![](img/rahti_add_member.png)
 
 Voit Rahti-projektin omistajana näin lisätä kurssin opettajan omaan projektiisi. 
+
+## Projektin luominen komentorivikomennoin
+
+Voit luoda Rahti-projektin myös komentoriviltä `oc`-komennoin. Seuraavissa esimerkeissä luotavan projektin nimi on `myproj`.
+
+```
+oc new-project myproj --description='csc_project:200xxxx'
+```
+
+-  `xxxx` korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla

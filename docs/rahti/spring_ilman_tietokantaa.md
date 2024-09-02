@@ -4,7 +4,7 @@ Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tie
 
 Tietokannan konfigurointi käsitellään seuraavassa luvussa.
 
-__Huom!__ Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](ohje_rahti_komentorivityokalun_asennus.md#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
+__Huom!__ Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](komentorivityokalun_asennus.md#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
 
 Kirjaudu ensin Rahti-palveluun komentorivillä ja aseta luomasi projekti aktiiviseksi.
 
@@ -31,7 +31,7 @@ Build-työkalut olettavat, että sovellusprojekti sijaitsee repositorion juuriha
 
 Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.
 
-Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](ohje_rahti_julkaisu_yksityisesta_repositoriosta.md) ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella 
+Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](julkaisu_yksityisesta_repositoriosta.md) ohjeiden mukaisesti, ja annettavissa komennoissa on lisäksi annettava  tieto tarvittavasta SSH-avaimesta valitsimella 
 
 ```bash
 --source-secret=<github-creds-secret-name>
@@ -103,7 +103,7 @@ Seuraavissa esimerkeissä käydään läpi sovelluksen luonti molemmilla edellä
 
 Komennon tuloksena syntyy _build config_ ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
-Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti. Jos näin ei ole, tilannetta voi selvitellä luvun [Virheenjäljitys](ohje_rahti_virheenjaljitys.md) ohjeiden avulla.
+Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio (_deployment configuration_), palvelu (_service_) sekä toivottavasti käynnissä oleva kontti. Jos näin ei ole, tilannetta voi selvitellä luvun [Virheenjäljitys](virheenjaljitys.md) ohjeiden avulla.
 
 Tämän jälkeen on vielä avattava palvelulle reitti (_route_), jolla palveluun pääsee internetistä. Sen voi tehdä komennolla:
 
@@ -123,19 +123,3 @@ oc start-build <build-config-name>
 - `<build-config-name>` on oletusarvoisesti sama kuin `<deployment-config-name>`
 
 Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista
-
-## Buildin automatisointi
-
-Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
-
-Uusi build liipaistaan määrittämällä GitHub-repositorioon _webhook_, jota repositorio kutsuu aina, kun uusia muutoksia pusketaan.
-
-Webhook-URL löytyy Rahti-palvelun käyttöliittymässä kohdata _Builds_.
-
-![](img/rahti_find_webhook_url.png)
-
-Kopioi URL ja lisää se Github-repositorioon GitHubin web-käyttöliittymän kohdassa _Settings/Webhooks/Add webhook_.
-
-![](img/github_add_webhook_ui.png)
-
-Content type-asetuksen tulee olla `application/json`.

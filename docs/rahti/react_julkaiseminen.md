@@ -1,11 +1,6 @@
-# React-sovelluksen julkaiseminen Rahti-ympäristössä
+# React-sovelluksen julkaiseminen
 
-Tässä ohjeessa käydään läpi React-sovelluksen julkaisu Rahti-palvelussa. 
-
-## Rahti-palvelun luonti
-Luo ensin Rahti-projekti, asenna tarvittavat työkalut ja kirjaudu Rahti-palveluun ohjeiden mukaisesti
-
-## React-sovelluksen valmistelu julkaisua varten
+## Sovelluksen valmistelu julkaisua varten
 
 Julkaisu tehdään käyttäen Docker-konttia. Kontin levykuva tekee ensin React-buildin ja käynnistää sitten nginx-web-palvelimen jakamaan sovellusta.
 
@@ -110,21 +105,5 @@ oc start-build <build-config-name>
 
 - `<build-config-name>` on oletusarvoisesti sama kuin `<deployment-config-name>`
 
-Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista
-
-## Buildin automatisointi
-
-Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
-
-Uusi build liipaistaan määrittämällä GitHub-repositorioon _webhook_, jota repositorio kutsuu aina, kun uusia muutoksia pusketaan.
-
-Webhook-URL löytyy Rahti-palvelun käyttöliittymässä kohdata _Builds_.
-
-![](img/rahti_find_webhook_url.png)
-
-Kopioi URL ja lisää se Github-repositorioon GitHubin web-käyttöliittymän kohdassa _Settings/Webhooks/Add webhook_.
-
-![](img/github_add_webhook_ui.png)
-
-Content type-asetuksen tulee olla `application/json`.
+Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista.
 
