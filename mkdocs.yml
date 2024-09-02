@@ -1,17 +1,34 @@
 site_name: CSC-palvelut Haaga-Heliassa
 nav:
-  - Yleistä: index.md
-  - Ohjeet opettajalle: ohje_opettaja.md
-  - Spring Boot-palvelun julkaisu: ohje_spring_rahti.md
-  - React-sovelluksen julkaisu: ohje_react_rahti.md
+  - Aloitus: index.md
+  - opettajan_ohje.md
+  - opiskelijan_ohje.md
+  - Reseptit:
+    - reseptit/spring_rahti.md
+    - reseptit/react_rahti.md
+  - Rahti:
+    - Yleiset ohjeet: 
+      - rahti/projektin_luonti.md
+      - rahti/komentorivityokalun_asennus.md
+      - rahti/tietokantapalvelun_luominen.md
+      - rahti/https_konfigurointi.md
+      - rahti/buildin_automatisointi.md
+      - rahti/julkaisu_yksityisesta_repositoriosta.md
+      - rahti/virheenjaljitys.md 
+    - Spring Boot -ohjeet: 
+      - rahti/spring_ilman_tietokantaa.md
+      - rahti/spring_tietokannan_konfigurointi.md
+      - rahti/spring_jkube_plugin.md
+    - React-ohjeet:
+      - rahti/react_julkaiseminen.md
 theme: 
   name: material
   language: fi
   features:
     - content.code.copy
-    - navigation.tabs
-    - toc.integrate
+    - toc.follow
     - navigation.top
+
   favicon: assets/favicon-192x192.png
   logo: assets/haaga-helia.png
 extra_css:
@@ -26,6 +43,6 @@ markdown_extensions:
       custom_fences:
             - name: mermaid
               class: mermaid
-              format: !!python/name:pymdownx.superfences.fence_div_format
+              format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true

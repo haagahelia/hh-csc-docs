@@ -1,4 +1,4 @@
-# CSC-palvelujen käyttö opetuksessa: Opettajan ohje
+# Opettajan ohje
 
 ## MyCSC-projektit kurssitoteutuksille
 
