@@ -4,7 +4,7 @@
 
 Käynnissä olevien konttien (_pod_) tietoja voidaan tarkastella Rahti-palvelun hallintaliittymässä.
 
-Käynnissä olevat kontit löytyvät helposti Overview-näkymästä.
+Käynnissä olevat kontit ja niiden lokit löytyvät Developer-näkymästä.
 
 ![](img/rahti_overview_pods_highlight.png)
 
@@ -44,7 +44,7 @@ Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on `
 
 ```
 oc delete project myproj
-oc new-project myproj --description='csc_project:200xxxx'
+oc new-project myproj --description='csc_project:2xxxxxx'
 ```
 
--  `xxxx` korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla
+-  `xxxxxx` korvataan oman CSC-projektin tunnisteen kuudella viimeisellä numerolla
