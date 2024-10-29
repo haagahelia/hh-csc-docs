@@ -515,6 +515,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Julkaisu yksityisestä GitHub-repositoriosta
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -524,6 +535,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Sisällysluettelo">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sisällysluettelo
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-avaimen-luominen" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH-avaimen luominen
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salaisuuden-luominen-projektiin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Salaisuuden luominen projektiin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Salaisuuden luominen projektiin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#salaisuuden-luominen-komentorivilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Salaisuuden luominen komentorivillä
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -753,6 +816,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sisällysluettelo
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-avaimen-luominen" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH-avaimen luominen
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salaisuuden-luominen-projektiin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Salaisuuden luominen projektiin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Salaisuuden luominen projektiin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#salaisuuden-luominen-komentorivilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Salaisuuden luominen komentorivillä
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -769,6 +873,7 @@
 <h1 id="julkaisu-yksityisesta-github-repositoriosta">Julkaisu yksityisestä GitHub-repositoriosta</h1>
 <p>Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti-palvelun build-työkalujen luettavissa. </p>
 <p>Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.</p>
+<h2 id="ssh-avaimen-luominen">SSH-avaimen luominen</h2>
 <p>Julkaisua varten kannattaa luoda uusi SSH-avainpari juuri tätä projektia ja repositoriota varten. Henkilökohtaista SSH-avainta ei ole tarkoituksenmukaista käyttää julkaisuun, sillä julkaisuun tarvitaan yksityinen SSH-avain.</p>
 <p>Luo sopivaan hakemistoon projektin ulkopuolella uusi avainpari. Salasanaa ei pidä määrittää.</p>
 <div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;rahti-build@repo-url&quot;</span><span class="w"> </span>-f<span class="w"> </span>id_rahti_build<span class="w"> </span>-N<span class="o">=</span><span class="s2">&quot;&quot;</span>
@@ -781,7 +886,11 @@
 <p>Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esimerkissä luodussa avainparissa julkinen avain on tiedostossa nimeltä <code>id_rahti_build.pub</code>.</p>
 <p><img alt="" src="../img/github_add_deploy_key_ui.png" /></p>
 <p><em>Title</em> on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. </p>
-<p>Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  <code>github-secret</code> ja yksityinen avain on tiedostossa <code>id_rahti_build</code>.</p>
+<h2 id="salaisuuden-luominen-projektiin">Salaisuuden luominen projektiin</h2>
+<p>SSH-avain saadaan välitettyä turvallisesti projektin resursseille tallettamalla se projektiin salaisuutena (<em>secret</em>). Tällöin luottamukselliseen tietoon päästään projektissa käsiksi viittaamalla salaisuuteen, eikä sitä tarvitse toimintojen yhteydessä enää antaa.</p>
+<p>Salaisuus voidaan luoda web-käyttöliittymässä tai komentorivillä. </p>
+<h3 id="salaisuuden-luominen-komentorivilla">Salaisuuden luominen komentorivillä</h3>
+<p>Esimerkissä salaisuuden nimi on  <code>github-secret</code> ja yksityinen avain on tiedostossa <code>id_rahti_build</code>.</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>github-secret<span class="w"> </span>--from-file<span class="o">=</span>ssh-privatekey<span class="o">=</span>id_rahti_build<span class="w"> </span>--type<span class="o">=</span>kubernetes.io/ssh-auth
 </code></pre></div>
 <p>Avainsalaisuus pitää vielä liittää Rahdin builder-palveluun
