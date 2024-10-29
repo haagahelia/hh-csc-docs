@@ -4,7 +4,9 @@ Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositorio
 
 Uusi build liipaistaan määrittämällä GitHub-repositorioon _webhook_, jota repositorio kutsuu aina, kun uusia muutoksia pusketaan.
 
-Webhook-URL löytyy Rahti-palvelun käyttöliittymässä kohdata _Builds_.
+Webhook-URL löytyy Rahti-palvelun käyttöliittymässä _BuildConfig details_-näkymästä.
+
+![](img/rahti_view_buildconfig.png)
 
 ![](img/rahti_find_webhook_url.png)
 

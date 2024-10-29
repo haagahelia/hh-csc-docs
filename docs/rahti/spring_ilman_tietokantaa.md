@@ -74,7 +74,11 @@ Seuraavassa käydään läpi lomakkeen kenttien selitykset ja suositellut valinn
 
 Kun painat valintaa _Create_, tarvittavat resurssit luodaan ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
 
+![](img/rahti_build_in_progress.png)
+
 Kun julkaisu on onnistunut, projektiin on ilmaantunut _Deployment_, jossa on toivottavasti käynnissä oleva kontti (_Pod_), palvelu (_Service_) sekä reitti (_Route_). josta sovelluksesi vastaa. Jos näin ei ole, tilannetta voi selvitellä luvun [Virheenjäljitys](virheenjaljitys.md) ohjeiden avulla.
+
+![](img/rahti_deployment_succesful.png)
 
 ## Sovelluksen luonti komentorivillä
 
