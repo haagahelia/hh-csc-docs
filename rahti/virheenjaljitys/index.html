@@ -861,7 +861,7 @@
 <h1 id="virheenjaljitys">Virheenjäljitys</h1>
 <h2 id="podien-tarkastelu">Podien tarkastelu</h2>
 <p>Käynnissä olevien konttien (<em>pod</em>) tietoja voidaan tarkastella Rahti-palvelun hallintaliittymässä.</p>
-<p>Käynnissä olevat kontit löytyvät helposti Overview-näkymästä.</p>
+<p>Käynnissä olevat kontit ja niiden lokit löytyvät Developer-näkymästä.</p>
 <p><img alt="" src="../img/rahti_overview_pods_highlight.png" /></p>
 <p>Lokeja voi tarkastella välilehdellä <em>Logs</em>:</p>
 <p><img alt="" src="../img/rahti_pod_log.png" /></p>
@@ -884,10 +884,10 @@ PS<span class="w"> </span>&gt;<span class="w"> </span>oc<span class="w"> </span>
 <p>Helpointa saattaa olla poistaa koko Rahti-projekti ja luoda se alusta saakka uudelleen komentorivikomennnoin.</p>
 <p>Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on <code>myproj</code>.</p>
 <div class="highlight"><pre><span></span><code>oc delete project myproj
-oc new-project myproj --description=&#39;csc_project:200xxxx&#39;
+oc new-project myproj --description=&#39;csc_project:2xxxxxx&#39;
 </code></pre></div>
 <ul>
-<li><code>xxxx</code> korvataan oman CSC-projektin tunnisteen neljällä viimeisellä numerolla</li>
+<li><code>xxxxxx</code> korvataan oman CSC-projektin tunnisteen kuudella viimeisellä numerolla</li>
 </ul>
 
 
