@@ -16,6 +16,6 @@ mkdocs serve
 
 ## Kontribuutiot
 
-Tee repositoriosta oman fork ja tee muutoksesi sinne. Kun muutos on valmis, lähetä muutospyyntö (_Pull Request_).
+Tee repositoriosta oma fork-repositorio ja laadi muutoksesi sinne. Kun muutos on valmis, lähetä muutospyyntö (_Pull Request_).
 
 Voit myös pyytää oikeuksia tähän repositorioon ylläpitäjältä markku.ruonavaara@haaga-helia.com.
