@@ -4,6 +4,8 @@ Jotta palvelun julkaisu voidaan automatisoida, sen lähdekoodien on oltava Rahti
 
 Julkiseen GitHub-repositorioon lukuoikeus on kaikilla, siihen ei tarvita eri toimenpiteitä. Yksityisestä repositoriosta julkaisemista varten pitää lukuoikeus järjestää erikseen.
 
+## SSH-avaimen luominen
+
 Julkaisua varten kannattaa luoda uusi SSH-avainpari juuri tätä projektia ja repositoriota varten. Henkilökohtaista SSH-avainta ei ole tarkoituksenmukaista käyttää julkaisuun, sillä julkaisuun tarvitaan yksityinen SSH-avain.
 
 Luo sopivaan hakemistoon projektin ulkopuolella uusi avainpari. Salasanaa ei pidä määrittää.
@@ -22,7 +24,15 @@ Lisää julkinen avain GitHub-repositorioon GitHubin käyttöliittymässä. Esim
 
 _Title_ on GitHubin käyttöliittymässä näkyvä nimi avaimelle. Julkaisuun ei tarvita kirjoitusoikeuksia. 
 
-Lisää yksityinen SSH-avain projektiin luomalla sitä varten salaisuus. Esimerkissä salaisuuden nimi on  `github-secret` ja yksityinen avain on tiedostossa `id_rahti_build`.
+## Salaisuuden luominen projektiin
+
+SSH-avain saadaan välitettyä turvallisesti projektin resursseille tallettamalla se projektiin salaisuutena (_secret_). Tällöin luottamukselliseen tietoon päästään projektissa käsiksi viittaamalla salaisuuteen, eikä sitä tarvitse toimintojen yhteydessä enää antaa.
+
+Salaisuus voidaan luoda web-käyttöliittymässä tai komentorivillä. 
+
+### Salaisuuden luominen komentorivillä
+
+Esimerkissä salaisuuden nimi on  `github-secret` ja yksityinen avain on tiedostossa `id_rahti_build`.
 
 ```bash
 oc create secret generic github-secret --from-file=ssh-privatekey=id_rahti_build --type=kubernetes.io/ssh-auth
