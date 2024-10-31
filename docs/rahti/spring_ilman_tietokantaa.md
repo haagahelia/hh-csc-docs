@@ -66,6 +66,7 @@ Seuraavassa käydään läpi lomakkeen kenttien selitykset ja suositellut valinn
 | __Import Strategy__ | Sovelluksen luonnissa käytettävä metodi. Valitse _Dockerfile_ tai _Builder Image_ (_Source-to-Image_).
 | __Builder Image__ | Jos valitsit metodiksi _Builder Image_, valitse _Java_.
 | __Builder Image version__ | Jos valitsit metodiksi _Builder Image_, valitse versio, jonka JDK vastaa projektisi JDK-versiota.
+| __Dockerfile path__ | Jos valitsit metodiksi _Dockerfile_, voit määrittää ``Dockerfile``:n sijainnin ja nimen. Oletusarvoisesti nimi on ``Dockerfile`` ja sijainti sovelluksen juuressa. |
 | __Application__ | Sovelluksen nimi.
 | __Name__ | Sovelluksen tunniste, joka liitetään kaikkiin sovellukseen luotaviin resursseihin etuliitteksi.
 | __Build Option__ | Valitse oletus _Build_ ja muut oletukset.

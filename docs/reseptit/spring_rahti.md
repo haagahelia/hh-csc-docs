@@ -35,11 +35,11 @@ flowchart LR
   step4-->step5
 ```
 
-1. [Luo Rahti-projekti](../rahti/projektin_luonti.md){target="_blank"}
-2. [Luo projektiin tietokanta](../rahti/tietokantapalvelun_luominen.md){target="_blank"}
-3. [Julkaise Spring-palvelin ilman ulkoista tietokantaa](../rahti/spring_ilman_tietokantaa.md){target="_blank"}
-4. [Konfiguroi Spring-palvelin käyttämään ulkoista tietokantapalvelua](../rahti/spring_tietokannan_konfigurointi.md){target="_blank"}
-5. [Automatisoi build (valinnainen)](../rahti/buildin_automatisointi.md){target="_blank"}
+1. [Luo Rahti-projekti](../rahti/projektin_luonti.md)
+2. [Luo projektiin tietokanta](../rahti/tietokantapalvelun_luominen.md)
+3. [Julkaise Spring-palvelin ilman ulkoista tietokantaa](../rahti/spring_ilman_tietokantaa.md)
+4. [Konfiguroi Spring-palvelin käyttämään ulkoista tietokantapalvelua](../rahti/spring_tietokannan_konfigurointi.md)
+5. [Automatisoi build (valinnainen)](../rahti/buildin_automatisointi.md)
 
 ## Lisäohjeita
 
