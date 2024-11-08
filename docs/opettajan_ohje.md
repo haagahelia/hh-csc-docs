@@ -1,5 +1,13 @@
 # Opettajan ohje
 
+!!! danger "Rahti-projektien käyttö kurssiprojekteissa"
+
+    Viime kesäisen Rahti-palvelun päivityksen yhteydessä kurssiprojektin Rahti-projekteille asetetut resurssikiintiöt ovat niin niukat, että ne eivät riitä, jos Rahti-projekteja on useita. 
+
+    Kursseilla onkin parempi käyttää opiskelijoiden itse perustamia opiskelijaprojekteja, joissa opiskelija itse toimii projektipäällikkönä. Myös ryhmäprojektit voidaan toteuttaa opiskelijaprojektissa, sillä opiskelijaprojektiin voi kutsua jäseniä samalla tapaa kuin kurssiprojektiinkin. Opiskelijaprojektin kiintiörajat ovat samat kuin kurssiprojektilla, ne riittävät normaalisti hyvin.
+    
+    Kurssiprojektiakin voi käyttää, mutta silloin on syytä anoa kiintiörajojen kasvattamista. 
+
 ## MyCSC-projektit kurssitoteutuksille
 
 Yhdelle kurssitoteutukselle perustetaan yksi MyCSC-projekti. 
