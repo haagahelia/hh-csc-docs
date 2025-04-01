@@ -17,6 +17,16 @@ Avaa luontivelho painamalla 'Instantiate Template' nappia. Asetuksista kannattaa
 -	__MySQL Connection Password__: Salasana sql-palvelimelle kirjautumiseen.
 -	__MySQL Database Name__. Luotavan tietokannan nimi.
 
+!!! note "Tietokantapalvelun nimi"
+    Tässä annetusta tietokantapalvelun nimestä muodostetaan nimet ympäristömuuttujille, joilla projektin prosessit saavat tiedon tietokantapalvelusta, esim.
+    ``` { .yaml .no-copy }
+    <tietokantapalvelun nimi>_SERVICE_HOST
+    <tietokantapalvelun nimi>_SERVICE_PORT
+    ```  
+
+    Muut tässä määritetyt tiedot välittyvät muihin podeihin salaisuuden kautta.
+
+
 ![](img/mysql_configuration_dialog.png)
 
 Luontivelho luo salaisuustiedoston (_secret_), johon tietokannan konfiguraatiotiedot talletetaan . 

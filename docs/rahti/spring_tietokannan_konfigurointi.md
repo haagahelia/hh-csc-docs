@@ -18,13 +18,13 @@ Rahti-projektiin luotavat kontit saavat projektiin luodun tietokantapalvelun tie
   <tietokantapalvelun nimi>_SERVICE_PORT
 ```  
 
-Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia `env` komennolla. Alla olevassa kuvassa ympäristömuuttujista on listattu muuttujat, jotka kertovat tietokantapalvelun, jonka nimi on `mysql-service`, tiedot muille Rahti-projektin konteille.
+Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia `env` komennolla. Alla olevassa kuvassa ympäristömuuttujista on listattu muuttujat, joiden nimissä esiintyy sana `SERVICE`. Muuttujat, jotka kertovat tietokantapalvelun tiedot muille Rahti-projektin konteille, alkavat tietokantapalvelun nimellä `MYSQL`.
 
 ![](img/rahti_pod_env_example.png)
 
-Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu `db-service`:
+Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu `mysql`:
 ```
-spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${DB_NAME}
+spring.datasource.url=jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/${DB_NAME}
 spring.datasource.username=${DB_USER}
 spring.datasource.password=${DB_PASSWORD}
 spring.jpa.show-sql=true
@@ -32,7 +32,9 @@ spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 ```
 
-Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä
+!!! tip "Huom!"
+
+    Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä
 
 ## Ympäristömuuttujien asettaminen
 
