@@ -24,8 +24,8 @@ flowchart LR
   classDef highlight fill:#ffe2ff,stroke:#996d99,stroke-width:3px;
 
   step1[Rahti-projektin luonti]
-  step2[Tietokantapalvelun luonti]
-  step3[Spring Boot -palvelimen julkaisu]
+  step2[Spring Boot -palvelimen julkaisu]
+  step3[Tietokantapalvelun luonti]
   step4[Tietokannan konfigurointi]
   step5[Buildin automatisointi]
 
@@ -36,8 +36,8 @@ flowchart LR
 ```
 
 1. [Luo Rahti-projekti](../rahti/projektin_luonti.md){target="_blank"}
-2. [Luo projektiin tietokanta](../rahti/tietokantapalvelun_luominen.md){target="_blank"}
-3. [Julkaise Spring-palvelin ilman ulkoista tietokantaa](../rahti/spring_ilman_tietokantaa.md){target="_blank"}
+2. [Julkaise Spring-palvelin ilman ulkoista tietokantaa](../rahti/spring_ilman_tietokantaa.md){target="_blank"}
+3. [Luo projektiin tietokanta](../rahti/tietokantapalvelun_luominen.md){target="_blank"}
 4. [Konfiguroi Spring-palvelin käyttämään ulkoista tietokantapalvelua](../rahti/spring_tietokannan_konfigurointi.md){target="_blank"}
 5. [Automatisoi build (valinnainen)](../rahti/buildin_automatisointi.md){target="_blank"}
 
