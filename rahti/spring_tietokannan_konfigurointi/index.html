@@ -851,17 +851,20 @@
 <div class="no-copy highlight"><pre><span></span><code><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;tietokantapalvelun nimi&gt;_SERVICE_HOST</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;tietokantapalvelun nimi&gt;_SERVICE_PORT</span>
 </code></pre></div></p>
-<p>Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia <code>env</code> komennolla. Alla olevassa kuvassa ympäristömuuttujista on listattu muuttujat, jotka kertovat tietokantapalvelun, jonka nimi on <code>mysql-service</code>, tiedot muille Rahti-projektin konteille.</p>
+<p>Voit avata kontin Terminal-näkymän ja tarkastella ympäristömuuttujia <code>env</code> komennolla. Alla olevassa kuvassa ympäristömuuttujista on listattu muuttujat, joiden nimissä esiintyy sana <code>SERVICE</code>. Muuttujat, jotka kertovat tietokantapalvelun tiedot muille Rahti-projektin konteille, alkavat tietokantapalvelun nimellä <code>MYSQL</code>.</p>
 <p><img alt="" src="../img/rahti_pod_env_example.png" /></p>
-<p>Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu <code>db-service</code>:
-<div class="highlight"><pre><span></span><code>spring.datasource.url=jdbc:mysql://${DB_SERVICE_SERVICE_HOST}:${DB_SERVICE_SERVICE_PORT}/${DB_NAME}
+<p>Esimerkki profiilimääritystiedoston sisällöstä, jos tietokantapalvelun nimeksi on asetettu <code>mysql</code>:
+<div class="highlight"><pre><span></span><code>spring.datasource.url=jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/${DB_NAME}
 spring.datasource.username=${DB_USER}
 spring.datasource.password=${DB_PASSWORD}
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 </code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Huom!</p>
 <p>Huom: Tietokantapalvelinta kytkettäessä muihin kontteihin, on tärkeää käyttää muuttujanimiä eikä esim. IP-osoitetta suoraan. IP-osoitteet voivat muuttua esimerkiksi kontin uudelleen käynnistymisen yhteydessä</p>
+</div>
 <h2 id="ymparistomuuttujien-asettaminen">Ympäristömuuttujien asettaminen</h2>
 <p>Profiiliin määritellyt ympäristömuuttujat pitää vielä asettaa. Voit määritellä käynnistettävälle kontille ympäristömuuttujia Rahti-palvelun web-käyttöliittymässä kohdassa <em>Applications/Deployments</em>:</p>
 <p><img alt="" src="../img/rahti_deployment_config_env_variables.png" /></p>
@@ -917,6 +920,8 @@ spring.jpa.hibernate.ddl-auto=update
     
     
       <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
       
     
   </body>

@@ -779,6 +779,14 @@
 <li><strong>MySQL Connection Password</strong>: Salasana sql-palvelimelle kirjautumiseen.</li>
 <li><strong>MySQL Database Name</strong>. Luotavan tietokannan nimi.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Tietokantapalvelun nimi</p>
+<p>Tässä annetusta tietokantapalvelun nimestä muodostetaan nimet ympäristömuuttujille, joilla projektin prosessit saavat tiedon tietokantapalvelusta, esim.
+<div class="no-copy highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">&lt;tietokantapalvelun nimi&gt;_SERVICE_HOST</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;tietokantapalvelun nimi&gt;_SERVICE_PORT</span>
+</code></pre></div></p>
+<p>Muut tässä määritetyt tiedot välittyvät muihin podeihin salaisuuden kautta.</p>
+</div>
 <p><img alt="" src="../img/mysql_configuration_dialog.png" /></p>
 <p>Luontivelho luo salaisuustiedoston (<em>secret</em>), johon tietokannan konfiguraatiotiedot talletetaan . </p>
 <p>Salaisuus luodaan, koska sitä käyttäen luottamuksellisia konfiguraatiotietoja ei tarvitse tallettaa versionhallintaan, eikä niitä tarvitse lainkaan käsitellä suoraan vaan ne voidaan lukea salaisuustiedostosta.</p>
@@ -833,6 +841,8 @@
     
     
       <script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
       
     
   </body>
