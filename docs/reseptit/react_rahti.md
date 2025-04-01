@@ -10,7 +10,7 @@ Oletuksena on, että
 
 ## Ennakkovaatimukset
 
-Resepti edellyttää seuraavia toimenpiteitä:
+Jos halutaan käyttää komentorivikomentoja, resepti edellyttää seuraavia toimenpiteitä:
 
 - [Komentorivityökalun asennus](../rahti/komentorivityokalun_asennus.md)
 
@@ -28,15 +28,15 @@ flowchart LR
   step2-->step3
 ```
 
-1. [Luo Rahti-projekti](../rahti/projektin_luonti.md)
-2. [Julkaise React-sovellus](../rahti/react_julkaiseminen.md)
-3. [Automatisoi build (valinnainen)](../rahti/buildin_automatisointi.md)
+1. [Luo Rahti-projekti](../rahti/projektin_luonti.md){target="_blank"}
+2. [Julkaise React-sovellus](../rahti/react_julkaiseminen.md){target="_blank"}
+3. [Automatisoi build (valinnainen)](../rahti/buildin_automatisointi.md){target="_blank"}
 
 ## Lisäohjeita
 
-- [Virheenjäljitys](../rahti/virheenjaljitys.md)
-- [HTTPS-konfigurointi](../rahti/https_konfigurointi.md)
-- [Julkaisu yksityisestä repositoriosta](../rahti/julkaisu_yksityisesta_repositoriosta.md)
+- [Virheenjäljitys](../rahti/virheenjaljitys.md){target="_blank"}
+- [HTTPS-konfigurointi](../rahti/https_konfigurointi.md){target="_blank"}
+- [Julkaisu yksityisestä repositoriosta](../rahti/julkaisu_yksityisesta_repositoriosta.md){target="_blank"}
 
 
 
