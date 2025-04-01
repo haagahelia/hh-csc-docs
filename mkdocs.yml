@@ -36,6 +36,7 @@ extra_css:
 plugins:
     - search
     - mermaid2
+    - open-in-new-tab:
 markdown_extensions:
   - admonition
   - attr_list
