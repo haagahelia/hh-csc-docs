@@ -9,8 +9,10 @@
       
       
       
-        <link rel="prev" href="../spring_rahti_pukki/">
+        <link rel="prev" href="../spring_ilman_tietokantaa/">
       
+      
+        <link rel="next" href="../react_julkaiseminen/">
       
       
       <link rel="icon" href="../../assets/favicon-192x192.png">
@@ -18,7 +20,7 @@
     
     
       
-        <title>React-sovelluksen julkaiseminen - CSC-palvelut Haaga-Heliassa</title>
+        <title>Pukki-tietokannan konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun - CSC-palvelut Haaga-Heliassa</title>
       
     
     
@@ -65,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#react-sovelluksen-julkaiseminen" class="md-skip">
+        <a href="#pukki-tietokannan-konfigurointi-rahti-palvelussa-julkaistuun-spring-boot-palveluun" class="md-skip">
           Hyppää sisältöön
         </a>
       
@@ -100,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              React-sovelluksen julkaiseminen
+              Pukki-tietokannan konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun
             
           </span>
         </div>
@@ -444,18 +446,20 @@
                 
   
   
+    
+  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -469,7 +473,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Spring Boot -ohjeita
@@ -500,72 +504,6 @@
                 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../spring_rahti_pukki/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Pukki-tietokannan konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    React-ohjeita
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_3">
-            <span class="md-nav__icon md-icon"></span>
-            React-ohjeita
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
     
   
   
@@ -581,7 +519,7 @@
           
   
   <span class="md-ellipsis">
-    React-sovelluksen julkaiseminen
+    Pukki-tietokannan konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun
   </span>
   
 
@@ -592,7 +530,7 @@
         
   
   <span class="md-ellipsis">
-    React-sovelluksen julkaiseminen
+    Pukki-tietokannan konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun
   </span>
   
 
@@ -614,27 +552,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#sovelluksen-valmistelu-julkaisua-varten" class="md-nav__link">
+  <a href="#tavoite" class="md-nav__link">
     <span class="md-ellipsis">
-      Sovelluksen valmistelu julkaisua varten
+      Tavoite
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#julkaisu" class="md-nav__link">
+  <a href="#vaihe-1-pukki-palvelun-kayttoonotto-mycsc-projektissa" class="md-nav__link">
     <span class="md-ellipsis">
-      Julkaisu
+      Vaihe 1: Pukki-palvelun käyttöönotto MyCSC-projektissa
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#buildin-kaynnistaminen" class="md-nav__link">
+  <a href="#vaihe-2-tietokantainstanssin-luonti-pukki-palvelussa" class="md-nav__link">
     <span class="md-ellipsis">
-      Buildin käynnistäminen
+      Vaihe 2: Tietokantainstanssin luonti Pukki-palvelussa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vaihe-3-tietokantayhteyden-konfigurointi-spring-boot-palvelussa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vaihe 3: Tietokantayhteyden konfigurointi Spring Boot -palvelussa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vaihe-4-ymparistomuuttujien-maarittaminen-rahti-palvelussa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vaihe 4: Ympäristömuuttujien määrittäminen Rahti-palvelussa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-yhteys-pukki-tietokantaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client-yhteys Pukki-tietokantaan
     </span>
   </a>
   
@@ -644,6 +609,70 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    React-ohjeita
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            React-ohjeita
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../react_julkaiseminen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React-sovelluksen julkaiseminen
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -691,27 +720,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#sovelluksen-valmistelu-julkaisua-varten" class="md-nav__link">
+  <a href="#tavoite" class="md-nav__link">
     <span class="md-ellipsis">
-      Sovelluksen valmistelu julkaisua varten
+      Tavoite
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#julkaisu" class="md-nav__link">
+  <a href="#vaihe-1-pukki-palvelun-kayttoonotto-mycsc-projektissa" class="md-nav__link">
     <span class="md-ellipsis">
-      Julkaisu
+      Vaihe 1: Pukki-palvelun käyttöönotto MyCSC-projektissa
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#buildin-kaynnistaminen" class="md-nav__link">
+  <a href="#vaihe-2-tietokantainstanssin-luonti-pukki-palvelussa" class="md-nav__link">
     <span class="md-ellipsis">
-      Buildin käynnistäminen
+      Vaihe 2: Tietokantainstanssin luonti Pukki-palvelussa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vaihe-3-tietokantayhteyden-konfigurointi-spring-boot-palvelussa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vaihe 3: Tietokantayhteyden konfigurointi Spring Boot -palvelussa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vaihe-4-ymparistomuuttujien-maarittaminen-rahti-palvelussa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vaihe 4: Ympäristömuuttujien määrittäminen Rahti-palvelussa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-yhteys-pukki-tietokantaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client-yhteys Pukki-tietokantaan
     </span>
   </a>
   
@@ -732,92 +788,79 @@
                   
 
 
-<h1 id="react-sovelluksen-julkaiseminen">React-sovelluksen julkaiseminen</h1>
-<h2 id="sovelluksen-valmistelu-julkaisua-varten">Sovelluksen valmistelu julkaisua varten</h2>
-<p>Julkaisu tehdään käyttäen Docker-konttia. Kontin levykuva tekee ensin React-buildin ja käynnistää sitten nginx-web-palvelimen jakamaan sovellusta.</p>
-<p>Lisää projektin juureen Dockerfile-niminen tiedosto, jonka sisältö on seuraava:
-<div class="highlight"><pre><span></span><code><span class="c"># Use an official Node runtime as a parent image</span>
-<span class="k">FROM</span><span class="w"> </span><span class="s">node:19-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
-<span class="c"># Set the working directory to /app</span>
-<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
-<span class="c"># Copy the package.json and package-lock.json to the container</span>
-<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
-<span class="c"># Install dependencies</span>
-<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>ci
-<span class="c"># Copy the rest of the application code to the container</span>
-<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
-<span class="c"># Build the React app</span>
-<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+<h1 id="pukki-tietokannan-konfigurointi-rahti-palvelussa-julkaistuun-spring-boot-palveluun">Pukki-tietokannan konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun</h1>
+<h2 id="tavoite">Tavoite</h2>
+<p>Tässä ohjeessa käydään läpi Pukki-tietokantapalvelun konfigurointi Rahti-palvelussa julkaistuun Spring Boot -palveluun. </p>
+<p>Oletuksena on, että palvelu on onnistuneesti julkaistu Rahdissa ja se sisältää Spring-palvelimen joka tarvitsee tietokantayhteyden. </p>
+<h2 id="vaihe-1-pukki-palvelun-kayttoonotto-mycsc-projektissa">Vaihe 1: Pukki-palvelun käyttöönotto MyCSC-projektissa</h2>
+<ol>
+<li>Kirjaudu MyCSC-tilillesi ja siirry projektiisi, johon haluat lisätä Pukki-tietokantapalvelun.</li>
+<li>Valitse projektisi dashboardilta "Palvelut" ja klikkaa "Lisää palvelu".</li>
+<li>Etsi palveluluettelosta "Pukki" ja valitse se. </li>
+</ol>
+<p><img alt="Lisää Pukki-palvelu MyCSC:ssä" src="../img/mycsc_select_services.png" /></p>
+<p>Tarvitset sekä Pukki-palvelun että Rahti-palvelun, joten varmista, että molemmat on valittu.</p>
+<p>Palvelun lisäämisessä projektiin on viivettä, joten kestää hetken, ennen kuin voit kirjautua Pukki-palveluun.</p>
+<h2 id="vaihe-2-tietokantainstanssin-luonti-pukki-palvelussa">Vaihe 2: Tietokantainstanssin luonti Pukki-palvelussa</h2>
+<p>Kirjaudu Pukki-palveluun osoitteessa https://pukki.dbaas.csc.fi/ .</p>
+<p>Valitse palvelun käyttöliittymästä "Launch instance" ja täytä vaaditut tiedot:
+- <strong>Instance name</strong>: Anna instanssillesi kuvaava nimi, esimerkiksi "spring-boot-db".
+- <strong>Datastore</strong>: Valitse haluamasi tietokantamoottori ja sen versio. Valittavana on joko PostgreSQL tai MariaDB.
+- Muut kentät voit jättää oletusasetuksille.</p>
+<p><img alt="Uuden tietokantainstanssin luonti Pukki-palvelussa" src="../img/pukki_launch_instance_details.png" /></p>
+<p>Tietokantainstanssilla on palomuurisäännöt, jotka estävät ulkopuoliset yhteydet. Sinun on lisättävä Rahti-palvelun IP-osoite sallituksi, jotta Spring Boot -palvelusi voi muodostaa yhteyden tietokantaan. </p>
+<p>Voit sallia yhteydet Rahti-palvelusta lisäämällä kenttään <strong>Allowed CIDRs</strong> arvon <code>86.50.229.150/32</code>. </p>
+<p>Lisäksi voit sallia client-yhteydet omalla IP-osoitteellasi, jotta voit testata yhteyden muodostamista tietokantaan omalta koneeltasi. Saat oman julkisen IP-osoitteesi selville esimerkiksi osoitteesta https://ifconfig.me/. Lisää perään maski <code>/32</code>, esimerkiksi <code>12.34.56.78/32</code>.</p>
+<p>Voit lisätä useita osoitteita pilkulla eroteltuna (vain pilkulla, ei välilyöntejä).</p>
+<p><img alt="Pukki-palvelun palomuurisääntöjen konfigurointi" src="../img/pukki_launch_instance_database_access.png" /></p>
+<p>Voit <em>Initialize database</em>-osiossa luoda tietokannan ja tietokantakäyttäjän:</p>
+<ul>
+<li><strong>Initial Databases</strong>: Anna tietokannalle kuvaava nimi.</li>
+<li><strong>Initial Admin User</strong>: Anna tietokantakäyttäjälle kuvaava nimi.</li>
+<li><strong>Password</strong>: Anna tietokantakäyttäjälle vahva salasana.</li>
+</ul>
+<p>Huomaa, että palomuurisääntö salli yhteydet kaikille Rahti-palvelun projekteille. Määritä käyttäjälle vahva salasana, jotta tietokanta on suojattu.</p>
+<p><img alt="Pukki-palvelun tietokantainstanssin alustaminen" src="../img/pukki_launch_instance_initialize_database.png" /></p>
+<p>Kun olet täyttänyt vaaditut tiedot, klikkaa <em>Launch</em>. Tietokantainstanssin luonti kestää hetken.</p>
+<p>Tietokantoja, tietokantakäyttäjiä ja palomuurisääntöjä voit hallinnoida myöhemmin Pukki-palvelun käyttöliittymästä.</p>
+<h2 id="vaihe-3-tietokantayhteyden-konfigurointi-spring-boot-palvelussa">Vaihe 3: Tietokantayhteyden konfigurointi Spring Boot -palvelussa</h2>
+<p>Tietokantayhteyden muodostamiseen sovellus tarvitsee määrittelemäsi tietokannan nimen, tietokantakäyttäjän nimen ja salasanan, sekä tietokantainstanssin julkisen host-osoitteen ja portin.</p>
+<p>Määritä Spring Boot -palveluusi tietokantayhteyttä varten oma profiili (esim. <code>rahti</code>) ja sille <code>application.properties</code>-tiedosto (esim. <code>application-rahti.properties</code>), johon lisäät esimerkiksi seuraavat asetukset (esimerkissä käytössä PostgreSQL-tietokanta):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tietokantayhteyden asetukset</span>
+<span class="na">spring.datasource.url</span><span class="o">=</span><span class="s">jdbc:postgresql://${DB_SERVICE_HOST}:${DB_SERVICE_PORT}/${DB_NAME}</span>
+<span class="na">spring.datasource.username</span><span class="o">=</span><span class="s">${DB_USER}</span>
+<span class="na">spring.datasource.password</span><span class="o">=</span><span class="s">${DB_PASSWORD}</span>
 
-<span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
-<span class="c"># Support running as arbitrary user which belongs to the root group</span>
-<span class="c"># Note that users are not allowed to listen on privileged ports (&lt; 1024)</span>
-<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>g+rwx<span class="w"> </span>/var/cache/nginx<span class="w"> </span>/var/run<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>chown<span class="w"> </span>nginx.root<span class="w"> </span>/var/cache/nginx<span class="w"> </span>/var/run<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>#<span class="w"> </span>Make<span class="w"> </span>/etc/nginx/html/<span class="w"> </span>available<span class="w"> </span>to<span class="w"> </span>use
-<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/nginx/html/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/etc/nginx/html/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>#<span class="w"> </span>comment<span class="w"> </span>user<span class="w"> </span>directive<span class="w"> </span>as<span class="w"> </span>master<span class="w"> </span>process<span class="w"> </span>is<span class="w"> </span>run<span class="w"> </span>as<span class="w"> </span>user<span class="w"> </span><span class="k">in</span><span class="w"> </span>OpenShift<span class="w"> </span>anyhow
-<span class="w">    </span>sed<span class="w"> </span>-i.bak<span class="w"> </span><span class="s1">&#39;s/^user/#user/&#39;</span><span class="w"> </span>/etc/nginx/nginx.conf
-<span class="c"># Copy React build to nginx HTML directory </span>
-<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/app/&lt;build-dir&gt;<span class="w"> </span>/usr/share/nginx/html/
-<span class="c"># Copy nginx-configuration file </span>
-<span class="k">COPY</span><span class="w"> </span>nginx.conf<span class="w"> </span>/etc/nginx/conf.d/default.conf
-
-<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/share/nginx/html/</span>
-<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
-<span class="k">USER</span><span class="w"> </span><span class="s">nginx:root</span>
-</code></pre></div></p>
-<ul>
-<li><code>&lt;build-dir&gt;</code> on hakemisto, johon React build tehtiin. </li>
-</ul>
-<p>Konfiguroi tiedostoon oikea build-hakemisto: Vite-ympäristössä hakemisto on oletusarvoisesti <code>dist</code>, Create React App -ympäristössä <code>build</code></p>
-<p>Lisää projektin juureen nginx-konfiguraatiotiedosto <code>nginx.conf</code> seuraavalla sisällöllä:
-<div class="highlight"><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kn">listen</span><span class="w"> </span><span class="mi">8080</span><span class="p">;</span>
-<span class="w">  </span><span class="kn">root</span><span class="w"> </span><span class="s">/usr/share/nginx/html</span><span class="p">;</span>
-<span class="w">  </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">index</span><span class="w">  </span><span class="s">index.html</span>
-<span class="w">    </span><span class="s">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p>Dockerfilen toimivuus kannattaa testata paikallisessa Docker-ympäristössä. Asenna Docker, käynnistä Docker Desktop ja anna projektin juuressa komennot:
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myimage<span class="w"> </span>.
-docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:8080<span class="w"> </span>--name<span class="w"> </span>myapp<span class="w"> </span>myimage
+<span class="c1"># Hibernate DDL -asetukset tarpeen mukaan</span>
+<span class="na">spring.jpa.show-sql</span><span class="o">=</span><span class="s">true</span>
+<span class="na">spring.jpa.generate-ddl</span><span class="o">=</span><span class="s">true</span>
+<span class="na">spring.jpa.hibernate.ddl-auto</span><span class="o">=</span><span class="s">update</span>
 </code></pre></div>
-Sovelluksen pitäisi vastata osoitteesta http://localhost:80.</p>
-<h2 id="julkaisu">Julkaisu</h2>
-<p>Jotta tässä luvussa käytettäviä <code>oc</code>-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun <a href="#rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</a> ohjeiden mukaisesti.</p>
-<p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-app<span class="w"> </span>&lt;repository-URL&gt;#&lt;branch-name&gt;
-</code></pre></div></p>
-<ul>
-<li><code>&lt;repository-URL&gt;</code> on osoite, josta repositorion voi kloonata</li>
-<li><code>&lt;branch-name&gt;</code> on haara, josta julkaistaan.</li>
-</ul>
-<p>Jos repositorio on yksityinen, on komentoon lisättävä tieto käytettävästä SSH-avaimesta:</p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-app<span class="w"> </span>&lt;repository-URL&gt;#&lt;branch-name&gt;<span class="w"> </span>--source-secret<span class="o">=</span>&lt;github-secret&gt;
-</code></pre></div>
-<ul>
-<li><code>&lt;github-secret&gt;</code> on SSH-avaimen sisältävän salaisuuden nimi.</li>
-</ul>
-<p>Tuloksena syntyy build config ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.</p>
-<p>Kun julkaisu on onnistunut, projektiin on ilmaantunut deployment-konfiguraatio sekä toivottavasti käynnissä oleva palvelu.</p>
-<p>Kun palvelu on luotu. tarvitaan vielä reitti:</p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>expose<span class="w"> </span>service<span class="w"> </span>&lt;service-name&gt;
-</code></pre></div>
-<ul>
-<li><code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name></li>
-</ul>
-<p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="#https-konfigurointi">HTTPS-konfigurointi</a></p>
-<h2 id="buildin-kaynnistaminen">Buildin käynnistäminen</h2>
-<p>Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä <code>oc</code>-komennolla.  </p>
-<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>start-build<span class="w"> </span>&lt;build-config-name&gt;
-</code></pre></div>
-<ul>
-<li><code>&lt;build-config-name&gt;</code> on oletusarvoisesti sama kuin <code>&lt;deployment-config-name&gt;</code></li>
-</ul>
-<p>Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista.</p>
+<p>Yllä olevassa esimerkissä tietokantayhteyden asetukset on määritetty käyttämään ympäristömuuttujia, jotka määritellään Rahti-palvelun konfiguraatiossa. Näin voit pitää tietokantayhteyden tiedot erillään sovelluskoodista ja hallita niitä Rahti-palvelun kautta.</p>
+<p>Vie profiilitiedosto GitHub-repositorioon, josta Rahti-palvelu hakee koodin julkaistavaksi.</p>
+<h2 id="vaihe-4-ymparistomuuttujien-maarittaminen-rahti-palvelussa">Vaihe 4: Ympäristömuuttujien määrittäminen Rahti-palvelussa</h2>
+<p>Seuraavaksi välitetään tietokannan konfiguraatiotiedot sovelluksellesi. </p>
+<p>Tietokantakäyttäjän tiedot on hyvä määrittää salaisuutena (<em>Secret</em>) Rahti-palvelussa, ja viitata niihin ympäristömuuttujien kautta. Näin voit pitää tietokantakäyttäjään liittyvät tiedot suojattuina.</p>
+<p>Luo Rahti-projektin käyttöliittymän osiossa <em>Workloads/Secrets</em> uusi <em>Key/value -secret</em>, ja määritä sinne Pukki-tietokantakäyttäjäsi käyttäjätunnus ja salasana. </p>
+<p><code>Key</code> on kentän tunniste, jota käytät viitatessasi tietokantakäyttäjään liittyviin tietoihin, ja <code>Value</code> on itse tieto, esimerkiksi tietokantakäyttäjätunnus tai salasana. Kenttiä voi lisätä valinnalla <em>Add key/value</em>.</p>
+<p><img alt="Rahti-palvelun Secretin luonti" src="../img/rahti_create_secret.png" /></p>
+<p>Nyt pitää enää määrittää profiilissa käytetyt ympäristömuuttujat Rahti-julkaisusi (<em>Deployment</em>) konfiguraatioon:
+- <strong>DB_SERVICE_HOST</strong>: Pukki-tietokantainstanssisi julkinen host-osoite, joka löytyy Pukki-palvelun käyttöliittymästä.
+- <strong>DB_SERVICE_PORT</strong>: Pukki-tietokantainstanssisi portti, joka löytyy Pukki-palvelun käyttöliittymästä.
+- <strong>DB_NAME</strong>: Tietokannan nimi, jonka määritit tietokantainstanssia luodessasi.
+- <strong>DB_USER</strong>: Viittaus Secretissä määritettyyn tietokantakäyttäjään.
+- <strong>DB_PASSWORD</strong>: Viittaus Secretissä määritettyyn tietokantakäyttäjän salasanaan.
+- <strong>SPRING_PROFILES_ACTIVE</strong>: Profiili, joka sisältää tietokantayhteyden konfiguraation (esim. <code>rahti</code>).</p>
+<p>Pukki-tietokantasi yhteystiedot löydät klikkaamalla luomaasi tietokantainstanssia Pukki-palvelun käyttöliittymässä. Yhteystiedot löytyvät <em>Connection information</em>-osiosta.</p>
+<p><img alt="Pukki-palvelun tietokantainstanssin yhteystiedot" src="../img/pukki_connection_information.png" />.</p>
+<p>Avaa Rahti-julkaisusi konfiguraatio ja lisää sinne ympäristömuuttujamääritykset_Environment_-osiossa.</p>
+<p><img alt="Rahti-palvelun ympäristömuuttujien määrittäminen" src="../img/rahti_deployment_env_vars.png" />.</p>
+<p>Kun painat <em>Save</em>, Rahti-palvelu julkaisee palvelusi uudelleen muuttuneella konfiguraatiolla. Uuden julkaisun jälkeen Spring Boot -palvelusi pitäisi pystyä muodostamaan yhteys Pukki-tietokantaan.</p>
+<p>Voit tarkistaa yhteyden onnistumisen palvelusi lokista. Jos yhteys epäonnistuu, näet virheilmoituksia. Yleisiä ongelmia voivat olla esimerkiksi väärät yhteystiedot, puuttuvat palomuurisäännöt, virheelliset tietokantakäyttäjätiedot tai väärä profiili.</p>
+<h2 id="client-yhteys-pukki-tietokantaan">Client-yhteys Pukki-tietokantaan</h2>
+<p>Voit testata tietokantayhteyttä myös omalta koneeltasi, jos olet lisännyt oman julkisen IP-osoitteesi Pukki-palvelun palomuurisääntöihin.</p>
+<p>Tarvitset jonkin SQL-client-ohjelman, esim. DBeaver tai tietokantajärjestelmän komentorivi-client (PostgreSQL:lle psql tai MariaDB:lle mariadb). </p>
+<p>Yhteys  Pukki-tietokantaan määritetään samalla tavalla kuin Rahti-palvelussa, mutta suoraan client-ohjelmaan. Käytä samaa host-osoitetta, porttia, tietokannan nimeä, käyttäjätunnusta ja salasanaa kuin Rahti-palvelun konfiguraatiossa.</p>
 
 
 
