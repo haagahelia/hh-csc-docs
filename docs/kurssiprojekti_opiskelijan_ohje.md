@@ -1,6 +1,4 @@
-# Opiskelijan ohje
-
-## Kurssiprojektiin liittyminen
+# Kurssiprojektiin liittyminen
 
 Avaa saamasi liittymislinkki ja kirjaudu MyCSC-palveluun Haka-tunnistuksella.
 

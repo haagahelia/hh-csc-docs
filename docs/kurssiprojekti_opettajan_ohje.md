@@ -1,16 +1,14 @@
-# Opettajan ohje
+# Kurssiprojektin käyttö
 
 !!! danger "Rahti-projektien käyttö kurssiprojekteissa"
 
-    Viime kesäisen Rahti-palvelun päivityksen yhteydessä kurssiprojektin Rahti-projekteille asetetut resurssikiintiöt ovat niin niukat, että ne eivät riitä, jos Rahti-projekteja on useita. 
+    Kurssiprojektin Rahti-projekteille asetetut resurssikiintiöt ovat niin niukat, että ne eivät riitä, jos Rahti-projekteja on useita. 
 
     Kursseilla onkin parempi käyttää opiskelijoiden itse perustamia opiskelijaprojekteja, joissa opiskelija itse toimii projektipäällikkönä. Myös ryhmäprojektit voidaan toteuttaa opiskelijaprojektissa, sillä opiskelijaprojektiin voi kutsua jäseniä samalla tapaa kuin kurssiprojektiinkin. Opiskelijaprojektin kiintiörajat ovat samat kuin kurssiprojektilla, ne riittävät normaalisti hyvin.
     
     Kurssiprojektiakin voi käyttää, mutta silloin on syytä anoa kiintiörajojen kasvattamista. 
 
-## MyCSC-projektit kurssitoteutuksille
-
-Yhdelle kurssitoteutukselle perustetaan yksi MyCSC-projekti. 
+Periaatteena on, että yhdelle kurssitoteutukselle perustetaan yksi MyCSC-projekti. 
 
 Opettaja toimii projektin projektipäällikkönä ja hallinnoi projektiin liitettyjä palveluja sekä projektin käyttäjiä.
 
@@ -25,7 +23,7 @@ Painike avaa uuden projektin luontinäkymän.
 
 Kurssiprojektista on hyvä huomioida seuraavat seikat:
 
-- Opetuskäytössä projektikategoriaksi tulee valita _Course_.
+- Projektikategoriaksi tulee valita _Course_.
 -	Kurssin päättymispäivä voi olla korkeintaan kuuden kuukauden päässä luontipäivästä.
 -	Kurssiprojekti on kertakäyttöinen. Sitä ei voi jatkaa, kopioida eikä siihen voi pyytää lisäresursseja. Oletusresurssi projektille on 100 000 BU:ta.
 - Projekti ja kaikki sen resurssit poistetaan automaattisesti loppumisajan jälkeen.
@@ -52,18 +50,6 @@ Kun halutut palvelut on valittu projektille ja käyttäjät ovat hyväksyneet pa
 ## Palvelujen konfigurointi
 
 Kun projektille on valittu halutut palvelut, niiden käyttöönotto ja konfigurointi tapahtuu kunkin palvelun omalta sivustolta. 
-
-Tärkeimmät palvelut ja niiden osoitteet on listattu taulukkoon
-
-| Palvelu	| Osoite |	Kuvaus |
-| ------- |------- | ------- |
-| MyCSC	| <https://my.csc.fi> | Projektien hallintapalvelu |
-| Allas	| <https://pouta.csc.fi> | Tallennuspalvelu |
-| cPouta | <https://pouta.csc.fi> | Virtualisointipalvelu |
-| Notebooks	| <https://notebooks.csc.fi> | Jupyter Notebooks |
-| Puhti ja Mahti | <https://puhti.csc.fi> <https://mahti.csc.fi> | Laskentapalvelu |
-| Rahti	| <https://rahti.csc.fi> | Konttipalvelu |
-| Pukki	| <https://pukki.dbaas.csc.fi> | DBaaS (beta) |
 
 ## Opiskelijoiden lisääminen projektiin
 

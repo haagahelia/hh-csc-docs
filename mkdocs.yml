@@ -1,25 +1,20 @@
 site_name: CSC-palvelut Haaga-Heliassa
 nav:
   - Aloitus: index.md
-  - opettajan_ohje.md
-  - opiskelijan_ohje.md
-  - Reseptit:
-    - reseptit/spring_rahti.md
-    - reseptit/react_rahti.md
-  - Rahti:
-    - Yleiset ohjeet: 
+  - Opiskelijan aloitusohjeet: aloitus_opiskelija.md
+  - reseptit/spring_rahti.md
+  - reseptit/react_rahti.md
+  - Rahti-ohjeita:
+    - Yleisiä ohjeita: 
       - rahti/projektin_luonti.md
-      - rahti/komentorivityokalun_asennus.md
-      - rahti/tietokantapalvelun_luominen.md
-      - rahti/https_konfigurointi.md
       - rahti/buildin_automatisointi.md
-      - rahti/julkaisu_yksityisesta_repositoriosta.md
       - rahti/virheenjaljitys.md 
-    - Spring Boot -ohjeet: 
+      - rahti/julkaisu_yksityisesta_repositoriosta.md
+      - rahti/komentorivityokalun_asennus.md
+    - Spring Boot -ohjeita: 
       - rahti/spring_ilman_tietokantaa.md
-      - rahti/spring_tietokannan_konfigurointi.md
-      - rahti/spring_jkube_plugin.md
-    - React-ohjeet:
+      - rahti/spring_rahti_pukki.md
+    - React-ohjeita:
       - rahti/react_julkaiseminen.md
 theme: 
   name: material
