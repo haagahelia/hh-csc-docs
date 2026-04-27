@@ -27,20 +27,13 @@ PS > oc rsh ticketguru-11-sbqhn
 ~ $ 
 ```
 
-## Tietokantapodin tarkastelu
-
-Tietokantaa voi tarkastella tietokantajärjestelmän komentorivityökaluilla tietokantakontin pääteyhteydellä, esim. 
-```bash
-$ mysql -u dbuser -p dbname
-```
-
 ## Projektin uudelleenluonti
 
-Jos sovelluksen luonti `oc new-app`-komennolla jostain syystä ei onnistu, komennon uudelleenyrittäminen voi olla hankalaa, koska joitakin resursseja on jo luotu.
- 
-Helpointa saattaa olla poistaa koko Rahti-projekti ja luoda se alusta saakka uudelleen komentorivikomennnoin.
+Jos sovelluksen luonti jostain syystä menee pieleen, tilanteen selvittäminen voi joskus olla hankalaa, koska joitakin resursseja on jo luotu. 
 
-Seuraavissa esimerkeissä poistettavan ja uudelleen luotavan projektin nimi on `myproj`.
+Tällöin saattaa olla helpointa poistaa koko Rahti-projekti ja luoda se alusta saakka uudelleen. Sen voi tehdä joko Rahti-palvelun hallintaliittymästä _Home/Projects_ ja _Delete project_ tai komentorivillä `oc`-komennolla.
+
+Komentorivikomennoin sen voi tehdä seuraavai (esimerkissä poistettavan ja uudelleen luotavan projektin nimi on `myproj`):
 
 ```
 oc delete project myproj

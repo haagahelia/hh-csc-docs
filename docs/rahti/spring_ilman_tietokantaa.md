@@ -1,8 +1,6 @@
 # Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa
 
-Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa.
-
-Tietokannan konfigurointi käsitellään seuraavassa luvussa.
+Seuraavassa käydään läpi Spring Boot -palvelimen julkaisu ilman ulkoista tietokantaa. Ulkoisen tietokannan luonti ja konfigurointi käsitellään dokumentissa [Spring Boot -palvelimen julkaisu Rahti-palvelussa Pukki-tietokantapalvelun avulla](spring_rahti_pukki.md).
 
 Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat resurssit repositorion sisällön perusteella automaattisesti. Resurssit voidaan luoda joko 
 
@@ -11,75 +9,119 @@ Rahti-palvelun työkaluilla voidaan luoda sovelluksen julkaisuun tarvittavat res
 
 Materiaalissa annetaan ohjeet molempiin tapoihin. Tavat ovat vaihtoehtoisia.
 
-## Projektin valmistelu julkaisua varten
+## Spring-projektin valmistelu julkaisua varten
 
-### Projektin sijainti repositoriossa
+### Projektin repositorio
 
-Build-työkalut olettavat, että sovellusprojekti sijaitsee repositorion juurihakemistossa. Jos näin ei ole, sinun on erikseen annettava työkaluille tieto siitä, missä hakemistossa Spring Boot -projekti sijaitsee.
+#### Projektin sijainti
 
-### Repositorio-oikeudet
+Build-työkalut olettavat, että sovellusprojekti sijaitsee repositorion juurihakemistossa. Jos näin ei ole, sinun on erikseen annettava työkaluille tieto siitä, missä hakemistossa Spring Boot -projekti sijaitsee. 
+
+#### Repositorio-oikeudet
 
 Rahti-työkalut tarvitsevat pääsyn projektin repositorioon. Jos repositorio on julkinen, ei pääsyoikeuksia tarvitse erikseen määrittää.
 
 Jos repositorio on yksityinen, on Rahti-projektille järjestettävä pääsy luvun [Julkaisu yksityisestä GitHub-repositoriosta](julkaisu_yksityisesta_repositoriosta.md) ohjeiden mukaisesti.
 
-### Spring-projektin valmistelu
+### Spring-projekti
+
+#### Source-to-Image-julkaisu
 
 Jos käytät Source-to-Image -julkaisua, ei tarvita erillisiä valmisteluja. 
+
+#### Dockerfile-julkaisu
 
 Jos käytät Dockerfile-julkaisua, lisää Spring-projektin juureen tiedosto `Dockerfile`, jonka sisältö on seuraava:
 
 ```dockerfile
-    FROM eclipse-temurin:17-jdk-focal as builder
+    # BUILD-VAIHE
+    FROM eclipse-temurin:17-jdk-focal AS builder
     WORKDIR /opt/app
+    # Kopioi Mavenin asetukset ja projektin metadata
     COPY .mvn/ .mvn
     COPY mvnw pom.xml ./
     RUN chmod +x ./mvnw
+    # Lataa riippuvuudet
     RUN ./mvnw dependency:go-offline
+    # Kopioi lähdekoodi
     COPY ./src ./src
-    RUN ./mvnw clean install -DskipTests 
-    RUN find ./target -type f -name '*.jar' -exec cp {} /opt/app/app.jar \; -quit
+    # Buildaa projekti
+    RUN ./mvnw clean install -DskipTests
+    # Kopioi JAR-tiedosto
+    RUN cp target/*.jar /opt/app/app.jar
 
+    # RUNTIME-VAIHE
     FROM eclipse-temurin:17-jre-alpine
-    COPY --from=builder /opt/app/*.jar /opt/app/
+    WORKDIR /opt/app
+    # Kopioi buildattu JAR-tiedosto build-vaiheesta
+    COPY --from=builder /opt/app/app.jar /opt/app/app.jar
     EXPOSE 8080
-    ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
+    ENTRYPOINT ["java", "-jar", "/opt/app/app.jar"]
 ``` 
     Määritys on laadittu yleiskäyttöiseksi, sen pitäisi toimia missä tahansa Spring Boot -projektissa sellaisenaan.
 
 ## Sovelluksen luonti web-käyttöliittymässä
 
-Sovellus voidaan luoda web-käyttöliittymän _Developer_-näkymän _Add_-osiossa _Import from Git_-lomakkeella.
+Voit nyt julkaista Spring Boot -sovelluksesi Rahti-palvelussa. Klikkaa oikeasta yläkulmasta pientä `+` -ikonia ja valitse _Import from git_.
 
 ![](img/rahti_import_from_git.png)
 
-Kaikkein yksinkertaisin tapaus on julkaisu julkisesta repositoriosta, jossa sovellus sijaitsee juuressa. 
+_Import from Git_-lomakkeella määritellään, mistä repositoriosta sovellusprojekti haetaan, ja miten build ja julkaisu tehdään.
 
-Seuraavassa käydään läpi lomakkeen kenttien selitykset ja suositellut valinnat. Riippuen valinnoistasi kaikkia kenttiä ei välttävättä näytetä lainkaan. Osa kentistä on _Show advanced option_-valinnan takana. 
+![](img/rahti_import_from_git_form.png)
 
-| Kenttä                | Selitys                                                  |
-| :-------------------- | :------------------------------------------------------- |
-| __Git Repo URL__ | Repositorion osoite. Huom! Jos repositorio on yksityinen, osoite pitää antaa SSH-muodossa (esim. `git@github.com:username/reponame.git`).
-| __Git reference__ | Haara, tag tai commit, josta julkaisu tehdään. Ei tarvita, jos julkaisu tehdään oletushaarasta.
-| __Context dir__ | Sovellusprojektin juurihakemisto, oletusarvoisesti repositorion juurihakemisto `/`.
-| __Source Secret__ | Salaisuus, joka sisältää repositoriopääsyyn tarvittavan SSH-avaimen. Tarvitaan vain, jos repositorio on yksityinen. Salaisuuden voi myös luoda  valinnalla _Create new Secret_.
-| __Import Strategy__ | Sovelluksen luonnissa käytettävä metodi. Valitse _Dockerfile_ tai _Builder Image_ (_Source-to-Image_).
-| __Builder Image__ | Jos valitsit metodiksi _Builder Image_, valitse _Java_.
-| __Builder Image version__ | Jos valitsit metodiksi _Builder Image_, valitse versio, jonka JDK vastaa projektisi JDK-versiota.
-| __Dockerfile path__ | Jos valitsit metodiksi _Dockerfile_, voit määrittää ``Dockerfile``:n sijainnin ja nimen. Oletusarvoisesti nimi on ``Dockerfile`` ja sijainti sovelluksen juuressa. |
-| __Application__ | Sovelluksen nimi.
-| __Name__ | Sovelluksen tunniste, joka liitetään kaikkiin sovellukseen luotaviin resursseihin etuliitteksi.
-| __Build Option__ | Valitse oletus _Build_ ja muut oletukset.
-| __Resource type__ | Valitse oletus _Deployment_ ja muut oletukset.
-| __Target port__ | Palveluun luodun reitin portti. Valitse oletus `8080` ja muut oletukset.
+Seuraavassa käydään läpi lomakkeen kenttien selitykset ja suositellut valinnat. PAkolliset kentät on lihavoitu. Riippuen valinnoistasi kaikkia kenttiä ei välttävättä näytetä lainkaan. Osa kentistä on _Show advanced option_-valinnan takana. 
 
-Kun painat valintaa _Create_, tarvittavat resurssit luodaan ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä.
+| Kenttä  | Selitys               | 
+| :------ | :---------------------|
+| __Git Repo URL__    | Repositorion osoite. Huom! Jos repositorio on yksityinen, osoite pitää antaa SSH-muodossa (esim. `git@github.com:username/reponame.git`). |
+| Git reference   | Haara, tag tai commit, josta julkaisu tehdään. Ei tarvita, jos julkaisu tehdään oletushaarasta. |
+| Context dir           | Sovellusprojektin juurihakemisto, oletusarvoisesti repositorion juurihakemisto `/`. |
+| Source Secret         | Salaisuus, joka sisältää repositoriopääsyyn tarvittavan SSH-avaimen. Tarvitaan vain, jos repositorio on yksityinen. Salaisuuden voi myös luoda  valinnalla _Create new Secret_. |
+| __Select project__        | Valitse projekti, johon sovellus luodaan. |
+
+Tässä vaiheessa voit valita, haluatko luoda sovelluksesi Dockerfile:n vai Source-to-Image-työkalujen avulla. 
+
+Voit vaihtaa julkaisumenetelmää valitsemalla _Edit Import Strategy_. Valinta vaikuttaa siihen, mitä muita kenttiä lomakkeessa näytetään. 
+
+=== "Source-to-Image"
+
+    Source-to-Image -julkaisussa ei ole erityisiä asetuksia. Jos valitset julkaisumenetelmäksi _Dockerfile_ tai _Builder Image_, on tehtävä lisävalintoja.
+
+=== "Dockerfile"
+
+    | Kenttä  | Selitys               | 
+    | :------ | :---------------------|
+    | __Dockerfile path__       | Jos valitsit metodiksi _Dockerfile_, voit määrittää ``Dockerfile``:n sijainnin ja nimen. Oletusarvoisesti nimi on ``Dockerfile`` ja sijainti sovelluksen juuressa. |
+
+=== "Builder Image"
+
+    | Kenttä  | Selitys               | 
+    | :------ | :---------------------|
+    | __Builder Image__         | Jos valitsit metodiksi _Builder Image_, valitse _Java_. |
+    | __Builder Image version__ | Jos valitsit metodiksi _Builder Image_, valitse versio, jonka JDK vastaa projektisi JDK-versiota. |
+
+Kaikkien julkaisumenetelmien yhteisiä valintoja ovat:
+
+| Kenttä  | Selitys               | 
+| :------ | :---------------------|
+| Application               | Sovelluksen nimi. |
+| __Name__                  | Sovelluksen tunniste, joka liitetään kaikkiin sovellukseen luotaviin resursseihin etuliitteksi. |
+| Build Option              | Valitse oletus _Build Config_ ja muut oletukset. |
+| Resource type             | Valitse oletus _Deployment_ ja muut oletukset. |
+| Target port               | Palveluun luodun reitin portti. Valitse oletus `8080` ja muut oletukset. |
+
+Kun painat valintaa _Create_, tarvittavat resurssit luodaan ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä linkistä _View logs_ tai klikkaamalla build status -symbolia graafisesta esityksestä.
 
 ![](img/rahti_build_in_progress.png)
 
-Kun julkaisu on onnistunut, projektiin on ilmaantunut _Deployment_, jossa on toivottavasti käynnissä oleva kontti (_Pod_), palvelu (_Service_) sekä reitti (_Route_). josta sovelluksesi vastaa. Jos näin ei ole, tilannetta voi selvitellä luvun [Virheenjäljitys](virheenjaljitys.md) ohjeiden avulla.
+Kun julkaisu on onnistunut, projektiin on ilmaantunut _Deployment_, jossa on toivottavasti käynnissä oleva kontti (_Pod_), palvelu (_Service_) sekä reitti (_Route_). josta sovelluksesi vastaa. Voit tarkastella sovelluksesi käynnistymistä ja toimintaa podin lokitiedoista (linkki _View logs_). Kun sovellus on käynnissä, voit klikata reitin URL-osoitetta (osiossa _Routes_) ja tarkistaa, että sovelluksesi vastaa odotetusti.
 
-![](img/rahti_deployment_succesful.png)
+Jos jokin meni pielee, tilannetta voi selvitellä luvun [Virheenjäljitys](virheenjaljitys.md) ohjeiden avulla.
+
+![](img/rahti_deployment_succesful_annotated.png)
+
+Kun olet tehnyt muutoksia sovellukseesi, voit käynnistää uuden buildin manuaalisesti klikkaamalla _Start Build_ -painiketta. Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista, ks. [Buildin automatisointi](buildin_automatisointi.md).
 
 ## Sovelluksen luonti komentorivillä
 
@@ -171,7 +213,7 @@ oc expose service <service-name>
 
 Oletusarvoisesti luodaan salaamaton http-reitti. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](#https-konfigurointi)
 
-## Buildin käynnistäminen manuaalisesti
+### Buildin käynnistäminen manuaalisesti
 
 Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä `oc`-komennolla.  
 ```bash

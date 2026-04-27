@@ -1,6 +1,6 @@
 # Buildin automatisointi
 
-Jos sovellukselle on _build config_, jolla julkaisu tehdään GitHub-repositoriosta, voidaan build konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
+Sovelluksen julkaisu voidaan konfiguroida käynnistymään automaattisesti, kun repositorioon pusketaan uutta koodia.
 
 Uusi build liipaistaan määrittämällä GitHub-repositorioon _webhook_, jota repositorio kutsuu aina, kun uusia muutoksia pusketaan.
 

@@ -35,7 +35,6 @@ flowchart LR
 ## Lisäohjeita
 
 - [Virheenjäljitys](../rahti/virheenjaljitys.md){target="_blank"}
-- [HTTPS-konfigurointi](../rahti/https_konfigurointi.md){target="_blank"}
 - [Julkaisu yksityisestä repositoriosta](../rahti/julkaisu_yksityisesta_repositoriosta.md){target="_blank"}
 
 
