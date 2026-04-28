@@ -19,23 +19,14 @@ COPY . .
 # Build the React app
 RUN npm run build
 
-FROM nginx:alpine
-# Support running as arbitrary user which belongs to the root group
-# Note that users are not allowed to listen on privileged ports (< 1024)
-RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx && \
-    chown nginx.root /var/cache/nginx /var/run /var/log/nginx && \
-    # Make /etc/nginx/html/ available to use
-    mkdir -p /etc/nginx/html/ && chmod 777 /etc/nginx/html/ && \
-    # comment user directive as master process is run as user in OpenShift anyhow
-    sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
+# Use a non-root nginx image to serve the React app
+FROM bitnamisecure/nginx:latest
 # Copy React build to nginx HTML directory 
-COPY --from=build /app/<build-dir> /usr/share/nginx/html/
+COPY --from=build /app/dist /usr/share/nginx/html/
 # Copy nginx-configuration file 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /usr/share/nginx/html/
 EXPOSE 8080
-USER nginx:root
 ```
 
 - `<build-dir>` on hakemisto, johon React build tehtiin. 
@@ -48,7 +39,7 @@ server {
   listen 8080;
   root /usr/share/nginx/html;
   location / {
-    index  index.html
+    index  index.html;
     try_files $uri $uri/ /index.html;
   }
 }
@@ -61,7 +52,60 @@ docker run -p 80:8080 --name myapp myimage
 ```
 Sovelluksen pitäisi vastata osoitteesta http://localhost:80.
 
-## Julkaisu
+## Julkaisu web-käyttöliittymässä
+
+## Sovelluksen luonti web-käyttöliittymässä
+
+Voit nyt julkaista React-sovelluksesi Rahti-palvelussa. Klikkaa oikeasta yläkulmasta pientä `+` -ikonia ja valitse _Import from git_.
+
+![](img/rahti_import_from_git.png)
+
+_Import from Git_-lomakkeella määritellään, mistä repositoriosta sovellusprojekti haetaan, ja miten build ja julkaisu tehdään.
+
+![](img/rahti_react_import_from_git_form.png)
+
+Seuraavassa käydään läpi lomakkeen kenttien selitykset ja suositellut valinnat. PAkolliset kentät on lihavoitu. Riippuen valinnoistasi kaikkia kenttiä ei välttävättä näytetä lainkaan. Osa kentistä on _Show advanced option_-valinnan takana. 
+
+| Kenttä  | Selitys               | 
+| :------ | :---------------------|
+| __Git Repo URL__    | Repositorion osoite. Huom! Jos repositorio on yksityinen, osoite pitää antaa SSH-muodossa (esim. `git@github.com:username/reponame.git`). |
+| Git reference   | Haara, tag tai commit, josta julkaisu tehdään. Ei tarvita, jos julkaisu tehdään oletushaarasta. |
+| Context dir           | Sovellusprojektin juurihakemisto, oletusarvoisesti repositorion juurihakemisto `/`. |
+| Source Secret         | Salaisuus, joka sisältää repositoriopääsyyn tarvittavan SSH-avaimen. Tarvitaan vain, jos repositorio on yksityinen. Salaisuuden voi myös luoda  valinnalla _Create new Secret_. |
+| __Select project__        | Valitse projekti, johon sovellus luodaan. |
+
+Tässä ohjeessa käytämme Dockerfile-julkaisumenetelmää. Jos se ei ole jo suositeltuna, voit valita sen _Edit Import Strategy_-valinnalla. 
+
+Valitesemalla _Edit Import Strategy_-valinnalla tulee Dockerfile-julkaisuun liittyviä kenttiä:
+
+
+| Kenttä  | Selitys               | 
+| :------ | :---------------------|
+| __Dockerfile path__       | Jos valitsit metodiksi _Dockerfile_, voit määrittää ``Dockerfile``:n sijainnin ja nimen. Oletusarvoisesti nimi on ``Dockerfile`` ja sijainti sovelluksen juuressa. |
+
+Kaikkien julkaisumenetelmien yhteisiä valintoja ovat:
+
+| Kenttä  | Selitys               | 
+| :------ | :---------------------|
+| Application               | Sovelluksen nimi. |
+| __Name__                  | Sovelluksen tunniste, joka liitetään kaikkiin sovellukseen luotaviin resursseihin etuliitteksi. |
+| Build Option              | Valitse oletus _Build Config_ ja muut oletukset. |
+| Resource type             | Valitse oletus _Deployment_ ja muut oletukset. |
+| Target port               | Palveluun luodun reitin portti. Valitse oletus `8080` ja muut oletukset. |
+
+Kun painat valintaa _Create_, tarvittavat resurssit luodaan ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä linkistä _View logs_ tai klikkaamalla build status -symbolia graafisesta esityksestä.
+
+![](img/rahti_build_in_progress.png)
+
+Kun julkaisu on onnistunut, projektiin on ilmaantunut _Deployment_, jossa on toivottavasti käynnissä oleva kontti (_Pod_), palvelu (_Service_) sekä reitti (_Route_). josta sovelluksesi vastaa. Voit tarkastella sovelluksesi käynnistymistä ja toimintaa podin lokitiedoista (linkki _View logs_). Kun sovellus on käynnissä, voit klikata reitin URL-osoitetta (osiossa _Routes_) ja tarkistaa, että sovelluksesi vastaa odotetusti.
+
+Jos jokin meni pielee, tilannetta voi selvitellä luvun [Virheenjäljitys](virheenjaljitys.md) ohjeiden avulla.
+
+![](img/rahti_deployment_succesful_annotated.png)
+
+Kun olet tehnyt muutoksia sovellukseesi, voit käynnistää uuden buildin manuaalisesti klikkaamalla _Start Build_ -painiketta. Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista, ks. [Buildin automatisointi](buildin_automatisointi.md).
+
+## Julkaisu komentorivillä
 
 Jotta tässä luvussa käytettäviä `oc`-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun [Rahti-palveluun kirjautuminen komentorivillä](#rahti-palveluun-kirjautuminen-komentorivilla) ohjeiden mukaisesti.
 
