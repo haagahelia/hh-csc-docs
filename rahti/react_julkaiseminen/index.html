@@ -777,10 +777,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#julkaisu" class="md-nav__link">
+  <a href="#julkaisu-web-kayttoliittymassa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Julkaisu
+        Julkaisu web-käyttöliittymässä
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sovelluksen-luonti-web-kayttoliittymassa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sovelluksen luonti web-käyttöliittymässä
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#julkaisu-komentorivilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Julkaisu komentorivillä
       
     </span>
   </a>
@@ -860,10 +882,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#julkaisu" class="md-nav__link">
+  <a href="#julkaisu-web-kayttoliittymassa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Julkaisu
+        Julkaisu web-käyttöliittymässä
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sovelluksen-luonti-web-kayttoliittymassa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sovelluksen luonti web-käyttöliittymässä
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#julkaisu-komentorivilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Julkaisu komentorivillä
       
     </span>
   </a>
@@ -915,23 +959,14 @@
 <span class="c"># Build the React app</span>
 <span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
 
-<span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
-<span class="c"># Support running as arbitrary user which belongs to the root group</span>
-<span class="c"># Note that users are not allowed to listen on privileged ports (&lt; 1024)</span>
-<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>g+rwx<span class="w"> </span>/var/cache/nginx<span class="w"> </span>/var/run<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>chown<span class="w"> </span>nginx.root<span class="w"> </span>/var/cache/nginx<span class="w"> </span>/var/run<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>#<span class="w"> </span>Make<span class="w"> </span>/etc/nginx/html/<span class="w"> </span>available<span class="w"> </span>to<span class="w"> </span>use
-<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/nginx/html/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/etc/nginx/html/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>#<span class="w"> </span>comment<span class="w"> </span>user<span class="w"> </span>directive<span class="w"> </span>as<span class="w"> </span>master<span class="w"> </span>process<span class="w"> </span>is<span class="w"> </span>run<span class="w"> </span>as<span class="w"> </span>user<span class="w"> </span><span class="k">in</span><span class="w"> </span>OpenShift<span class="w"> </span>anyhow
-<span class="w">    </span>sed<span class="w"> </span>-i.bak<span class="w"> </span><span class="s1">&#39;s/^user/#user/&#39;</span><span class="w"> </span>/etc/nginx/nginx.conf
+<span class="c"># Use a non-root nginx image to serve the React app</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">bitnamisecure/nginx:latest</span>
 <span class="c"># Copy React build to nginx HTML directory </span>
-<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/app/&lt;build-dir&gt;<span class="w"> </span>/usr/share/nginx/html/
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/app/dist<span class="w"> </span>/usr/share/nginx/html/
 <span class="c"># Copy nginx-configuration file </span>
-<span class="k">COPY</span><span class="w"> </span>nginx.conf<span class="w"> </span>/etc/nginx/conf.d/default.conf
-
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/app/nginx.conf<span class="w"> </span>/etc/nginx/conf.d/default.conf
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/share/nginx/html/</span>
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
-<span class="k">USER</span><span class="w"> </span><span class="s">nginx:root</span>
 </code></pre></div></p>
 <ul>
 <li><code>&lt;build-dir&gt;</code> on hakemisto, johon React build tehtiin. </li>
@@ -942,8 +977,8 @@
 <span class="w">  </span><span class="kn">listen</span><span class="w"> </span><span class="mi">8080</span><span class="p">;</span>
 <span class="w">  </span><span class="kn">root</span><span class="w"> </span><span class="s">/usr/share/nginx/html</span><span class="p">;</span>
 <span class="w">  </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">index</span><span class="w">  </span><span class="s">index.html</span>
-<span class="w">    </span><span class="s">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">index</span><span class="w">  </span><span class="s">index.html</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
@@ -952,7 +987,97 @@
 docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:8080<span class="w"> </span>--name<span class="w"> </span>myapp<span class="w"> </span>myimage
 </code></pre></div>
 Sovelluksen pitäisi vastata osoitteesta http://localhost:80.</p>
-<h2 id="julkaisu">Julkaisu</h2>
+<h2 id="julkaisu-web-kayttoliittymassa">Julkaisu web-käyttöliittymässä</h2>
+<h2 id="sovelluksen-luonti-web-kayttoliittymassa">Sovelluksen luonti web-käyttöliittymässä</h2>
+<p>Voit nyt julkaista React-sovelluksesi Rahti-palvelussa. Klikkaa oikeasta yläkulmasta pientä <code>+</code> -ikonia ja valitse <em>Import from git</em>.</p>
+<p><img alt="" src="../img/rahti_import_from_git.png" /></p>
+<p><em>Import from Git</em>-lomakkeella määritellään, mistä repositoriosta sovellusprojekti haetaan, ja miten build ja julkaisu tehdään.</p>
+<p><img alt="" src="../img/rahti_react_import_from_git_form.png" /></p>
+<p>Seuraavassa käydään läpi lomakkeen kenttien selitykset ja suositellut valinnat. PAkolliset kentät on lihavoitu. Riippuen valinnoistasi kaikkia kenttiä ei välttävättä näytetä lainkaan. Osa kentistä on <em>Show advanced option</em>-valinnan takana. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Kenttä</th>
+<th style="text-align: left;">Selitys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Git Repo URL</strong></td>
+<td style="text-align: left;">Repositorion osoite. Huom! Jos repositorio on yksityinen, osoite pitää antaa SSH-muodossa (esim. <code>git@github.com:username/reponame.git</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;">Git reference</td>
+<td style="text-align: left;">Haara, tag tai commit, josta julkaisu tehdään. Ei tarvita, jos julkaisu tehdään oletushaarasta.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Context dir</td>
+<td style="text-align: left;">Sovellusprojektin juurihakemisto, oletusarvoisesti repositorion juurihakemisto <code>/</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Source Secret</td>
+<td style="text-align: left;">Salaisuus, joka sisältää repositoriopääsyyn tarvittavan SSH-avaimen. Tarvitaan vain, jos repositorio on yksityinen. Salaisuuden voi myös luoda  valinnalla <em>Create new Secret</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Select project</strong></td>
+<td style="text-align: left;">Valitse projekti, johon sovellus luodaan.</td>
+</tr>
+</tbody>
+</table>
+<p>Tässä ohjeessa käytämme Dockerfile-julkaisumenetelmää. Jos se ei ole jo suositeltuna, voit valita sen <em>Edit Import Strategy</em>-valinnalla. </p>
+<p>Valitesemalla <em>Edit Import Strategy</em>-valinnalla tulee Dockerfile-julkaisuun liittyviä kenttiä:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Kenttä</th>
+<th style="text-align: left;">Selitys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Dockerfile path</strong></td>
+<td style="text-align: left;">Jos valitsit metodiksi <em>Dockerfile</em>, voit määrittää <code>Dockerfile</code>:n sijainnin ja nimen. Oletusarvoisesti nimi on <code>Dockerfile</code> ja sijainti sovelluksen juuressa.</td>
+</tr>
+</tbody>
+</table>
+<p>Kaikkien julkaisumenetelmien yhteisiä valintoja ovat:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Kenttä</th>
+<th style="text-align: left;">Selitys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Application</td>
+<td style="text-align: left;">Sovelluksen nimi.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Name</strong></td>
+<td style="text-align: left;">Sovelluksen tunniste, joka liitetään kaikkiin sovellukseen luotaviin resursseihin etuliitteksi.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Build Option</td>
+<td style="text-align: left;">Valitse oletus <em>Build Config</em> ja muut oletukset.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Resource type</td>
+<td style="text-align: left;">Valitse oletus <em>Deployment</em> ja muut oletukset.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Target port</td>
+<td style="text-align: left;">Palveluun luodun reitin portti. Valitse oletus <code>8080</code> ja muut oletukset.</td>
+</tr>
+</tbody>
+</table>
+<p>Kun painat valintaa <em>Create</em>, tarvittavat resurssit luodaan ja build käynnistyy. Voit seurata buildin etenemistä web-käyttöliittymässä linkistä <em>View logs</em> tai klikkaamalla build status -symbolia graafisesta esityksestä.</p>
+<p><img alt="" src="../img/rahti_build_in_progress.png" /></p>
+<p>Kun julkaisu on onnistunut, projektiin on ilmaantunut <em>Deployment</em>, jossa on toivottavasti käynnissä oleva kontti (<em>Pod</em>), palvelu (<em>Service</em>) sekä reitti (<em>Route</em>). josta sovelluksesi vastaa. Voit tarkastella sovelluksesi käynnistymistä ja toimintaa podin lokitiedoista (linkki <em>View logs</em>). Kun sovellus on käynnissä, voit klikata reitin URL-osoitetta (osiossa <em>Routes</em>) ja tarkistaa, että sovelluksesi vastaa odotetusti.</p>
+<p>Jos jokin meni pielee, tilannetta voi selvitellä luvun <a href="../virheenjaljitys/">Virheenjäljitys</a> ohjeiden avulla.</p>
+<p><img alt="" src="../img/rahti_deployment_succesful_annotated.png" /></p>
+<p>Kun olet tehnyt muutoksia sovellukseesi, voit käynnistää uuden buildin manuaalisesti klikkaamalla <em>Start Build</em> -painiketta. Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista, ks. <a href="../buildin_automatisointi/">Buildin automatisointi</a>.</p>
+<h2 id="julkaisu-komentorivilla">Julkaisu komentorivillä</h2>
 <p>Jotta tässä luvussa käytettäviä <code>oc</code>-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun <a href="#rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</a> ohjeiden mukaisesti.</p>
 <p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-app<span class="w"> </span>&lt;repository-URL&gt;#&lt;branch-name&gt;
