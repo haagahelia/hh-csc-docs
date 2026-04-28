@@ -777,17 +777,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#julkaisu-web-kayttoliittymassa" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Julkaisu web-käyttöliittymässä
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#sovelluksen-luonti-web-kayttoliittymassa" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -810,10 +799,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#buildin-kaynnistaminen" class="md-nav__link">
+  <a href="#uuden-buildin-kaynnistaminen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Buildin käynnistäminen
+        Uuden buildin käynnistäminen
       
     </span>
   </a>
@@ -882,17 +871,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#julkaisu-web-kayttoliittymassa" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Julkaisu web-käyttöliittymässä
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#sovelluksen-luonti-web-kayttoliittymassa" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -915,10 +893,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#buildin-kaynnistaminen" class="md-nav__link">
+  <a href="#uuden-buildin-kaynnistaminen" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Buildin käynnistäminen
+        Uuden buildin käynnistäminen
       
     </span>
   </a>
@@ -968,10 +946,7 @@
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/share/nginx/html/</span>
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
 </code></pre></div></p>
-<ul>
-<li><code>&lt;build-dir&gt;</code> on hakemisto, johon React build tehtiin. </li>
-</ul>
-<p>Konfiguroi tiedostoon oikea build-hakemisto: Vite-ympäristössä hakemisto on oletusarvoisesti <code>dist</code>, Create React App -ympäristössä <code>build</code></p>
+<p>Yllä <code>/app/dist</code> on hakemisto, johon React build tehtiin. Vite-ympäristössä hakemisto on oletusarvoisesti <code>dist</code>, Create React App -ympäristössä <code>build</code>.</p>
 <p>Lisää projektin juureen nginx-konfiguraatiotiedosto <code>nginx.conf</code> seuraavalla sisällöllä:
 <div class="highlight"><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kn">listen</span><span class="w"> </span><span class="mi">8080</span><span class="p">;</span>
@@ -987,7 +962,6 @@
 docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:8080<span class="w"> </span>--name<span class="w"> </span>myapp<span class="w"> </span>myimage
 </code></pre></div>
 Sovelluksen pitäisi vastata osoitteesta http://localhost:80.</p>
-<h2 id="julkaisu-web-kayttoliittymassa">Julkaisu web-käyttöliittymässä</h2>
 <h2 id="sovelluksen-luonti-web-kayttoliittymassa">Sovelluksen luonti web-käyttöliittymässä</h2>
 <p>Voit nyt julkaista React-sovelluksesi Rahti-palvelussa. Klikkaa oikeasta yläkulmasta pientä <code>+</code> -ikonia ja valitse <em>Import from git</em>.</p>
 <p><img alt="" src="../img/rahti_import_from_git.png" /></p>
@@ -1101,14 +1075,14 @@ Sovelluksen pitäisi vastata osoitteesta http://localhost:80.</p>
 <li><code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name></li>
 </ul>
 <p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="../https_konfigurointi/">HTTPS-konfigurointi</a></p>
-<h2 id="buildin-kaynnistaminen">Buildin käynnistäminen</h2>
-<p>Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä <code>oc</code>-komennolla.  </p>
+<h2 id="uuden-buildin-kaynnistaminen">Uuden buildin käynnistäminen</h2>
+<p>Build voidaan automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista. Tällöin build käynnistyy automaattisesti, eikä manuaalista käskyä tarvita. Ks. luku <a href="../buildin_automatisointi/">Buildin automatisointi</a>.</p>
+<p>Muutosten jälkeen uusi julkaisu voidaan käynnistää myös manuaalisesti web-käyttöliittymästä tai komentorivillä <code>oc</code>-komennolla.  </p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>start-build<span class="w"> </span>&lt;build-config-name&gt;
 </code></pre></div>
 <ul>
 <li><code>&lt;build-config-name&gt;</code> on oletusarvoisesti sama kuin <code>&lt;deployment-config-name&gt;</code></li>
 </ul>
-<p>Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista.</p>
 
 
 
