@@ -1078,7 +1078,7 @@ Sovelluksen pitäisi vastata osoitteesta http://localhost:80.</p>
 <p><img alt="" src="../img/rahti_deployment_succesful_annotated.png" /></p>
 <p>Kun olet tehnyt muutoksia sovellukseesi, voit käynnistää uuden buildin manuaalisesti klikkaamalla <em>Start Build</em> -painiketta. Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista, ks. <a href="../buildin_automatisointi/">Buildin automatisointi</a>.</p>
 <h2 id="julkaisu-komentorivilla">Julkaisu komentorivillä</h2>
-<p>Jotta tässä luvussa käytettäviä <code>oc</code>-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun <a href="#rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</a> ohjeiden mukaisesti.</p>
+<p>Jotta tässä luvussa käytettäviä <code>oc</code>-komentoja voi antaa, on ensin kirjauduttava Rahti-palveluun luvun <a href="../komentorivityokalun_asennus/#rahti-palveluun-kirjautuminen-komentorivilla">Rahti-palveluun kirjautuminen komentorivillä</a> ohjeiden mukaisesti.</p>
 <p>Jos repositorio on julkinen, voit luoda projektiin sovelluksen (<em>application</em>) komennolla:
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>new-app<span class="w"> </span>&lt;repository-URL&gt;#&lt;branch-name&gt;
 </code></pre></div></p>
@@ -1100,7 +1100,7 @@ Sovelluksen pitäisi vastata osoitteesta http://localhost:80.</p>
 <ul>
 <li><code>&lt;service-name&gt;</code> on äsken luodun palvelun nimi, oletusarvoisesti sama kuin <deployment-config-name></li>
 </ul>
-<p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="#https-konfigurointi">HTTPS-konfigurointi</a></p>
+<p>Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku <a href="../https_konfigurointi/">HTTPS-konfigurointi</a></p>
 <h2 id="buildin-kaynnistaminen">Buildin käynnistäminen</h2>
 <p>Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä <code>oc</code>-komennolla.  </p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>start-build<span class="w"> </span>&lt;build-config-name&gt;
