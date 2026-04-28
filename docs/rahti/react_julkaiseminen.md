@@ -29,9 +29,7 @@ WORKDIR /usr/share/nginx/html/
 EXPOSE 8080
 ```
 
-- `<build-dir>` on hakemisto, johon React build tehtiin. 
-
-Konfiguroi tiedostoon oikea build-hakemisto: Vite-ympäristössä hakemisto on oletusarvoisesti `dist`, Create React App -ympäristössä `build`
+Yllä `/app/dist` on hakemisto, johon React build tehtiin. Vite-ympäristössä hakemisto on oletusarvoisesti `dist`, Create React App -ympäristössä `build`.
 
 Lisää projektin juureen nginx-konfiguraatiotiedosto `nginx.conf` seuraavalla sisällöllä:
 ```nginx
@@ -51,8 +49,6 @@ docker build -t myimage .
 docker run -p 80:8080 --name myapp myimage
 ```
 Sovelluksen pitäisi vastata osoitteesta http://localhost:80.
-
-## Julkaisu web-käyttöliittymässä
 
 ## Sovelluksen luonti web-käyttöliittymässä
 
@@ -139,9 +135,11 @@ oc expose service <service-name>
 
 Tällä syntyy reittikin, ja palvelu on julkaistu verkkoon HTTP-protokollalla. Jos halutaan https-pääsy, on se konfiguroitava erikseen, ks. luku [HTTPS-konfigurointi](./https_konfigurointi.md)
 
-## Buildin käynnistäminen
+## Uuden buildin käynnistäminen
 
-Julkaisun jälkeen uusi julkaisu voidaan käynnistää manuaalisesti web-käyttöliittymästä tai komentorivillä `oc`-komennolla.  
+Build voidaan automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista. Tällöin build käynnistyy automaattisesti, eikä manuaalista käskyä tarvita. Ks. luku [Buildin automatisointi](buildin_automatisointi.md).
+
+Muutosten jälkeen uusi julkaisu voidaan käynnistää myös manuaalisesti web-käyttöliittymästä tai komentorivillä `oc`-komennolla.  
 
 ```bash
 oc start-build <build-config-name>
@@ -149,5 +147,5 @@ oc start-build <build-config-name>
 
 - `<build-config-name>` on oletusarvoisesti sama kuin `<deployment-config-name>`
 
-Build voidaan myös automatisoida tapahtumaan aina, kun GitHub-repositorioon pusketaan uusi versio lähdekoodista.
+
 

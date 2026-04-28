@@ -11,14 +11,14 @@ Oletuksena on, että
 
 ## Vaiheet
 
-1. [Luo Rahti-projekti](../rahti/projektin_luonti.md){target="_blank"}
-2. [Julkaise React-sovellus](../rahti/react_julkaiseminen.md){target="_blank"}
-3. [Automatisoi build](../rahti/buildin_automatisointi.md){target="_blank"}
+1. [Luo Rahti-projekti](../rahti/projektin_luonti.md)
+2. [Julkaise React-sovellus](../rahti/react_julkaiseminen.md)
+3. [Automatisoi build](../rahti/buildin_automatisointi.md)
 
 ## Lisäohjeita
 
-- [Virheenjäljitys](../rahti/virheenjaljitys.md){target="_blank"}
-- [Julkaisu yksityisestä repositoriosta](../rahti/julkaisu_yksityisesta_repositoriosta.md){target="_blank"}
+- [Virheenjäljitys](../rahti/virheenjaljitys.md)
+- [Julkaisu yksityisestä repositoriosta](../rahti/julkaisu_yksityisesta_repositoriosta.md)
 
 
 
