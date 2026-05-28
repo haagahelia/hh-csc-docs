@@ -1022,13 +1022,15 @@
 <p>Luo Rahti-projektin käyttöliittymän osiossa <em>Workloads/Secrets</em> uusi <em>Key/value -secret</em>, ja määritä sinne Pukki-tietokantakäyttäjäsi käyttäjätunnus ja salasana. </p>
 <p><code>Key</code> on kentän tunniste, jota käytät viitatessasi tietokantakäyttäjään liittyviin tietoihin, ja <code>Value</code> on itse tieto, esimerkiksi tietokantakäyttäjätunnus tai salasana. Kenttiä voi lisätä valinnalla <em>Add key/value</em>.</p>
 <p><img alt="Rahti-palvelun Secretin luonti" src="../img/rahti_create_secret.png" /></p>
-<p>Nyt pitää enää määrittää profiilissa käytetyt ympäristömuuttujat Rahti-julkaisusi (<em>Deployment</em>) konfiguraatioon:
-- <strong>DB_SERVICE_HOST</strong>: Pukki-tietokantainstanssisi julkinen host-osoite, joka löytyy Pukki-palvelun käyttöliittymästä.
-- <strong>DB_SERVICE_PORT</strong>: Pukki-tietokantainstanssisi portti, joka löytyy Pukki-palvelun käyttöliittymästä.
-- <strong>DB_NAME</strong>: Tietokannan nimi, jonka määritit tietokantainstanssia luodessasi.
-- <strong>DB_USER</strong>: Viittaus Secretissä määritettyyn tietokantakäyttäjään.
-- <strong>DB_PASSWORD</strong>: Viittaus Secretissä määritettyyn tietokantakäyttäjän salasanaan.
-- <strong>SPRING_PROFILES_ACTIVE</strong>: Profiili, joka sisältää tietokantayhteyden konfiguraation (esim. <code>rahti</code>).</p>
+<p>Nyt pitää enää määrittää profiilissa käytetyt ympäristömuuttujat Rahti-julkaisusi (<em>Deployment</em>) konfiguraatioon:</p>
+<ul>
+<li><strong>DB_SERVICE_HOST</strong>: Pukki-tietokantainstanssisi julkinen host-osoite, joka löytyy Pukki-palvelun käyttöliittymästä.</li>
+<li><strong>DB_SERVICE_PORT</strong>: Pukki-tietokantainstanssisi portti, joka löytyy Pukki-palvelun käyttöliittymästä.</li>
+<li><strong>DB_NAME</strong>: Tietokannan nimi, jonka määritit tietokantainstanssia luodessasi.</li>
+<li><strong>DB_USER</strong>: Viittaus Secretissä määritettyyn tietokantakäyttäjään.</li>
+<li><strong>DB_PASSWORD</strong>: Viittaus Secretissä määritettyyn tietokantakäyttäjän salasanaan.</li>
+<li><strong>SPRING_PROFILES_ACTIVE</strong>: Profiili, joka sisältää tietokantayhteyden konfiguraation (esim. <code>rahti</code>).</li>
+</ul>
 <p>Pukki-tietokantasi yhteystiedot löydät klikkaamalla luomaasi tietokantainstanssia Pukki-palvelun käyttöliittymässä. Yhteystiedot löytyvät <em>Connection information</em>-osiosta.</p>
 <p><img alt="Pukki-palvelun tietokantainstanssin yhteystiedot" src="../img/pukki_connection_information.png" />.</p>
 <p>Avaa Rahti-julkaisusi konfiguraatio ja lisää sinne ympäristömuuttujamääritykset_Environment_-osiossa.</p>
